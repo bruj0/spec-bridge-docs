@@ -261,7 +261,7 @@ graph TB
 - **Why**: Existing codebases need a structured path into SDD without re-writing a spec from
   scratch. The two-skill split enforces the two-responsibility contract: each skill does exactly
   one validation job.
-- **Reference**: [ADR-0008](../adr/0008-audit-and-audit-fix-workflows.md)
+- **Reference**: [ADR-0008](../adr/0008-audit-and-audit-fix-skill-workflows.md)
 
 ---
 
