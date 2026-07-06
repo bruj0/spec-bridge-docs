@@ -36,13 +36,6 @@ plugins:
       key: "alt"
       hint_location: "top"
       full_screen: true
-  - redirects:
-      # Send the site root straight to the deep-linked
-      # "SDD Workflow in Practice" section so that
-      # https://bruj0.github.io/spec-bridge-docs/ is the
-      # entry point a returning reader expects.
-      redirect_maps:
-        index.md: 03-guide-synthesis-driven-development.md
 markdown_extensions:
   - admonition
   - attr_list
@@ -65,12 +58,11 @@ markdown_extensions:
 extra_javascript:
   - assets/javascripts/nav-accordion.js
 nav:
-  - Home: README.md
+  - Home: 03-guide-synthesis-driven-development.md
   - Concepts:
       - Software Architecture Guidelines: 00-software-architecture-guidelines.md
       - Synthesis-Driven Development: 01-synthesis-driven-development.md
       - SyDD Methodology and Implementation: 02-sydd-methodology-and-implementation.md
-      - SyDD Guide: 03-guide-synthesis-driven-development.md
   - Architecture (C4):
       - Overview: c4/README.md
       - Project Overview: c4/1-project-overview.md
