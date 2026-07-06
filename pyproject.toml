@@ -11,4 +11,5 @@ docs = [
     "mkdocs-material>=9.0",
     "pymdown-extensions>=10.0",
     "mkdocs-panzoom-plugin>=0.1",
+    "mkdocs-redirects>=1.2",
 ]

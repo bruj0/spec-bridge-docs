@@ -36,6 +36,13 @@ plugins:
       key: "alt"
       hint_location: "top"
       full_screen: true
+  - redirects:
+      # Send the site root straight to the deep-linked
+      # "SDD Workflow in Practice" section so that
+      # https://bruj0.github.io/spec-bridge-docs/ is the
+      # entry point a returning reader expects.
+      redirect_maps:
+        index.md: 00-software-architecture-guidelines.md#the-sdd-workflow-in-practice
 markdown_extensions:
   - admonition
   - attr_list
