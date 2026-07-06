@@ -41,11 +41,17 @@ on:
       - "pyproject.toml"
   workflow_dispatch:    # allow manual runs from the Actions UI / gh CLI
 
-# Cancel in-progress deploys on new pushes to main; PR build
-# jobs always run.
+# Allow multiple deploys to run in parallel. Setting
+# `cancel-in-progress: true` would race with the auto-injected
+# `pages build and deployment` workflow that GitHub runs when
+# Pages is configured with the "GitHub Actions" source, and
+# would cancel our deploy job before the gh-pages push lands.
+# (Once Pages is switched to "Deploy from a branch", the
+# auto-injected workflow stops running and this no longer
+# matters, but we keep the safe default regardless.)
 concurrency:
   group: pages-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   contents: write   # required to push the gh-pages branch
