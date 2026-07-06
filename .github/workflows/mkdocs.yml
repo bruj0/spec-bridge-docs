@@ -1,45 +1,26 @@
 # GitHub Pages deploy for the docs/ site.
 #
-# This workflow builds the site with `mkdocs build --strict`
-# and deploys it to GitHub Pages via the official
-# `actions/deploy-pages` + `actions/configure-pages` +
-# `actions/upload-pages-artifact` trio.
+# Builds the site with `mkdocs build --strict` and pushes the
+# generated `_site/` directory to the `gh-pages` branch using
+# `peaceiris/actions-gh-pages`. GitHub Pages is configured (in
+# the repo UI) to serve from that branch, so the deploy happens
+# by simply updating `gh-pages` -- no `actions/deploy-pages`
+# involved, which avoids the intermittent Twirp/REST API 5xx
+# errors we kept seeing.
 #
 # Two jobs:
-#   - `build`  — runs on PR + push to main; verifies the
-#     build succeeds. Uploads site/ as a build artifact for
-#     review.
-#   - `deploy` — runs on push to main after `build`; deploys
-#     the built site to GitHub Pages. Configures a Pages
-#     environment so we get a preview URL before going live.
+#   - `build`  -- runs on PR + push to main; verifies the
+#     build succeeds under `--strict` and uploads `site/` as a
+#     workflow artifact for review.
+#   - `deploy` -- runs on push to main after `build`; pushes
+#     `_site/` to the `gh-pages` branch via the
+#     peaceiris/actions-gh-pages action.
 #
 # Trigger pattern:
 #   - push to main when docs/**, mkdocs.yml,
-#     .github/workflows/mkdocs.yml,
-#     .github/workflows/mkdocs-retry.yml, or pyproject.toml
-#     change
+#     .github/workflows/mkdocs.yml, or pyproject.toml change
 #   - pull_request to main with the same path filters (just
 #     for the build job)
-#
-# Per the user's request, this targets GitHub Pages — not
-# GitLab Pages. See the parallel `mkdocs-gitlab-pages` skill
-# for a GitLab variant if the repo migrates.
-#
-# Retry design:
-#   `actions/deploy-pages@v4` calls GitHub's internal Pages
-#   deployment API. That API occasionally returns transient
-#   errors (HTTP 5xx, rate-limit responses, brief outages).
-#   The action does not retry on its own internal API errors.
-#
-#   The retry mechanism lives in the sibling workflow
-#   `.github/workflows/mkdocs-retry.yml`. It is triggered by
-#   the `workflow_run` event when THIS workflow completes
-#   with a non-success conclusion, then re-runs only the
-#   failed `deploy` job via the GitHub REST API, with
-#   exponential backoff (15s → 30s → 60s → 120s) capped at
-#   5 minutes total. Splitting retry into its own workflow
-#   keeps the deploy path simple and well-tested
-#   (actions/deploy-pages is unchanged).
 
 name: docs
 
@@ -50,7 +31,6 @@ on:
       - "docs/**"
       - "mkdocs.yml"
       - ".github/workflows/mkdocs.yml"
-      - ".github/workflows/mkdocs-retry.yml"
       - "pyproject.toml"
   pull_request:
     branches: [main]
@@ -58,19 +38,16 @@ on:
       - "docs/**"
       - "mkdocs.yml"
       - ".github/workflows/mkdocs.yml"
-      - ".github/workflows/mkdocs-retry.yml"
       - "pyproject.toml"
 
-# Allow only one concurrent deploy; cancel in-progress
-# deploys on new pushes to main. PR build jobs always run.
+# Cancel in-progress deploys on new pushes to main; PR build
+# jobs always run.
 concurrency:
   group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write   # required to push the gh-pages branch
 
 jobs:
   build:
@@ -89,11 +66,6 @@ jobs:
           version: "0.4"
 
       - name: Install Python dependencies (with [docs] extra)
-        # The `[docs]` extra declared in pyproject.toml pulls
-        # in mkdocs + mkdocs-material + pymdown-extensions +
-        # mkdocs-panzoom-plugin. Using `uv sync --extra docs`
-        # keeps the lockfile as the single source of pinned
-        # versions.
         run: |
           uv sync --extra docs
 
@@ -104,8 +76,7 @@ jobs:
           uv run mkdocs build --strict --site-dir site
 
       - name: Upload the built site as a workflow artifact
-        # Useful for downloading site/ to inspect a PR build
-        # before the deploy job has run.
+        # Useful for downloading site/ to inspect a PR build.
         uses: actions/upload-artifact@v4
         with:
           name: site
@@ -118,9 +89,6 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -139,18 +107,21 @@ jobs:
           uv sync --extra docs
           uv run mkdocs build --strict --site-dir _site
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy _site/ to the gh-pages branch
+        # peaceiris/actions-gh-pages pushes the contents of
+        # `publish_dir` to the `gh-pages` branch as a single
+        # force-push commit. Configure Pages in repo Settings
+        # -> Pages -> Source: "Deploy from a branch" ->
+        # Branch: `gh-pages` / `/ (root)`.
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: _site
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        # Official deploy action. Does not retry on its own
-        # internal API errors — the companion `mkdocs-retry`
-        # workflow handles that. See the comment block at the
-        # top of this file for the full retry design.
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
+          # Keep the gh-pages branch history shallow to avoid
+          # unbounded growth from per-deploy commits.
+          keep_files: false
+          force_orphan: true
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
+          commit_message: "docs: deploy site (${{ github.sha }})"
