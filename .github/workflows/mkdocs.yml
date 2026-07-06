@@ -39,6 +39,7 @@ on:
       - "mkdocs.yml"
       - ".github/workflows/mkdocs.yml"
       - "pyproject.toml"
+  workflow_dispatch:    # allow manual runs from the Actions UI / gh CLI
 
 # Cancel in-progress deploys on new pushes to main; PR build
 # jobs always run.
