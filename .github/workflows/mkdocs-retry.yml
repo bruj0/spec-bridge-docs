@@ -1,0 +1,181 @@
+# Companion retry workflow for `mkdocs.yml`.
+#
+# Triggered by the `workflow_run` event when the `docs`
+# workflow (mkdocs.yml) completes with a non-success
+# conclusion on a push to main. Re-runs only the failed
+# `deploy` job with exponential backoff, up to 5 minutes
+# total runtime.
+#
+# Why a separate workflow:
+#   1. Keeps the `docs` workflow simple — the build path is
+#      unchanged and uses the well-tested `actions/deploy-pages@v4`
+#      without modification.
+#   2. Lets us invoke the official action without
+#      re-implementing its internal Twirp + REST plumbing,
+#      which is fragile and tends to break when GitHub
+#      evolves the deployment API.
+#   3. The retry step polls a *child* workflow run that we
+#      trigger via `gh api .../rerun`. The child run reuses
+#      the already-uploaded Pages artifact, so the rebuild
+#      step is skipped — that's a significant time + cost
+#      saving.
+#
+# Retry schedule:
+#   attempt 1: the `docs` workflow itself (immediate)
+#   attempt 2: sleep 15s, then rerun failed jobs
+#   attempt 3: sleep 30s, then rerun failed jobs
+#   attempt 4: sleep 60s, then rerun failed jobs
+#   attempt 5: sleep 120s, then rerun failed jobs
+# Total worst-case backoff: 15+30+60+120 = 225s. The 5-min
+# (300s) wall-clock cap leaves a small headroom for each
+# rerun's deploy step itself.
+
+name: docs-retry
+
+on:
+  workflow_run:
+    workflows: ["docs"]
+    types: [completed]
+
+# Allow only one retry running at a time, to avoid
+# stacking concurrent retries on the same failure.
+concurrency:
+  group: docs-retry-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  # `actions: write` is required for the rerun API call.
+  actions: write
+  pages: write
+  id-token: write
+
+jobs:
+  retry:
+    # Only retry failed runs on main that came from a push
+    # (not from a PR or manual re-run by a maintainer).
+    if: |
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.conclusion == 'failure' &&
+      github.event.workflow_run.name == 'docs'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retry the failed deploy job with exponential backoff (5 min cap)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RETRY_MAX_SECONDS: "300"
+          RETRY_MAX_ATTEMPTS: "5"
+          FAILED_RUN_ID: ${{ github.event.workflow_run.id }}
+          FAILED_RUN_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -u
+
+          start_epoch=$(date +%s)
+          deadline_epoch=$((start_epoch + RETRY_MAX_SECONDS))
+          attempt=2
+          delay=15
+
+          echo "Retrying failed deploy from run #${FAILED_RUN_ID} (sha ${FAILED_RUN_HEAD_SHA:0:7})."
+
+          while [ "$attempt" -le "$RETRY_MAX_ATTEMPTS" ]; do
+            now=$(date +%s)
+            if [ "$now" -ge "$deadline_epoch" ]; then
+              echo "::error::Retry budget (${RETRY_MAX_SECONDS}s) exhausted after $((attempt - 1)) retries."
+              exit 1
+            fi
+
+            remaining=$((deadline_epoch - now))
+            sleep_for="$delay"
+            if [ "$sleep_for" -gt "$remaining" ]; then
+              sleep_for="$remaining"
+            fi
+
+            echo "::group::Retry attempt $attempt / ${RETRY_MAX_ATTEMPTS} (sleep ${sleep_for}s before this attempt; time remaining: ${remaining}s)"
+            sleep "$sleep_for"
+
+            # Re-run only the failed jobs in the original
+            # workflow. The already-uploaded Pages artifact
+            # is reused, so we don't rebuild the site.
+            rerun_response=$(gh api \
+              --method POST \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "/repos/${REPOSITORY}/actions/runs/${FAILED_RUN_ID}/rerun" \
+              -f "failed_only=true" 2>&1)
+            rc=$?
+
+            if [ "$rc" -ne 0 ]; then
+              echo "::warning::Failed to trigger rerun (exit $rc): $(echo "$rerun_response" | tail -3)"
+              echo "::endgroup::"
+              attempt=$((attempt + 1))
+              delay=$((delay * 2))
+              if [ "$delay" -gt 120 ]; then
+                delay=120
+              fi
+              continue
+            fi
+
+            # The rerun response is the new workflow run
+            # object. Extract its id so we can poll it.
+            child_run_id=$(echo "$rerun_response" | jq -r '.id // empty' 2>/dev/null || echo "")
+
+            if [ -z "$child_run_id" ]; then
+              echo "::warning::Could not extract child run id from rerun response. Will retry on next loop iteration."
+              echo "::endgroup::"
+              attempt=$((attempt + 1))
+              delay=$((delay * 2))
+              if [ "$delay" -gt 120 ]; then
+                delay=120
+              fi
+              continue
+            fi
+
+            echo "Triggered rerun as workflow run #${child_run_id}. Polling for completion..."
+
+            # Poll the child run until it finishes or the
+            # budget runs out. We poll every 10 seconds.
+            child_status=""
+            child_conclusion=""
+            while :; do
+              sleep 10
+              now=$(date +%s)
+              if [ "$now" -ge "$deadline_epoch" ]; then
+                echo "::error::Retry budget (${RETRY_MAX_SECONDS}s) exhausted while waiting for child run #${child_run_id}."
+                exit 1
+              fi
+
+              child_status=$(gh api \
+                -H "Accept: application/vnd.github+json" \
+                -H "X-GitHub-Api-Version: 2022-11-28" \
+                "/repos/${REPOSITORY}/actions/runs/${child_run_id}" \
+                --jq '.status // "unknown"' 2>/dev/null || echo "unknown")
+
+              if [ "$child_status" = "completed" ]; then
+                child_conclusion=$(gh api \
+                  -H "Accept: application/vnd.github+json" \
+                  -H "X-GitHub-Api-Version: 2022-11-28" \
+                  "/repos/${REPOSITORY}/actions/runs/${child_run_id}" \
+                  --jq '.conclusion // "unknown"' 2>/dev/null || echo "unknown")
+                break
+              fi
+            done
+
+            echo "::endgroup::"
+
+            if [ "$child_conclusion" = "success" ]; then
+              echo "::notice::Deploy succeeded on retry attempt $attempt (run #${child_run_id}). The Pages site should now be live."
+              exit 0
+            fi
+
+            echo "::warning::Retry attempt $attempt (run #${child_run_id}) concluded with status '${child_conclusion}'. Continuing."
+            attempt=$((attempt + 1))
+            delay=$((delay * 2))
+            if [ "$delay" -gt 120 ]; then
+              delay=120
+            fi
+          done
+
+          echo "::error::Deploy to GitHub Pages still failing after ${RETRY_MAX_ATTEMPTS} attempts within ${RETRY_MAX_SECONDS}s."
+          exit 1

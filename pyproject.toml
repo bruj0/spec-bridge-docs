@@ -1,0 +1,14 @@
+[project]
+name = "spec-bridge-docs"
+version = "0.1.0"
+description = "Documentation site for spec-bridge-v2"
+requires-python = ">=3.11"
+
+[project.optional-dependencies]
+# Consumed by .github/workflows/mkdocs.yml via `uv sync --extra docs`.
+docs = [
+    "mkdocs>=1.5",
+    "mkdocs-material>=9.0",
+    "pymdown-extensions>=10.0",
+    "mkdocs-panzoom-plugin>=0.1",
+]

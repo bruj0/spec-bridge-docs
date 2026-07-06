@@ -1,0 +1,86 @@
+site_name: spec-bridge-v2 Docs
+site_description: Deterministic validation harness for AI agent skill execution
+site_url: https://bruj0.github.io/spec-bridge-docs
+docs_dir: docs
+site_dir: site
+theme:
+  name: material
+  font:
+    text: Inter
+    code: JetBrains Mono
+  icon:
+    logo: material/connection
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - toc.integrate
+  palette:
+    - scheme: default
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+plugins:
+  - search
+  - panzoom:
+      key: "alt"
+      hint_location: "top"
+      full_screen: true
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+extra_javascript:
+  - assets/javascripts/nav-accordion.js
+nav:
+  - Home: README.md
+  - Concepts:
+      - Software Architecture Guidelines: 00-software-architecture-guidelines.md
+      - Synthesis-Driven Development: 01-synthesis-driven-development.md
+      - SyDD Methodology and Implementation: 02-sydd-methodology-and-implementation.md
+      - SyDD Guide: 03-guide-synthesis-driven-development.md
+  - Architecture (C4):
+      - Overview: c4/README.md
+      - Project Overview: c4/1-project-overview.md
+      - Architecture Overview: c4/2-architecture-overview.md
+      - Workflow Overview: c4/3-workflow-overview.md
+      - Deep Dive:
+          - Skill Modules: c4/4-deep-dive/skill-modules.md
+          - Core Module: c4/4-deep-dive/core-module.md
+          - Adapter and Init: c4/4-deep-dive/adapter-and-init.md
+  - ADRs:
+      - Index: adr/README.md
+      - "0001 spec-bridge-skill-tool as separate binary": adr/0001-spec-bridge-skill-tool-as-separate-binary.md
+      - "0002 Two-responsibility model": adr/0002-two-responsibility-model.md
+      - "0003 Skill module isolation": adr/0003-skill-module-isolation.md
+      - "0004 Schema-first artifact design": adr/0004-schema-first-artifact-design.md
+      - "0005 spec-bridge.conf single configuration source": adr/0005-spec-bridge-conf-single-configuration-source.md
+      - "0006 Structured stdout-only output": adr/0006-structured-stdout-only-output.md
+      - "0007 Adapter pattern for agent-specific file generation": adr/0007-adapter-pattern-for-agent-specific-file-generation.md
+  - Research:
+      - Aperant Prompts Analysis: research/aperant-prompts-analysis.md
