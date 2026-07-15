@@ -58,7 +58,7 @@ markdown_extensions:
 extra_javascript:
   - assets/javascripts/nav-accordion.js
 nav:
-  - Home: 03-guide-synthesis-driven-development.md
+  - Home: index.md
   - Concepts:
       - Software Architecture Guidelines: 00-software-architecture-guidelines.md
       - Synthesis-Driven Development: 01-synthesis-driven-development.md

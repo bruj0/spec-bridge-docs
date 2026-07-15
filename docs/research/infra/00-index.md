@@ -121,7 +121,7 @@ The BuildKitd → Podman migration (RFC-017) is a canonical example:
 
 ## References
 
-- [spec-bridge-v2 README](../../README.md)
+- [spec-bridge-v2 guide](../../03-guide-synthesis-driven-development.md)
 - [spec-bridge-v2 workflow overview](../../c4/3-workflow-overview.md)
 - [RFC-017: Replace BuildKitd with Podman](/Users/rodrigo.leven/projects/bf-container-base-images/docs/RFC-017-replace-buildkitd-with-podman.md)
 - [Platform RFC skill](/.agents/skills/process/planning/platform-rfc/SKILL.md)
