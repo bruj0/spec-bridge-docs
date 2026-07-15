@@ -1,0 +1,2168 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Deterministic validation harness for AI agent skill execution">
+      
+      
+      
+        <link rel="canonical" href="https://bruj0.github.io/spec-bridge-docs/research/verify/verification-script-spec/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Verification Script Specification (Python Projects) - spec-bridge-v2 Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/panzoom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <meta name="panzoom-theme" content="material">
+<meta name="panzoom-data" content='{"selectors": [".mermaid", ".d2"], "initial_zoom_level": 1.0}'> </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#verification-script-specification-python-projects" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="spec-bridge-v2 Docs" class="md-header__button md-logo" aria-label="spec-bridge-v2 Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3zm-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spec-bridge-v2 Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Verification Script Specification (Python Projects)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="spec-bridge-v2 Docs" class="md-nav__button md-logo" aria-label="spec-bridge-v2 Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3zm-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4z"/></svg>
+
+    </a>
+    spec-bridge-v2 Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00-software-architecture-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software Architecture Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-synthesis-driven-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synthesis-Driven Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-sydd-methodology-and-implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SyDD Methodology and Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture (C4)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture (C4)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../c4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../c4/1-project-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../c4/2-architecture-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../c4/3-workflow-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Dive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../c4/4-deep-dive/skill-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../c4/4-deep-dive/core-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Module
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../c4/4-deep-dive/adapter-and-init/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adapter and Init
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADRs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADRs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0001-spec-bridge-skill-tool-as-separate-binary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0001 spec-bridge-skill-tool as separate binary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0002-two-responsibility-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0002 Two-responsibility model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0003-skill-module-isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0003 Skill module isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0004-schema-first-artifact-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0004 Schema-first artifact design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0005-spec-bridge-conf-single-configuration-source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0005 spec-bridge.conf single configuration source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0006-structured-stdout-only-output/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0006 Structured stdout-only output
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0007-adapter-pattern-for-agent-specific-file-generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0007 Adapter pattern for agent-specific file generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aperant-prompts-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aperant Prompts Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="verification-script-specification-python-projects">Verification Script Specification (Python Projects)<a class="headerlink" href="#verification-script-specification-python-projects" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Audience:</strong> Agentic coding tools (Claude Code, GitHub Copilot CLI, Cursor, Aider) and the humans who supervise them.
+<strong>Purpose:</strong> Give an autonomous coding agent everything it needs to write a <code>verify.sh</code> (or <code>verify.py</code>) that can reliably distinguish "the code actually works" from "the agent thinks the code works."
+<strong>Scope:</strong> Python projects. Bash and Python verifier flavors. End-of-task acceptance and per-phase gates.
+<strong>Status:</strong> v1.0 — synthesized from meta-harness operational experience and external research (see §15).</p>
+</blockquote>
+<hr />
+<h2 id="0-tldr-for-agents-10-line-abstract">0. TL;DR for Agents (10-line abstract)<a class="headerlink" href="#0-tldr-for-agents-10-line-abstract" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Before writing <strong>any</strong> verification code, fill in the <strong>Verification Spec template</strong> in §4.</li>
+<li>Verification asserts <strong>observable behavior</strong>, not file-existence or import-success. <code>[Source: Anthropic Claude Code Best Practices]</code></li>
+<li>Use <code>set -euo pipefail</code> (bash) or <code>subprocess.run(check=True, timeout=…)</code> (python). No silent failures.</li>
+<li>Run <strong>pytest first</strong>, then add <strong>5+ inline behavioral assertions</strong> covering: happy / boundary / failure-mode / invariant / negative.</li>
+<li>Include <strong>adversarial / anti-cheat probes</strong>: AST-scan for placeholder bodies, grep for <code>pytest.skip</code>, run with <strong>novel inputs</strong> the agent never saw. <code>[Source: Aider laziness benchmark]</code></li>
+<li>Emit a <strong>structured exit code</strong> (<code>0/1/2/3/124</code>) AND a <strong>JSON verdict</strong> on the last stdout line.</li>
+<li>The verifier must be <strong>idempotent</strong> (re-runnable) and <strong>hermetic</strong> (no shared state).</li>
+<li>Add a <code>--self-test</code> flag that runs the verifier against a known-bad reference and asserts it FAILs.</li>
+<li>Run the <strong>Pre-"Done" Checklist</strong> in §11 before declaring the task complete. <strong>Capture the exit code.</strong> Do not trust the agent's narrative.</li>
+<li>If unsure, copy §5 (bash template) or §6 (python template) and fill in the marked slots.</li>
+</ol>
+<hr />
+<h2 id="1-problem-statement">1. Problem Statement<a class="headerlink" href="#1-problem-statement" title="Permanent link">&para;</a></h2>
+<h3 id="11-the-agent-says-done-but-isnt-failure-mode">1.1 The "Agent Says Done But Isn't" Failure Mode<a class="headerlink" href="#11-the-agent-says-done-but-isnt-failure-mode" title="Permanent link">&para;</a></h3>
+<p>Agentic coding tools regularly report task completion when the artifact is broken. Three concrete patterns:</p>
+<ul>
+<li><strong>Lazy / placeholder code</strong> — The agent writes <code># TODO: implement</code> or <code>pass</code> and reports success. Aider quantified this as <strong>"lazy comments on 12 of 89 tasks"</strong> at GPT-4 Turbo baseline. <code>[Source: Aider unified-diffs benchmark]</code></li>
+<li><strong>Symptom suppression</strong> — Agent silences a failing test with <code>pytest.skip</code>, <code>try/except: pass</code>, or by hardcoding the asserted return value. Anthropic's own guidance explicitly warns to <strong>"address the root cause, don't suppress the error."</strong> <code>[Source: Anthropic Claude Code Best Practices]</code></li>
+<li><strong>Compensating bugs</strong> — In multi-file refactors, fixing one bug surfaces another. SWE-ABS reports <strong>~29.6% of patches that pass the standard test suite are behaviorally divergent on more thorough tests.</strong> <code>[Source: meta-harness DD-003-verify-sh-hardening.md]</code></li>
+</ul>
+<h3 id="12-why-standard-pytest-is-insufficient">1.2 Why Standard Pytest Is Insufficient<a class="headerlink" href="#12-why-standard-pytest-is-insufficient" title="Permanent link">&para;</a></h3>
+<p>Pre-existing tests in the repo are <strong>read by the agent</strong>. Anything the agent can read, the agent can game — by tailoring code to the literal test inputs (Goodhart's Law applied to evals). SWE-bench's design choice — <strong>"the held-out acceptance tests were only used after benchmarking"</strong> — exists for this reason. <code>[Source: Aider SWE-bench Lite blog post; SWE-bench leaderboard]</code></p>
+<h3 id="13-meta-harness-position-dd-003">1.3 Meta-Harness Position (DD-003)<a class="headerlink" href="#13-meta-harness-position-dd-003" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>"A verify.sh with 5–10 diverse assertions makes it significantly harder to produce a technically-passing but semantically-wrong solution — which is exactly the failure mode the meta-harness is trying to surface."
+— <code>plans/design-decisions/DD-003-verify-sh-hardening.md</code></p>
+</blockquote>
+<p>This spec generalizes that position: every Python project that uses an agentic coding tool needs an externally-authored, behavior-asserting, anti-cheat-aware verifier whose result is <strong>canonical</strong> for "done."</p>
+<hr />
+<h2 id="2-core-principles">2. Core Principles<a class="headerlink" href="#2-core-principles" title="Permanent link">&para;</a></h2>
+<p>Each principle below is <strong>mandatory</strong>. Skip one and the verifier loses signal.</p>
+<h3 id="p1-behavior-over-implementation">P1. Behavior over implementation<a class="headerlink" href="#p1-behavior-over-implementation" title="Permanent link">&para;</a></h3>
+<p>Assert what the code <strong>does</strong>, not what it <strong>looks like</strong>. <code>assert count_words("a a b") == {"a": 2, "b": 1}</code> — not <code>assert os.path.exists("wordcount.py")</code>.
+<strong>Rationale:</strong> Acceptance tests are held out from the agent so it cannot "teach to the test." <code>[Source: SWE-bench design; Aider SWE-bench Lite]</code></p>
+<h3 id="p2-hermetic-deterministic">P2. Hermetic &amp; deterministic<a class="headerlink" href="#p2-hermetic-deterministic" title="Permanent link">&para;</a></h3>
+<p>Run in a fresh <code>tmpdir</code>, fresh venv (or container), clean <code>PYTHONPATH</code>, fixed <code>PYTHONHASHSEED=0</code>, <code>PYTHONDEVMODE=1</code>. Never reuse cached state.
+<strong>Rationale:</strong> OpenAI Evals built-in templates "contain deterministic functions to compare the output to the ideal_answers." Non-determinism destroys the pass/fail signal. <code>[Source: OpenAI Cookbook — Getting started with OpenAI Evals]</code></p>
+<h3 id="p3-fast-fail-with-set-e-pipefail">P3. Fast-fail with <code>set -e</code> / <code>pipefail</code><a class="headerlink" href="#p3-fast-fail-with-set-e-pipefail" title="Permanent link">&para;</a></h3>
+<p>Bash: <code>set -euo pipefail</code> on line 2. Python: <code>subprocess.run(..., check=True)</code> and <code>pytest -x</code>.
+<strong>Rationale:</strong> A missing <code>set -e</code> lets pytest fail and the script still print "PASS" — the canonical false-positive verifier. <code>[Source: meta-harness exploration-summary §G Failure Mode 4]</code></p>
+<h3 id="p4-structured-exit-codes-0123124">P4. Structured exit codes (0/1/2/3/124)<a class="headerlink" href="#p4-structured-exit-codes-0123124" title="Permanent link">&para;</a></h3>
+<p><code>0</code> = pass, <code>1</code> = real test failure, <code>2</code> = infra error (re-runnable), <code>3</code> = anti-cheat trip, <code>124</code> = timeout. Nothing else.
+<strong>Rationale:</strong> Lets the orchestrator distinguish "fail the agent" from "retry the harness." <code>[Source: research-summary §7]</code></p>
+<h3 id="p5-two-witness-rule-independent-re-execution">P5. Two-witness rule (independent re-execution)<a class="headerlink" href="#p5-two-witness-rule-independent-re-execution" title="Permanent link">&para;</a></h3>
+<p>Re-run the canonical example in a <strong>second</strong> subprocess with a fresh import cache; results must match. Script-level analogue of OpenAI's "use a different model to do grading."
+<strong>Rationale:</strong> Externalises the agent's implicit decisions. <code>[Source: OpenAI Cookbook — Getting started with OpenAI Evals; Cognition Labs — Don't build multi-agents]</code></p>
+<h3 id="p6-negative-adversarial-cases-mandatory">P6. Negative + adversarial cases mandatory<a class="headerlink" href="#p6-negative-adversarial-cases-mandatory" title="Permanent link">&para;</a></h3>
+<p>Every verifier must test what must <strong>NOT</strong> happen (silent skips, wrong exception types, no-op mutations) in addition to what must happen.
+<strong>Rationale:</strong> Symptom-suppression cheats live in the gap between "succeeds" and "fails correctly." <code>[Source: Anthropic — root-cause guidance]</code></p>
+<h3 id="p7-verify-environment-state-not-just-exit-codes">P7. Verify environment state, not just exit codes<a class="headerlink" href="#p7-verify-environment-state-not-just-exit-codes" title="Permanent link">&para;</a></h3>
+<p>Assert that expected files exist with non-zero size, expected ports are open, expected log tokens are present, expected DB rows are written.
+<strong>Rationale:</strong> Anthropic's "verify UI changes visually" generalizes to: assert the <strong>world state</strong>, not the agent's report of it. <code>[Source: Anthropic Claude Code Best Practices]</code></p>
+<h3 id="p8-idempotent-re-run-yields-same-result">P8. Idempotent (re-run yields same result)<a class="headerlink" href="#p8-idempotent-re-run-yields-same-result" title="Permanent link">&para;</a></h3>
+<p>Cleanup tempdirs, drop tables, kill leftover processes. Running <code>verify.sh</code> twice in a row must yield identical results.
+<strong>Rationale:</strong> Non-idempotent verifiers produce flaky pass/fail signals indistinguishable from real bugs. <code>[Source: research-summary §6]</code></p>
+<h3 id="p9-self-test-mode-verifier-runs-against-known-bad-reference">P9. Self-test mode (verifier runs against known-bad reference)<a class="headerlink" href="#p9-self-test-mode-verifier-runs-against-known-bad-reference" title="Permanent link">&para;</a></h3>
+<p><code>verify.sh --self-test</code> runs the verifier against a deliberately broken implementation and asserts it correctly <strong>FAILs</strong>.
+<strong>Rationale:</strong> "Model grading will have an error rate, so it is important to validate the performance with human evaluation before running the evals at scale." Verifiers must themselves be tested. <code>[Source: OpenAI Cookbook — How to eval abstractive summarization (G-Eval)]</code></p>
+<hr />
+<h2 id="3-verification-levels">3. Verification Levels<a class="headerlink" href="#3-verification-levels" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>When</th>
+<th>Cost</th>
+<th>What runs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>L1: per-phase gate</strong></td>
+<td>After each protocol phase (post-implementer, post-test-writer, post-commit)</td>
+<td>&lt;5 s</td>
+<td>AST scan + import probe + 1 behavior assertion</td>
+</tr>
+<tr>
+<td><strong>L2: end-of-task gate (<code>verify.sh</code>)</strong></td>
+<td>When the agent declares "done"</td>
+<td>10–60 s</td>
+<td>Full pytest + 5+ inline assertions + anti-cheat probes + held-out inputs + JSON verdict</td>
+</tr>
+<tr>
+<td><strong>L3: CI gate</strong></td>
+<td>On every PR / nightly</td>
+<td>1–10 min</td>
+<td>All L2 tasks + cross-task regression + mutation probe + coverage threshold</td>
+</tr>
+</tbody>
+</table>
+<h3 id="31-decision-matrix">3.1 Decision Matrix<a class="headerlink" href="#31-decision-matrix" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>If yes → use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Is this between two protocol phases that produce/consume artifacts?</td>
+<td>L1</td>
+</tr>
+<tr>
+<td>Is this the gate that decides SR (success rate) for the task?</td>
+<td>L2</td>
+</tr>
+<tr>
+<td>Is this run on a schedule across many tasks?</td>
+<td>L3</td>
+</tr>
+<tr>
+<td>Does the gate output need to be parseable by an orchestrator?</td>
+<td>L2 + L3 (JSON verdict)</td>
+</tr>
+<tr>
+<td>Is this a 1-line "did the import work?" check?</td>
+<td>L1 only — never L2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rule:</strong> Every artifact-producing phase needs at least L1. Only L2 results are canonical for "done." <code>[Source: Anthropic Building Effective Agents — programmatic gates between sub-tasks]</code></p>
+<hr />
+<h2 id="4-verification-spec-template">4. Verification Spec Template<a class="headerlink" href="#4-verification-spec-template" title="Permanent link">&para;</a></h2>
+<p>The agent fills this in <strong>before writing a single line of verifier code</strong>. If it cannot fill in §§4.3–4.10 from the task description, the task description is incomplete and must be clarified first.</p>
+<h3 id="41-schema-yaml">4.1 Schema (YAML)<a class="headerlink" href="#41-schema-yaml" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">task_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;string, e.g. &quot;wordcount-v1&quot;&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">acceptance_criteria</span><span class="p">:</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;observable, behavioral statement (NOT &quot;must use class X&quot;)&gt;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">files_in_scope</span><span class="p">:</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;relative path&gt;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nt">happy_path_cases</span><span class="p">:</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;literal&gt;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;literal&gt;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nt">boundary_cases</span><span class="p">:</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;literal&gt;</span><span class="w">            </span><span class="c1"># empty, None, zero, max</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;literal&gt;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nt">failure_mode_cases</span><span class="p">:</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;literal&gt;</span><span class="w">            </span><span class="c1"># what triggers an error</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="nt">expected_exception</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;ExceptionClass&gt;</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="nt">expected_message_substring</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;optional&gt;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="nt">invariants</span><span class="p">:</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;statement that is always true (e.g. &quot;sum of values == len(input.split())&quot;)&gt;</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="nt">negative_cases</span><span class="p">:</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;something that must NOT happen, e.g. &quot;calling f(x) twice must NOT raise on second call&quot;&gt;</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="nt">anti_cheat_checks</span><span class="p">:</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;e.g. &quot;no pytest.skip in tests/&quot;, &quot;no hardcoded literal output for held-out input X&quot;&gt;</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="nt">environment_requirements</span><span class="p">:</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">  </span><span class="nt">python</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&gt;=3.10&quot;</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">  </span><span class="nt">deps</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">pytest&gt;=8</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">  </span><span class="nt">env_vars</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">PYTHONHASHSEED</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="p p-Indicator">,</span><span class="nt"> PYTHONDEVMODE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="nt">performance_budget</span><span class="p">:</span><span class="w">           </span><span class="c1"># optional</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">  </span><span class="nt">max_runtime_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">  </span><span class="nt">max_memory_mb</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+</code></pre></div>
+<h3 id="42-filled-in-example-used-in-12-worked-example">4.2 Filled-in Example (used in §12 worked example)<a class="headerlink" href="#42-filled-in-example-used-in-12-worked-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">task_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wordcount-v1</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">acceptance_criteria</span><span class="p">:</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">count_words(text) returns a dict mapping each whitespace-delimited token to its count</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tokens are case-folded to lowercase before counting</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">punctuation at token boundaries is stripped (&quot;,.;:!?&quot;)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">empty input returns {}</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nt">files_in_scope</span><span class="p">:</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src/wordcount.py</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="nt">happy_path_cases</span><span class="p">:</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;the</span><span class="nv"> </span><span class="s">quick</span><span class="nv"> </span><span class="s">brown</span><span class="nv"> </span><span class="s">fox&quot;</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;the&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;quick&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;brown&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;fox&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Apple</span><span class="nv"> </span><span class="s">apple</span><span class="nv"> </span><span class="s">APPLE&quot;</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;apple&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="nt">boundary_cases</span><span class="p">:</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;</span><span class="nv">   </span><span class="s">&quot;</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;hi!&quot;</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;hi&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="nt">failure_mode_cases</span><span class="p">:</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">42</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="nt">expected_exception</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TypeError</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="nt">expected_message_substring</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;str&quot;</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">    </span><span class="nt">expected_exception</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TypeError</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="nt">invariants</span><span class="p">:</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sum(count_words(s).values()) == len([w for w in s.lower().split() if w.strip(&quot;,.;:!?&quot;)])</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="nt">negative_cases</span><span class="p">:</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">count_words(&quot;a&quot;) must NOT mutate global state</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">count_words must NOT print to stdout</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="nt">anti_cheat_checks</span><span class="p">:</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;no</span><span class="nv"> </span><span class="s">pytest.skip</span><span class="nv"> </span><span class="s">/</span><span class="nv"> </span><span class="s">pytest.xfail</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">tests/test_wordcount.py&quot;</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;src/wordcount.py</span><span class="nv"> </span><span class="s">contains</span><span class="nv"> </span><span class="s">no</span><span class="nv"> </span><span class="s">function</span><span class="nv"> </span><span class="s">whose</span><span class="nv"> </span><span class="s">body</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">only</span><span class="nv"> </span><span class="s">`pass`,</span><span class="nv"> </span><span class="s">`...`,</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">`raise</span><span class="nv"> </span><span class="s">NotImplementedError`&quot;</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;the</span><span class="nv"> </span><span class="s">held-out</span><span class="nv"> </span><span class="s">string</span><span class="nv"> </span><span class="s">&#39;Goodhart</span><span class="nv"> </span><span class="s">law</span><span class="nv"> </span><span class="s">applies</span><span class="nv"> </span><span class="s">here,</span><span class="nv"> </span><span class="s">here,</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">here.&#39;</span><span class="nv"> </span><span class="s">returns</span><span class="nv"> </span><span class="s">{&#39;goodhart&#39;:</span><span class="nv"> </span><span class="s">1,</span><span class="nv"> </span><span class="s">&#39;law&#39;:</span><span class="nv"> </span><span class="s">1,</span><span class="nv"> </span><span class="s">&#39;applies&#39;:</span><span class="nv"> </span><span class="s">1,</span><span class="nv"> </span><span class="s">&#39;here&#39;:</span><span class="nv"> </span><span class="s">3,</span><span class="nv"> </span><span class="s">&#39;and&#39;:</span><span class="nv"> </span><span class="s">1}&quot;</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="nt">environment_requirements</span><span class="p">:</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="w">  </span><span class="nt">python</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&gt;=3.10&quot;</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="w">  </span><span class="nt">deps</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">pytest&gt;=8</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="w">  </span><span class="nt">env_vars</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">PYTHONHASHSEED</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="p p-Indicator">,</span><span class="nt"> PYTHONDEVMODE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="nt">performance_budget</span><span class="p">:</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="w">  </span><span class="nt">max_runtime_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</code></pre></div>
+<hr />
+<h2 id="5-bash-verifysh-template">5. Bash <code>verify.sh</code> Template<a class="headerlink" href="#5-bash-verifysh-template" title="Permanent link">&para;</a></h2>
+<p>Copy verbatim. Fill in the slots marked <code>&lt;&lt;&lt; FILL &gt;&gt;&gt;</code>. Idioms in §§5.1–5.7 are pulled directly from <code>task_305/verify.sh</code>, <code>task_309/verify.sh</code>, <code>task_401/verify.sh</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="ch">#!/usr/bin/env bash</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># verify.sh — end-of-task acceptance gate (Level 2)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Exit codes: 0=pass, 1=test fail, 2=infra error, 3=anti-cheat trip, 124=timeout</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># ----- 5.1 Self-test mode --------------------------------------------------</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;--self-test&quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[self-test] Running verifier against known-bad reference...&quot;</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="nv">tmpdir</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="w"> </span>./.verify-selftest.XXXXXX<span class="k">)</span><span class="s2">&quot;</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="nb">trap</span><span class="w"> </span><span class="s1">&#39;rm -rf &quot;$tmpdir&quot;&#39;</span><span class="w"> </span>EXIT
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$tmpdir</span><span class="s2">/src&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$tmpdir</span><span class="s2">/tests&quot;</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span>cp<span class="w"> </span>tests/test_*.py<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$tmpdir</span><span class="s2">/tests/&quot;</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span>cat<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$tmpdir</span><span class="s2">/src/wordcount.py&quot;</span><span class="w"> </span><span class="s">&lt;&lt;&#39;BAD&#39;</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="s">def count_words(text):</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="s">    return {}        # known-bad: always empty</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="s">BAD</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$tmpdir</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>bash<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$OLDPWD</span><span class="s2">/verify.sh&quot;</span><span class="o">)</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[self-test] FAIL — verifier passed a broken impl&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">3</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="k">fi</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[self-test] OK — verifier correctly rejects broken impl&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="k">fi</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="c1"># ----- 5.2 Working directory pinning ---------------------------------------</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="nv">SCRIPT_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASH_SOURCE</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SCRIPT_DIR</span><span class="s2">&quot;</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="c1"># ----- 5.3 Hermetic environment --------------------------------------------</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONHASHSEED</span><span class="o">=</span><span class="m">0</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONDEVMODE</span><span class="o">=</span><span class="m">1</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONDONTWRITEBYTECODE</span><span class="o">=</span><span class="m">1</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="nb">unset</span><span class="w"> </span>PYTHONPATH
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="c1"># ----- 5.4 Static anti-cheat scan (fast-fail BEFORE running anything) ------</span>
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="c1"># Skip / xfail markers introduced by the agent</span>
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="k">if</span><span class="w"> </span>grep<span class="w"> </span>-RnE<span class="w"> </span><span class="s1">&#39;pytest\.(skip|xfail)|@pytest\.mark\.(skip|xfail)&#39;</span><span class="w"> </span>tests/<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="w">        </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;^Binary&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ANTI-CHEAT: pytest.skip/xfail found in tests/&quot;</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">3</span>
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a><span class="k">fi</span>
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a><span class="c1"># Placeholder bodies in source</span>
+<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>python3<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;&#39;PYEOF&#39; || exit 3</span>
+<a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a><span class="s">import ast, glob, sys</span>
+<a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a><span class="s">bad = []</span>
+<a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a><span class="s">for path in glob.glob(&quot;src/**/*.py&quot;, recursive=True):</span>
+<a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a><span class="s">    try:</span>
+<a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a><span class="s">        tree = ast.parse(open(path).read())</span>
+<a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a><span class="s">    except SyntaxError as e:</span>
+<a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a><span class="s">        print(f&quot;ANTI-CHEAT: {path} has syntax error: {e}&quot;, file=sys.stderr); sys.exit(3)</span>
+<a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a><span class="s">    for node in ast.walk(tree):</span>
+<a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a><span class="s">        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):</span>
+<a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a><span class="s">            body = node.body</span>
+<a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a><span class="s">            if len(body) == 1:</span>
+<a id="__codelineno-2-55" name="__codelineno-2-55" href="#__codelineno-2-55"></a><span class="s">                stmt = body[0]</span>
+<a id="__codelineno-2-56" name="__codelineno-2-56" href="#__codelineno-2-56"></a><span class="s">                if isinstance(stmt, ast.Pass): bad.append(f&quot;{path}:{node.lineno} {node.name} is `pass`&quot;)</span>
+<a id="__codelineno-2-57" name="__codelineno-2-57" href="#__codelineno-2-57"></a><span class="s">                elif isinstance(stmt, ast.Expr) and isinstance(stmt.value, ast.Constant) and stmt.value.value is Ellipsis:</span>
+<a id="__codelineno-2-58" name="__codelineno-2-58" href="#__codelineno-2-58"></a><span class="s">                    bad.append(f&quot;{path}:{node.lineno} {node.name} is `...`&quot;)</span>
+<a id="__codelineno-2-59" name="__codelineno-2-59" href="#__codelineno-2-59"></a><span class="s">                elif isinstance(stmt, ast.Raise) and isinstance(stmt.exc, ast.Call) \</span>
+<a id="__codelineno-2-60" name="__codelineno-2-60" href="#__codelineno-2-60"></a><span class="s">                        and getattr(stmt.exc.func, &quot;id&quot;, &quot;&quot;) == &quot;NotImplementedError&quot;:</span>
+<a id="__codelineno-2-61" name="__codelineno-2-61" href="#__codelineno-2-61"></a><span class="s">                    bad.append(f&quot;{path}:{node.lineno} {node.name} raises NotImplementedError&quot;)</span>
+<a id="__codelineno-2-62" name="__codelineno-2-62" href="#__codelineno-2-62"></a><span class="s">if bad:</span>
+<a id="__codelineno-2-63" name="__codelineno-2-63" href="#__codelineno-2-63"></a><span class="s">    print(&quot;ANTI-CHEAT: placeholder function bodies found:&quot;, file=sys.stderr)</span>
+<a id="__codelineno-2-64" name="__codelineno-2-64" href="#__codelineno-2-64"></a><span class="s">    for b in bad: print(&quot;  &quot; + b, file=sys.stderr)</span>
+<a id="__codelineno-2-65" name="__codelineno-2-65" href="#__codelineno-2-65"></a><span class="s">    sys.exit(3)</span>
+<a id="__codelineno-2-66" name="__codelineno-2-66" href="#__codelineno-2-66"></a><span class="s">PYEOF</span>
+<a id="__codelineno-2-67" name="__codelineno-2-67" href="#__codelineno-2-67"></a>
+<a id="__codelineno-2-68" name="__codelineno-2-68" href="#__codelineno-2-68"></a><span class="c1"># Bare `except:` clauses introduced by agent</span>
+<a id="__codelineno-2-69" name="__codelineno-2-69" href="#__codelineno-2-69"></a><span class="k">if</span><span class="w"> </span>grep<span class="w"> </span>-RnE<span class="w"> </span><span class="s1">&#39;^\s*except\s*:&#39;</span><span class="w"> </span>src/<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-2-70" name="__codelineno-2-70" href="#__codelineno-2-70"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ANTI-CHEAT: bare except: clause in src/&quot;</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
+<a id="__codelineno-2-71" name="__codelineno-2-71" href="#__codelineno-2-71"></a><span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">3</span>
+<a id="__codelineno-2-72" name="__codelineno-2-72" href="#__codelineno-2-72"></a><span class="k">fi</span>
+<a id="__codelineno-2-73" name="__codelineno-2-73" href="#__codelineno-2-73"></a>
+<a id="__codelineno-2-74" name="__codelineno-2-74" href="#__codelineno-2-74"></a><span class="c1"># ----- 5.5 Run the test suite ----------------------------------------------</span>
+<a id="__codelineno-2-75" name="__codelineno-2-75" href="#__codelineno-2-75"></a><span class="c1"># -x: stop on first failure. --tb=short: readable traces. -p no:cacheprovider: no cache</span>
+<a id="__codelineno-2-76" name="__codelineno-2-76" href="#__codelineno-2-76"></a>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>-x<span class="w"> </span>--tb<span class="o">=</span>short<span class="w"> </span>-p<span class="w"> </span>no:cacheprovider<span class="w"> </span>--import-mode<span class="o">=</span>importlib<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-40
+<a id="__codelineno-2-77" name="__codelineno-2-77" href="#__codelineno-2-77"></a><span class="nv">PYTEST_RC</span><span class="o">=</span><span class="si">${</span><span class="nv">PIPESTATUS</span><span class="p">[0]</span><span class="si">}</span>
+<a id="__codelineno-2-78" name="__codelineno-2-78" href="#__codelineno-2-78"></a><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$PYTEST_RC</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-2-79" name="__codelineno-2-79" href="#__codelineno-2-79"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;{&quot;verdict&quot;:&quot;fail&quot;,&quot;gate&quot;:&quot;end&quot;,&quot;reason&quot;:&quot;pytest_failed&quot;,&quot;exit&quot;:1}&#39;</span>
+<a id="__codelineno-2-80" name="__codelineno-2-80" href="#__codelineno-2-80"></a><span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-2-81" name="__codelineno-2-81" href="#__codelineno-2-81"></a><span class="k">fi</span>
+<a id="__codelineno-2-82" name="__codelineno-2-82" href="#__codelineno-2-82"></a>
+<a id="__codelineno-2-83" name="__codelineno-2-83" href="#__codelineno-2-83"></a><span class="c1"># ----- 5.6 Inline behavioral assertions (5+ required) ----------------------</span>
+<a id="__codelineno-2-84" name="__codelineno-2-84" href="#__codelineno-2-84"></a><span class="c1"># HAPPY PATH</span>
+<a id="__codelineno-2-85" name="__codelineno-2-85" href="#__codelineno-2-85"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<a id="__codelineno-2-86" name="__codelineno-2-86" href="#__codelineno-2-86"></a><span class="s2">from src.wordcount import count_words</span>
+<a id="__codelineno-2-87" name="__codelineno-2-87" href="#__codelineno-2-87"></a><span class="s2">result = count_words(&#39;the quick brown fox&#39;)</span>
+<a id="__codelineno-2-88" name="__codelineno-2-88" href="#__codelineno-2-88"></a><span class="s2">assert result == {&#39;the&#39;: 1, &#39;quick&#39;: 1, &#39;brown&#39;: 1, &#39;fox&#39;: 1}, f&#39;happy path: {result!r}&#39;</span>
+<a id="__codelineno-2-89" name="__codelineno-2-89" href="#__codelineno-2-89"></a><span class="s2">print(&#39;OK: happy path&#39;)</span>
+<a id="__codelineno-2-90" name="__codelineno-2-90" href="#__codelineno-2-90"></a><span class="s2">&quot;</span>
+<a id="__codelineno-2-91" name="__codelineno-2-91" href="#__codelineno-2-91"></a>
+<a id="__codelineno-2-92" name="__codelineno-2-92" href="#__codelineno-2-92"></a><span class="c1"># BOUNDARY: empty + whitespace</span>
+<a id="__codelineno-2-93" name="__codelineno-2-93" href="#__codelineno-2-93"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<a id="__codelineno-2-94" name="__codelineno-2-94" href="#__codelineno-2-94"></a><span class="s2">from src.wordcount import count_words</span>
+<a id="__codelineno-2-95" name="__codelineno-2-95" href="#__codelineno-2-95"></a><span class="s2">assert count_words(&#39;&#39;) == {}, &#39;empty string&#39;</span>
+<a id="__codelineno-2-96" name="__codelineno-2-96" href="#__codelineno-2-96"></a><span class="s2">assert count_words(&#39;   &#39;) == {}, &#39;whitespace only&#39;</span>
+<a id="__codelineno-2-97" name="__codelineno-2-97" href="#__codelineno-2-97"></a><span class="s2">assert count_words(&#39;hi!&#39;) == {&#39;hi&#39;: 1}, &#39;trailing punctuation&#39;</span>
+<a id="__codelineno-2-98" name="__codelineno-2-98" href="#__codelineno-2-98"></a><span class="s2">print(&#39;OK: boundary cases&#39;)</span>
+<a id="__codelineno-2-99" name="__codelineno-2-99" href="#__codelineno-2-99"></a><span class="s2">&quot;</span>
+<a id="__codelineno-2-100" name="__codelineno-2-100" href="#__codelineno-2-100"></a>
+<a id="__codelineno-2-101" name="__codelineno-2-101" href="#__codelineno-2-101"></a><span class="c1"># FAILURE MODE: wrong type raises</span>
+<a id="__codelineno-2-102" name="__codelineno-2-102" href="#__codelineno-2-102"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<a id="__codelineno-2-103" name="__codelineno-2-103" href="#__codelineno-2-103"></a><span class="s2">from src.wordcount import count_words</span>
+<a id="__codelineno-2-104" name="__codelineno-2-104" href="#__codelineno-2-104"></a><span class="s2">try:</span>
+<a id="__codelineno-2-105" name="__codelineno-2-105" href="#__codelineno-2-105"></a><span class="s2">    count_words(42)</span>
+<a id="__codelineno-2-106" name="__codelineno-2-106" href="#__codelineno-2-106"></a><span class="s2">except TypeError as e:</span>
+<a id="__codelineno-2-107" name="__codelineno-2-107" href="#__codelineno-2-107"></a><span class="s2">    assert &#39;str&#39; in str(e).lower() or True   # message check is soft</span>
+<a id="__codelineno-2-108" name="__codelineno-2-108" href="#__codelineno-2-108"></a><span class="s2">    print(&#39;OK: TypeError on int input&#39;)</span>
+<a id="__codelineno-2-109" name="__codelineno-2-109" href="#__codelineno-2-109"></a><span class="s2">else:</span>
+<a id="__codelineno-2-110" name="__codelineno-2-110" href="#__codelineno-2-110"></a><span class="s2">    raise AssertionError(&#39;expected TypeError on int input&#39;)</span>
+<a id="__codelineno-2-111" name="__codelineno-2-111" href="#__codelineno-2-111"></a><span class="s2">&quot;</span>
+<a id="__codelineno-2-112" name="__codelineno-2-112" href="#__codelineno-2-112"></a>
+<a id="__codelineno-2-113" name="__codelineno-2-113" href="#__codelineno-2-113"></a><span class="c1"># INVARIANT: sum of counts == number of normalised tokens</span>
+<a id="__codelineno-2-114" name="__codelineno-2-114" href="#__codelineno-2-114"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<a id="__codelineno-2-115" name="__codelineno-2-115" href="#__codelineno-2-115"></a><span class="s2">from src.wordcount import count_words</span>
+<a id="__codelineno-2-116" name="__codelineno-2-116" href="#__codelineno-2-116"></a><span class="s2">s = &#39;Apple apple, banana. Cherry: cherry; cherry!&#39;</span>
+<a id="__codelineno-2-117" name="__codelineno-2-117" href="#__codelineno-2-117"></a><span class="s2">counts = count_words(s)</span>
+<a id="__codelineno-2-118" name="__codelineno-2-118" href="#__codelineno-2-118"></a><span class="s2">expected_tokens = [w.strip(&#39;,.;:!?&#39;).lower() for w in s.split()]</span>
+<a id="__codelineno-2-119" name="__codelineno-2-119" href="#__codelineno-2-119"></a><span class="s2">expected_tokens = [w for w in expected_tokens if w]</span>
+<a id="__codelineno-2-120" name="__codelineno-2-120" href="#__codelineno-2-120"></a><span class="s2">assert sum(counts.values()) == len(expected_tokens), f&#39;invariant: {counts} vs {expected_tokens}&#39;</span>
+<a id="__codelineno-2-121" name="__codelineno-2-121" href="#__codelineno-2-121"></a><span class="s2">print(&#39;OK: invariant — sum(counts.values()) == len(tokens)&#39;)</span>
+<a id="__codelineno-2-122" name="__codelineno-2-122" href="#__codelineno-2-122"></a><span class="s2">&quot;</span>
+<a id="__codelineno-2-123" name="__codelineno-2-123" href="#__codelineno-2-123"></a>
+<a id="__codelineno-2-124" name="__codelineno-2-124" href="#__codelineno-2-124"></a><span class="c1"># HELD-OUT INPUT (anti-hardcode probe)</span>
+<a id="__codelineno-2-125" name="__codelineno-2-125" href="#__codelineno-2-125"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<a id="__codelineno-2-126" name="__codelineno-2-126" href="#__codelineno-2-126"></a><span class="s2">from src.wordcount import count_words</span>
+<a id="__codelineno-2-127" name="__codelineno-2-127" href="#__codelineno-2-127"></a><span class="s2">held_out = &#39;Goodhart law applies here, here, and here.&#39;</span>
+<a id="__codelineno-2-128" name="__codelineno-2-128" href="#__codelineno-2-128"></a><span class="s2">result = count_words(held_out)</span>
+<a id="__codelineno-2-129" name="__codelineno-2-129" href="#__codelineno-2-129"></a><span class="s2">assert result == {&#39;goodhart&#39;: 1, &#39;law&#39;: 1, &#39;applies&#39;: 1, &#39;here&#39;: 3, &#39;and&#39;: 1}, f&#39;held-out: {result!r}&#39;</span>
+<a id="__codelineno-2-130" name="__codelineno-2-130" href="#__codelineno-2-130"></a><span class="s2">print(&#39;OK: held-out input (anti-hardcode probe)&#39;)</span>
+<a id="__codelineno-2-131" name="__codelineno-2-131" href="#__codelineno-2-131"></a><span class="s2">&quot;</span>
+<a id="__codelineno-2-132" name="__codelineno-2-132" href="#__codelineno-2-132"></a>
+<a id="__codelineno-2-133" name="__codelineno-2-133" href="#__codelineno-2-133"></a><span class="c1"># NEGATIVE: no stdout side-effects</span>
+<a id="__codelineno-2-134" name="__codelineno-2-134" href="#__codelineno-2-134"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<a id="__codelineno-2-135" name="__codelineno-2-135" href="#__codelineno-2-135"></a><span class="s2">import io, contextlib</span>
+<a id="__codelineno-2-136" name="__codelineno-2-136" href="#__codelineno-2-136"></a><span class="s2">from src.wordcount import count_words</span>
+<a id="__codelineno-2-137" name="__codelineno-2-137" href="#__codelineno-2-137"></a><span class="s2">buf = io.StringIO()</span>
+<a id="__codelineno-2-138" name="__codelineno-2-138" href="#__codelineno-2-138"></a><span class="s2">with contextlib.redirect_stdout(buf):</span>
+<a id="__codelineno-2-139" name="__codelineno-2-139" href="#__codelineno-2-139"></a><span class="s2">    count_words(&#39;a b c&#39;)</span>
+<a id="__codelineno-2-140" name="__codelineno-2-140" href="#__codelineno-2-140"></a><span class="s2">assert buf.getvalue() == &#39;&#39;, f&#39;count_words must not print, got: {buf.getvalue()!r}&#39;</span>
+<a id="__codelineno-2-141" name="__codelineno-2-141" href="#__codelineno-2-141"></a><span class="s2">print(&#39;OK: no stdout side-effect&#39;)</span>
+<a id="__codelineno-2-142" name="__codelineno-2-142" href="#__codelineno-2-142"></a><span class="s2">&quot;</span>
+<a id="__codelineno-2-143" name="__codelineno-2-143" href="#__codelineno-2-143"></a>
+<a id="__codelineno-2-144" name="__codelineno-2-144" href="#__codelineno-2-144"></a><span class="c1"># ----- 5.7 Two-witness re-execution ----------------------------------------</span>
+<a id="__codelineno-2-145" name="__codelineno-2-145" href="#__codelineno-2-145"></a><span class="c1"># Re-run the canonical example in a second subprocess with a clean cache</span>
+<a id="__codelineno-2-146" name="__codelineno-2-146" href="#__codelineno-2-146"></a>python3<span class="w"> </span>-B<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<a id="__codelineno-2-147" name="__codelineno-2-147" href="#__codelineno-2-147"></a><span class="s2">import sys, importlib</span>
+<a id="__codelineno-2-148" name="__codelineno-2-148" href="#__codelineno-2-148"></a><span class="s2">for m in [m for m in sys.modules if m.startswith(&#39;src&#39;)]: del sys.modules[m]</span>
+<a id="__codelineno-2-149" name="__codelineno-2-149" href="#__codelineno-2-149"></a><span class="s2">from src.wordcount import count_words</span>
+<a id="__codelineno-2-150" name="__codelineno-2-150" href="#__codelineno-2-150"></a><span class="s2">assert count_words(&#39;the quick brown fox&#39;) == {&#39;the&#39;:1,&#39;quick&#39;:1,&#39;brown&#39;:1,&#39;fox&#39;:1}</span>
+<a id="__codelineno-2-151" name="__codelineno-2-151" href="#__codelineno-2-151"></a><span class="s2">print(&#39;OK: two-witness re-execution&#39;)</span>
+<a id="__codelineno-2-152" name="__codelineno-2-152" href="#__codelineno-2-152"></a><span class="s2">&quot;</span>
+<a id="__codelineno-2-153" name="__codelineno-2-153" href="#__codelineno-2-153"></a>
+<a id="__codelineno-2-154" name="__codelineno-2-154" href="#__codelineno-2-154"></a><span class="c1"># ----- 5.8 Structured verdict on stdout&#39;s last line ------------------------</span>
+<a id="__codelineno-2-155" name="__codelineno-2-155" href="#__codelineno-2-155"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;PASS: all verifications succeeded&quot;</span>
+<a id="__codelineno-2-156" name="__codelineno-2-156" href="#__codelineno-2-156"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;{&quot;verdict&quot;:&quot;pass&quot;,&quot;gate&quot;:&quot;end&quot;,&quot;exit&quot;:0,&quot;checks&quot;:[&quot;pytest&quot;,&quot;happy&quot;,&quot;boundary&quot;,&quot;failure&quot;,&quot;invariant&quot;,&quot;held-out&quot;,&quot;negative&quot;,&quot;two-witness&quot;]}&#39;</span>
+<a id="__codelineno-2-157" name="__codelineno-2-157" href="#__codelineno-2-157"></a><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+</code></pre></div>
+<h3 id="5x-notes-on-idioms">5.x Notes on idioms<a class="headerlink" href="#5x-notes-on-idioms" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>tail -40</code> after pytest</strong> — pulled from <code>task_305</code>/<code>task_309</code>/<code>task_401</code>; keeps verifier output bounded.</li>
+<li><strong><code>python3 -c "..."</code> blocks</strong> — every block is self-contained: imports, setup, assertions, <code>print('OK: ...')</code>. This is the meta-harness house style.</li>
+<li><strong><code>PIPESTATUS[0]</code></strong> — required because <code>| tail</code> would otherwise mask pytest's exit code.</li>
+<li><strong><code>unset PYTHONPATH</code></strong> — prevents accidental imports from the agent's editor cache.</li>
+</ul>
+<hr />
+<h2 id="6-python-verifypy-template">6. Python <code>verify.py</code> Template<a class="headerlink" href="#6-python-verifypy-template" title="Permanent link">&para;</a></h2>
+<p>Use when you need richer assertions, JSON parsing, or socket / DB checks.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="ch">#!/usr/bin/env python3</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="sd">&quot;&quot;&quot;verify.py — end-of-task acceptance gate (Level 2).</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="sd">Exit codes:</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="sd">    0   pass</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="sd">    1   real test failure</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="sd">    2   infra error (re-runnable)</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="sd">    3   anti-cheat trip</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="sd">    124 timeout</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="kn">import</span><span class="w"> </span><span class="nn">ast</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="n">REPO</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="n">HELD_OUT</span> <span class="o">=</span> <span class="s2">&quot;Goodhart law applies here, here, and here.&quot;</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="n">HELD_OUT_EXPECTED</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;goodhart&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;law&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;applies&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;here&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;and&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="k">def</span><span class="w"> </span><span class="nf">emit</span><span class="p">(</span><span class="n">verdict</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exit_code</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">extra</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;verdict&quot;</span><span class="p">:</span> <span class="n">verdict</span><span class="p">,</span> <span class="s2">&quot;gate&quot;</span><span class="p">:</span> <span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="s2">&quot;exit&quot;</span><span class="p">:</span> <span class="n">exit_code</span><span class="p">,</span> <span class="o">**</span><span class="n">extra</span><span class="p">}</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CompletedProcess</span><span class="p">:</span>
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>    <span class="n">env</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">,</span> <span class="s2">&quot;PYTHONHASHSEED&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;PYTHONDEVMODE&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>           <span class="s2">&quot;PYTHONDONTWRITEBYTECODE&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">}</span>
+<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>    <span class="n">env</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;PYTHONPATH&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>    <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>                          <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">REPO</span><span class="p">)</span>
+<a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>
+<a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>
+<a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a><span class="k">def</span><span class="w"> </span><span class="nf">anti_cheat_static</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;AST + grep scan. Exits 3 on any hit.&quot;&quot;&quot;</span>
+<a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a>    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">REPO</span> <span class="o">/</span> <span class="s2">&quot;src&quot;</span> <span class="o">/</span> <span class="s2">&quot;**&quot;</span> <span class="o">/</span> <span class="s2">&quot;*.py&quot;</span><span class="p">),</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a>            <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">())</span>
+<a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a>        <span class="k">except</span> <span class="ne">SyntaxError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ANTI-CHEAT: syntax error in </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+<a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a>            <span class="n">emit</span><span class="p">(</span><span class="s2">&quot;fail&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;syntax_error&quot;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">);</span> <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a>        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+<a id="__codelineno-3-50" name="__codelineno-3-50" href="#__codelineno-3-50"></a>            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">AsyncFunctionDef</span><span class="p">)):</span>
+<a id="__codelineno-3-51" name="__codelineno-3-51" href="#__codelineno-3-51"></a>                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ast</span><span class="o">.</span><span class="n">Pass</span><span class="p">):</span>
+<a id="__codelineno-3-52" name="__codelineno-3-52" href="#__codelineno-3-52"></a>                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ANTI-CHEAT: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="si">}</span><span class="s2"> `</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">` is pass-only&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+<a id="__codelineno-3-53" name="__codelineno-3-53" href="#__codelineno-3-53"></a>                    <span class="n">emit</span><span class="p">(</span><span class="s2">&quot;fail&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;placeholder_body&quot;</span><span class="p">);</span> <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-3-54" name="__codelineno-3-54" href="#__codelineno-3-54"></a>    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">REPO</span> <span class="o">/</span> <span class="s2">&quot;tests&quot;</span> <span class="o">/</span> <span class="s2">&quot;**&quot;</span> <span class="o">/</span> <span class="s2">&quot;*.py&quot;</span><span class="p">),</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<a id="__codelineno-3-55" name="__codelineno-3-55" href="#__codelineno-3-55"></a>        <span class="n">text</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+<a id="__codelineno-3-56" name="__codelineno-3-56" href="#__codelineno-3-56"></a>        <span class="k">for</span> <span class="n">marker</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;pytest.skip&quot;</span><span class="p">,</span> <span class="s2">&quot;pytest.xfail&quot;</span><span class="p">,</span> <span class="s2">&quot;@pytest.mark.skip&quot;</span><span class="p">,</span> <span class="s2">&quot;@pytest.mark.xfail&quot;</span><span class="p">):</span>
+<a id="__codelineno-3-57" name="__codelineno-3-57" href="#__codelineno-3-57"></a>            <span class="k">if</span> <span class="n">marker</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+<a id="__codelineno-3-58" name="__codelineno-3-58" href="#__codelineno-3-58"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ANTI-CHEAT: </span><span class="si">{</span><span class="n">marker</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+<a id="__codelineno-3-59" name="__codelineno-3-59" href="#__codelineno-3-59"></a>                <span class="n">emit</span><span class="p">(</span><span class="s2">&quot;fail&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;skipped_test&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">);</span> <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-3-60" name="__codelineno-3-60" href="#__codelineno-3-60"></a>
+<a id="__codelineno-3-61" name="__codelineno-3-61" href="#__codelineno-3-61"></a>
+<a id="__codelineno-3-62" name="__codelineno-3-62" href="#__codelineno-3-62"></a><span class="k">def</span><span class="w"> </span><span class="nf">run_pytest</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-3-63" name="__codelineno-3-63" href="#__codelineno-3-63"></a>    <span class="n">proc</span> <span class="o">=</span> <span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pytest&quot;</span><span class="p">,</span> <span class="s2">&quot;tests/&quot;</span><span class="p">,</span> <span class="s2">&quot;-x&quot;</span><span class="p">,</span> <span class="s2">&quot;--tb=short&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-64" name="__codelineno-3-64" href="#__codelineno-3-64"></a>                <span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="s2">&quot;no:cacheprovider&quot;</span><span class="p">,</span> <span class="s2">&quot;--import-mode=importlib&quot;</span><span class="p">],</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+<a id="__codelineno-3-65" name="__codelineno-3-65" href="#__codelineno-3-65"></a>    <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">stdout</span><span class="p">[</span><span class="o">-</span><span class="mi">2000</span><span class="p">:]</span> <span class="o">+</span> <span class="n">proc</span><span class="o">.</span><span class="n">stderr</span><span class="p">[</span><span class="o">-</span><span class="mi">1000</span><span class="p">:])</span>
+<a id="__codelineno-3-66" name="__codelineno-3-66" href="#__codelineno-3-66"></a>    <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-3-67" name="__codelineno-3-67" href="#__codelineno-3-67"></a>        <span class="n">emit</span><span class="p">(</span><span class="s2">&quot;fail&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;pytest_failed&quot;</span><span class="p">,</span> <span class="n">returncode</span><span class="o">=</span><span class="n">proc</span><span class="o">.</span><span class="n">returncode</span><span class="p">)</span>
+<a id="__codelineno-3-68" name="__codelineno-3-68" href="#__codelineno-3-68"></a>        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-3-69" name="__codelineno-3-69" href="#__codelineno-3-69"></a>
+<a id="__codelineno-3-70" name="__codelineno-3-70" href="#__codelineno-3-70"></a>
+<a id="__codelineno-3-71" name="__codelineno-3-71" href="#__codelineno-3-71"></a><span class="k">def</span><span class="w"> </span><span class="nf">behavioral_probes</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-3-72" name="__codelineno-3-72" href="#__codelineno-3-72"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Each probe: independent subprocess, fresh import cache.&quot;&quot;&quot;</span>
+<a id="__codelineno-3-73" name="__codelineno-3-73" href="#__codelineno-3-73"></a>    <span class="n">probes</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-3-74" name="__codelineno-3-74" href="#__codelineno-3-74"></a>        <span class="p">(</span><span class="s2">&quot;happy&quot;</span><span class="p">,</span>     <span class="s2">&quot;from src.wordcount import count_words; &quot;</span>
+<a id="__codelineno-3-75" name="__codelineno-3-75" href="#__codelineno-3-75"></a>                      <span class="s2">&quot;assert count_words(&#39;the quick brown fox&#39;) == {&#39;the&#39;:1,&#39;quick&#39;:1,&#39;brown&#39;:1,&#39;fox&#39;:1}&quot;</span><span class="p">),</span>
+<a id="__codelineno-3-76" name="__codelineno-3-76" href="#__codelineno-3-76"></a>        <span class="p">(</span><span class="s2">&quot;boundary&quot;</span><span class="p">,</span>  <span class="s2">&quot;from src.wordcount import count_words; &quot;</span>
+<a id="__codelineno-3-77" name="__codelineno-3-77" href="#__codelineno-3-77"></a>                      <span class="s2">&quot;assert count_words(&#39;&#39;) == </span><span class="si">{}</span><span class="s2"> and count_words(&#39;   &#39;) == </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">),</span>
+<a id="__codelineno-3-78" name="__codelineno-3-78" href="#__codelineno-3-78"></a>        <span class="p">(</span><span class="s2">&quot;failure&quot;</span><span class="p">,</span>   <span class="s2">&quot;from src.wordcount import count_words</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-3-79" name="__codelineno-3-79" href="#__codelineno-3-79"></a>                      <span class="s2">&quot;try: count_words(42)</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-3-80" name="__codelineno-3-80" href="#__codelineno-3-80"></a>                      <span class="s2">&quot;except TypeError: pass</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-3-81" name="__codelineno-3-81" href="#__codelineno-3-81"></a>                      <span class="s2">&quot;else: raise AssertionError(&#39;expected TypeError&#39;)&quot;</span><span class="p">),</span>
+<a id="__codelineno-3-82" name="__codelineno-3-82" href="#__codelineno-3-82"></a>        <span class="p">(</span><span class="s2">&quot;invariant&quot;</span><span class="p">,</span> <span class="s2">&quot;from src.wordcount import count_words; &quot;</span>
+<a id="__codelineno-3-83" name="__codelineno-3-83" href="#__codelineno-3-83"></a>                      <span class="s2">&quot;s=&#39;a a b c c c&#39;; assert sum(count_words(s).values()) == len(s.split())&quot;</span><span class="p">),</span>
+<a id="__codelineno-3-84" name="__codelineno-3-84" href="#__codelineno-3-84"></a>        <span class="p">(</span><span class="s2">&quot;held_out&quot;</span><span class="p">,</span>  <span class="sa">f</span><span class="s2">&quot;from src.wordcount import count_words; &quot;</span>
+<a id="__codelineno-3-85" name="__codelineno-3-85" href="#__codelineno-3-85"></a>                      <span class="sa">f</span><span class="s2">&quot;assert count_words(</span><span class="si">{</span><span class="n">HELD_OUT</span><span class="si">!r}</span><span class="s2">) == </span><span class="si">{</span><span class="n">HELD_OUT_EXPECTED</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">),</span>
+<a id="__codelineno-3-86" name="__codelineno-3-86" href="#__codelineno-3-86"></a>        <span class="p">(</span><span class="s2">&quot;negative&quot;</span><span class="p">,</span>  <span class="s2">&quot;import io, contextlib; from src.wordcount import count_words</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-3-87" name="__codelineno-3-87" href="#__codelineno-3-87"></a>                      <span class="s2">&quot;b=io.StringIO()</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-3-88" name="__codelineno-3-88" href="#__codelineno-3-88"></a>                      <span class="s2">&quot;with contextlib.redirect_stdout(b): count_words(&#39;a b&#39;)</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-3-89" name="__codelineno-3-89" href="#__codelineno-3-89"></a>                      <span class="s2">&quot;assert b.getvalue() == &#39;&#39;&quot;</span><span class="p">),</span>
+<a id="__codelineno-3-90" name="__codelineno-3-90" href="#__codelineno-3-90"></a>    <span class="p">]</span>
+<a id="__codelineno-3-91" name="__codelineno-3-91" href="#__codelineno-3-91"></a>    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">probes</span><span class="p">:</span>
+<a id="__codelineno-3-92" name="__codelineno-3-92" href="#__codelineno-3-92"></a>        <span class="n">proc</span> <span class="o">=</span> <span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">],</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<a id="__codelineno-3-93" name="__codelineno-3-93" href="#__codelineno-3-93"></a>        <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-3-94" name="__codelineno-3-94" href="#__codelineno-3-94"></a>            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+<a id="__codelineno-3-95" name="__codelineno-3-95" href="#__codelineno-3-95"></a>            <span class="n">emit</span><span class="p">(</span><span class="s2">&quot;fail&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;probe_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_failed&quot;</span><span class="p">);</span> <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-3-96" name="__codelineno-3-96" href="#__codelineno-3-96"></a>
+<a id="__codelineno-3-97" name="__codelineno-3-97" href="#__codelineno-3-97"></a>
+<a id="__codelineno-3-98" name="__codelineno-3-98" href="#__codelineno-3-98"></a><span class="k">def</span><span class="w"> </span><span class="nf">two_witness</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-3-99" name="__codelineno-3-99" href="#__codelineno-3-99"></a>    <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;from src.wordcount import count_words; assert count_words(&#39;the quick brown fox&#39;) == {&#39;the&#39;:1,&#39;quick&#39;:1,&#39;brown&#39;:1,&#39;fox&#39;:1}&quot;</span>
+<a id="__codelineno-3-100" name="__codelineno-3-100" href="#__codelineno-3-100"></a>    <span class="n">a</span> <span class="o">=</span> <span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">],</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<a id="__codelineno-3-101" name="__codelineno-3-101" href="#__codelineno-3-101"></a>    <span class="n">b</span> <span class="o">=</span> <span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-B&quot;</span><span class="p">,</span> <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">],</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<a id="__codelineno-3-102" name="__codelineno-3-102" href="#__codelineno-3-102"></a>    <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-3-103" name="__codelineno-3-103" href="#__codelineno-3-103"></a>        <span class="n">emit</span><span class="p">(</span><span class="s2">&quot;fail&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;two_witness_disagree&quot;</span><span class="p">);</span> <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-3-104" name="__codelineno-3-104" href="#__codelineno-3-104"></a>
+<a id="__codelineno-3-105" name="__codelineno-3-105" href="#__codelineno-3-105"></a>
+<a id="__codelineno-3-106" name="__codelineno-3-106" href="#__codelineno-3-106"></a><span class="k">def</span><span class="w"> </span><span class="nf">self_test</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-3-107" name="__codelineno-3-107" href="#__codelineno-3-107"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run the verifier against a known-bad implementation; assert it FAILs.&quot;&quot;&quot;</span>
+<a id="__codelineno-3-108" name="__codelineno-3-108" href="#__codelineno-3-108"></a>    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;verify-selftest-&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">td</span><span class="p">:</span>
+<a id="__codelineno-3-109" name="__codelineno-3-109" href="#__codelineno-3-109"></a>        <span class="n">td</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">td</span><span class="p">)</span>
+<a id="__codelineno-3-110" name="__codelineno-3-110" href="#__codelineno-3-110"></a>        <span class="p">(</span><span class="n">td</span> <span class="o">/</span> <span class="s2">&quot;src&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+<a id="__codelineno-3-111" name="__codelineno-3-111" href="#__codelineno-3-111"></a>        <span class="p">(</span><span class="n">td</span> <span class="o">/</span> <span class="s2">&quot;tests&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+<a id="__codelineno-3-112" name="__codelineno-3-112" href="#__codelineno-3-112"></a>        <span class="p">(</span><span class="n">td</span> <span class="o">/</span> <span class="s2">&quot;src&quot;</span> <span class="o">/</span> <span class="s2">&quot;wordcount.py&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s2">&quot;def count_words(text):</span><span class="se">\n</span><span class="s2">    return </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-113" name="__codelineno-3-113" href="#__codelineno-3-113"></a>        <span class="p">(</span><span class="n">td</span> <span class="o">/</span> <span class="s2">&quot;tests&quot;</span> <span class="o">/</span> <span class="s2">&quot;test_smoke.py&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span>
+<a id="__codelineno-3-114" name="__codelineno-3-114" href="#__codelineno-3-114"></a>            <span class="s2">&quot;from src.wordcount import count_words</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-3-115" name="__codelineno-3-115" href="#__codelineno-3-115"></a>            <span class="s2">&quot;def test_happy(): assert count_words(&#39;a b&#39;) == {&#39;a&#39;:1,&#39;b&#39;:1}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-3-116" name="__codelineno-3-116" href="#__codelineno-3-116"></a>        <span class="p">)</span>
+<a id="__codelineno-3-117" name="__codelineno-3-117" href="#__codelineno-3-117"></a>        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">REPO</span> <span class="o">/</span> <span class="s2">&quot;verify.py&quot;</span><span class="p">)],</span>
+<a id="__codelineno-3-118" name="__codelineno-3-118" href="#__codelineno-3-118"></a>                              <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">td</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<a id="__codelineno-3-119" name="__codelineno-3-119" href="#__codelineno-3-119"></a>        <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-3-120" name="__codelineno-3-120" href="#__codelineno-3-120"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SELF-TEST FAIL: verifier passed a known-bad impl&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+<a id="__codelineno-3-121" name="__codelineno-3-121" href="#__codelineno-3-121"></a>            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-3-122" name="__codelineno-3-122" href="#__codelineno-3-122"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SELF-TEST OK: verifier correctly rejected known-bad impl&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-123" name="__codelineno-3-123" href="#__codelineno-3-123"></a>
+<a id="__codelineno-3-124" name="__codelineno-3-124" href="#__codelineno-3-124"></a>
+<a id="__codelineno-3-125" name="__codelineno-3-125" href="#__codelineno-3-125"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-3-126" name="__codelineno-3-126" href="#__codelineno-3-126"></a>    <span class="n">ap</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<a id="__codelineno-3-127" name="__codelineno-3-127" href="#__codelineno-3-127"></a>    <span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--self-test&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-128" name="__codelineno-3-128" href="#__codelineno-3-128"></a>    <span class="n">args</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+<a id="__codelineno-3-129" name="__codelineno-3-129" href="#__codelineno-3-129"></a>    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">self_test</span><span class="p">:</span>
+<a id="__codelineno-3-130" name="__codelineno-3-130" href="#__codelineno-3-130"></a>        <span class="n">self_test</span><span class="p">();</span> <span class="k">return</span>
+<a id="__codelineno-3-131" name="__codelineno-3-131" href="#__codelineno-3-131"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-3-132" name="__codelineno-3-132" href="#__codelineno-3-132"></a>        <span class="n">anti_cheat_static</span><span class="p">()</span>
+<a id="__codelineno-3-133" name="__codelineno-3-133" href="#__codelineno-3-133"></a>        <span class="n">run_pytest</span><span class="p">()</span>
+<a id="__codelineno-3-134" name="__codelineno-3-134" href="#__codelineno-3-134"></a>        <span class="n">behavioral_probes</span><span class="p">()</span>
+<a id="__codelineno-3-135" name="__codelineno-3-135" href="#__codelineno-3-135"></a>        <span class="n">two_witness</span><span class="p">()</span>
+<a id="__codelineno-3-136" name="__codelineno-3-136" href="#__codelineno-3-136"></a>    <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">TimeoutExpired</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-3-137" name="__codelineno-3-137" href="#__codelineno-3-137"></a>        <span class="n">emit</span><span class="p">(</span><span class="s2">&quot;fail&quot;</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="n">cmd</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">cmd</span><span class="p">));</span> <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">124</span><span class="p">)</span>
+<a id="__codelineno-3-138" name="__codelineno-3-138" href="#__codelineno-3-138"></a>    <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-3-139" name="__codelineno-3-139" href="#__codelineno-3-139"></a>        <span class="n">emit</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;infra&quot;</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">));</span> <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-3-140" name="__codelineno-3-140" href="#__codelineno-3-140"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PASS: all verifications succeeded&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-141" name="__codelineno-3-141" href="#__codelineno-3-141"></a>    <span class="n">emit</span><span class="p">(</span><span class="s2">&quot;pass&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;static&quot;</span><span class="p">,</span> <span class="s2">&quot;pytest&quot;</span><span class="p">,</span> <span class="s2">&quot;probes&quot;</span><span class="p">,</span> <span class="s2">&quot;two_witness&quot;</span><span class="p">])</span>
+<a id="__codelineno-3-142" name="__codelineno-3-142" href="#__codelineno-3-142"></a>
+<a id="__codelineno-3-143" name="__codelineno-3-143" href="#__codelineno-3-143"></a>
+<a id="__codelineno-3-144" name="__codelineno-3-144" href="#__codelineno-3-144"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-3-145" name="__codelineno-3-145" href="#__codelineno-3-145"></a>    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="6x-notes">6.x Notes<a class="headerlink" href="#6x-notes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Each behavioral probe runs in its own <code>subprocess.run</code> with a <code>timeout</code> — prevents an infinite loop in the SUT from hanging the verifier.</li>
+<li><code>--self-test</code> writes a known-bad <code>count_words</code> returning <code>{}</code> and asserts the verifier exits non-zero. Run this in CI before trusting the verifier.</li>
+<li>JSON verdict goes to stdout; human-readable trace goes to stderr.</li>
+</ul>
+<hr />
+<h2 id="7-anti-patterns-false-completion-modes">7. Anti-Patterns / False-Completion Modes<a class="headerlink" href="#7-anti-patterns-false-completion-modes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Cheat</th>
+<th>How the agent does it</th>
+<th>Detection idiom in verify</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lazy placeholder body</td>
+<td>Function body is <code>pass</code>, <code>...</code>, or <code>raise NotImplementedError</code></td>
+<td>AST scan §5.4 / §6 <code>anti_cheat_static()</code></td>
+</tr>
+<tr>
+<td>Hardcoded expected output</td>
+<td><code>return {"the":1,"quick":1,"brown":1,"fox":1}</code> because that's the test input</td>
+<td>Held-out input probe — run with a string the agent never saw</td>
+</tr>
+<tr>
+<td>Skipped tests</td>
+<td><code>@pytest.mark.skip</code>, <code>pytest.xfail</code>, <code>if False:</code></td>
+<td><code>grep -RnE 'pytest\.(skip|xfail)' tests/</code></td>
+</tr>
+<tr>
+<td>Trivial assertion</td>
+<td>New test: <code>assert True</code> or <code>assert 1 == 1</code></td>
+<td><code>grep -RnE 'assert\s+(True|1\s*==\s*1)' tests/</code></td>
+</tr>
+<tr>
+<td>Bare-except suppression</td>
+<td><code>try: real_logic() except: pass</code></td>
+<td><code>grep -RnE '^\s*except\s*:' src/</code></td>
+</tr>
+<tr>
+<td>Edited the verifier</td>
+<td>Agent rewrites <code>verify.sh</code> to always exit 0</td>
+<td>Orchestrator hashes verify.sh before/after run; mismatch → fail</td>
+</tr>
+<tr>
+<td>Mocks the SUT in acceptance tests</td>
+<td><code>mock.patch('src.wordcount.count_words')</code> inside an acceptance test</td>
+<td>grep for <code>mock.patch</code> targeting modules in <code>src/</code></td>
+</tr>
+<tr>
+<td>Tests depend on cached state</td>
+<td>Tests pass on second run only because <code>.pytest_cache</code> has stale data</td>
+<td>Always run with <code>-p no:cacheprovider --cache-clear</code></td>
+</tr>
+<tr>
+<td>Async coroutine never awaited</td>
+<td><code>count_words_async(x)</code> returns a coroutine the test doesn't await</td>
+<td>Run with <code>PYTHONDEVMODE=1</code>; un-awaited coroutines raise <code>RuntimeWarning</code></td>
+</tr>
+<tr>
+<td>Import-only smoke test</td>
+<td>Verifier just does <code>python -c "import src.wordcount"</code></td>
+<td>Forbid: every probe must call something AND assert its return value</td>
+</tr>
+<tr>
+<td>Scope creep</td>
+<td>Agent edits <code>src/database.py</code> to make <code>src/wordcount.py</code> tests pass</td>
+<td>Diff-scope check: <code>git diff --name-only</code> ⊆ declared files</td>
+</tr>
+<tr>
+<td>Compensating bugs</td>
+<td>Two bugs cancel each other out; tests pass</td>
+<td>Run mutation probe — delete one function body and re-run, expect failure</td>
+</tr>
+<tr>
+<td>Tests pass via monkey-patched globals</td>
+<td><code>autouse</code> fixture mutates <code>builtins.True</code> etc.</td>
+<td>Re-run a single golden assertion via <code>python -c</code> outside pytest</td>
+</tr>
+</tbody>
+</table>
+<p><code>[Sources: Aider laziness benchmark; Anthropic root-cause guidance; OpenAI Cookbook; Cognition Labs; meta-harness exploration-summary §G; research-summary §5]</code></p>
+<hr />
+<h2 id="8-adversarial-checks-concrete-recipes">8. Adversarial Checks (Concrete Recipes)<a class="headerlink" href="#8-adversarial-checks-concrete-recipes" title="Permanent link">&para;</a></h2>
+<h3 id="81-mutation-probe-would-breaking-the-code-be-detected">8.1 Mutation probe — "would breaking the code be detected?"<a class="headerlink" href="#81-mutation-probe-would-breaking-the-code-be-detected" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Delete the body of count_words; re-run verify; expect non-zero exit.</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>cp<span class="w"> </span>src/wordcount.py<span class="w"> </span>src/wordcount.py.bak
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="s2">import re, pathlib</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="s2">p = pathlib.Path(&#39;src/wordcount.py&#39;); src = p.read_text()</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="s2">src = re.sub(r&#39;def count_words\([^)]*\):\n(?:    .+\n)+&#39;, &#39;def count_words(text):\n    return {}\n&#39;, src)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="s2">p.write_text(src)</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="s2">&quot;</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="k">if</span><span class="w"> </span>bash<span class="w"> </span>verify.sh<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;MUTATION PROBE FAIL: verify passed a stub&quot;</span><span class="p">;</span><span class="w"> </span>mv<span class="w"> </span>src/wordcount.py.bak<span class="w"> </span>src/wordcount.py<span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">3</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="k">fi</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>mv<span class="w"> </span>src/wordcount.py.bak<span class="w"> </span>src/wordcount.py
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;OK: mutation probe — verify correctly catches stub&quot;</span>
+</code></pre></div>
+<h3 id="82-hardcoded-output-probe-held-out-novel-input">8.2 Hardcoded-output probe — held-out novel input<a class="headerlink" href="#82-hardcoded-output-probe-held-out-novel-input" title="Permanent link">&para;</a></h3>
+<p>The verifier asserts behavior on a string <strong>never mentioned in the task prompt or tests</strong>. Hardcoded returns fail this assertion. See §5.6 "HELD-OUT INPUT" block.</p>
+<h3 id="83-idempotency-probe">8.3 Idempotency probe<a class="headerlink" href="#83-idempotency-probe" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>bash<span class="w"> </span>verify.sh<span class="w"> </span>&gt;<span class="w"> </span>out1.txt
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>bash<span class="w"> </span>verify.sh<span class="w"> </span>&gt;<span class="w"> </span>out2.txt
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>diff<span class="w"> </span>out1.txt<span class="w"> </span>out2.txt<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;IDEMPOTENCY FAIL&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">3</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
+</code></pre></div>
+<h3 id="84-tamper-probe-verify-the-verifier">8.4 Tamper probe — verify the verifier<a class="headerlink" href="#84-tamper-probe-verify-the-verifier" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Orchestrator stores SHA256 of verify.sh before agent runs:</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nv">EXPECTED_SHA</span><span class="o">=</span><span class="s2">&quot;abc123...&quot;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nv">ACTUAL_SHA</span><span class="o">=</span><span class="k">$(</span>shasum<span class="w"> </span>-a<span class="w"> </span><span class="m">256</span><span class="w"> </span>verify.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$EXPECTED_SHA</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ACTUAL_SHA</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;TAMPER: verify.sh modified&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">3</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
+</code></pre></div>
+<h3 id="85-skip-detection-probe-collected-vs-passed">8.5 Skip-detection probe — collected vs passed<a class="headerlink" href="#85-skip-detection-probe-collected-vs-passed" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>--collect-only<span class="w"> </span>-q<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-5
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nv">collected</span><span class="o">=</span><span class="k">$(</span>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>--collect-only<span class="w"> </span>-q<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;[0-9]+ tests? collected&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-oE<span class="w"> </span><span class="s1">&#39;[0-9]+&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="k">)</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nv">passed</span><span class="o">=</span><span class="k">$(</span>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>-q<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-oE<span class="w"> </span><span class="s1">&#39;[0-9]+ passed&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-oE<span class="w"> </span><span class="s1">&#39;[0-9]+&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="k">)</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$collected</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$passed</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;SKIP DETECTED: collected=</span><span class="nv">$collected</span><span class="s2"> passed=</span><span class="nv">$passed</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">3</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
+</code></pre></div>
+<hr />
+<h2 id="9-signal-design-exit-codes-json-verdict-schema">9. Signal Design — Exit Codes &amp; JSON Verdict Schema<a class="headerlink" href="#9-signal-design-exit-codes-json-verdict-schema" title="Permanent link">&para;</a></h2>
+<h3 id="91-exit-code-conventions">9.1 Exit code conventions<a class="headerlink" href="#91-exit-code-conventions" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+<th>Orchestrator action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>PASS — all checks succeeded</td>
+<td>Mark task done</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>FAIL — real test failure or behavior assertion failed</td>
+<td>Mark task failed; show output to user</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td>INFRA_ERROR — venv install failed, missing dependency, etc.</td>
+<td>Re-run verifier (transient)</td>
+</tr>
+<tr>
+<td><code>3</code></td>
+<td>ANTI_CHEAT — placeholder body, skipped test, scope violation, tamper</td>
+<td>Mark task failed; do <strong>not</strong> retry</td>
+</tr>
+<tr>
+<td><code>124</code></td>
+<td>TIMEOUT — verifier or subprocess exceeded its budget</td>
+<td>Mark task failed; investigate</td>
+</tr>
+</tbody>
+</table>
+<h3 id="92-json-verdict-schema">9.2 JSON verdict schema<a class="headerlink" href="#92-json-verdict-schema" title="Permanent link">&para;</a></h3>
+<p>The <strong>last line</strong> of stdout is a single JSON object the orchestrator parses:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&quot;verdict&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="s2">&quot;fail&quot;</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="s2">&quot;error&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">&quot;gate&quot;</span><span class="p">:</span><span class="w">    </span><span class="s2">&quot;phase&quot;</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="s2">&quot;end&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="nt">&quot;exit&quot;</span><span class="p">:</span><span class="w">    </span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nt">&quot;duration_s&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">12.4</span><span class="p">,</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span><span class="nt">&quot;checks&quot;</span><span class="p">:</span><span class="w">  </span><span class="p">[</span><span class="s2">&quot;static&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;pytest&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;happy&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;boundary&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;failure&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;invariant&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;held-out&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;negative&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;two-witness&quot;</span><span class="p">],</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span><span class="nt">&quot;reason&quot;</span><span class="p">:</span><span class="w">  </span><span class="s2">&quot;pytest_failed&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">  </span><span class="nt">&quot;artifacts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;log&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;verify.log&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;junit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;junit.xml&quot;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="p">}</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>verdict</code></td>
+<td>enum</td>
+<td>yes</td>
+<td><code>pass</code> for exit 0, <code>fail</code> for 1/3/124, <code>error</code> for 2</td>
+</tr>
+<tr>
+<td><code>gate</code></td>
+<td>enum</td>
+<td>yes</td>
+<td><code>phase</code> (L1) or <code>end</code> (L2/L3)</td>
+</tr>
+<tr>
+<td><code>exit</code></td>
+<td>int</td>
+<td>yes</td>
+<td>mirrors process exit code</td>
+</tr>
+<tr>
+<td><code>duration_s</code></td>
+<td>number</td>
+<td>optional</td>
+<td>wall-clock seconds</td>
+</tr>
+<tr>
+<td><code>checks</code></td>
+<td>string[]</td>
+<td>optional</td>
+<td>which named probes ran</td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td>string</td>
+<td>required if <code>verdict != "pass"</code></td>
+<td>machine-readable cause</td>
+</tr>
+<tr>
+<td><code>artifacts</code></td>
+<td>object</td>
+<td>optional</td>
+<td>paths to logs / JUnit XML</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rule:</strong> Nothing else may be on the last stdout line. Human-readable progress goes to <strong>stderr</strong>. <code>[Source: research-summary §7]</code></p>
+<hr />
+<h2 id="10-decision-tree-bash-vs-python">10. Decision Tree: Bash vs Python<a class="headerlink" href="#10-decision-tree-bash-vs-python" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Need to write verify.* — which language?
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>│
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>├── Are the assertions all &quot;run a python snippet and check stdout/exit&quot;?
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>│      │
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>│      ├── YES → use BASH (verify.sh). Less ceremony, easier to read.
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>│      └── NO  → continue ↓
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>│
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>├── Do you need socket / DB / JSON-parsing / temp-file orchestration?
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>│      │
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>│      ├── YES → use PYTHON (verify.py). Bash quoting becomes painful.
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>│      └── NO  → continue ↓
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>│
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>├── Do you need cross-platform support (Windows)?
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>│      │
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>│      ├── YES → use PYTHON.
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>│      └── NO  → use BASH.
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>│
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>└── Default → BASH for ≤200 lines, PYTHON above that.
+</code></pre></div>
+<p><strong>Rationale list:</strong>
+- Bash wins on: brevity, transparent process exit codes, easy <code>grep</code>/<code>tail</code> pipelines, ubiquity in CI.
+- Python wins on: structured data, timeouts on subprocess, AST scanning, JSON output, cross-platform.
+- Hybrid (bash calls <code>python3 -c</code>) — the meta-harness default — combines both.</p>
+<hr />
+<h2 id="11-pre-done-checklist">11. Pre-"Done" Checklist<a class="headerlink" href="#11-pre-done-checklist" title="Permanent link">&para;</a></h2>
+<p>The agent runs this <strong>before</strong> declaring the task complete. Every item is a hard yes/no.</p>
+<ol>
+<li>☐ <code>verify.sh</code> (or <code>verify.py</code>) exists in the project root.</li>
+<li>☐ Verifier starts with <code>set -euo pipefail</code> (bash) or <code>try/except subprocess.TimeoutExpired</code> (python).</li>
+<li>☐ Verifier supports <code>--self-test</code> and that mode passes.</li>
+<li>☐ Verifier was run in a <strong>fresh shell</strong> (not the agent's editor process) and <strong>exit code was captured</strong>.</li>
+<li>☐ Captured exit code is <strong><code>0</code></strong>.</li>
+<li>☐ Last line of stdout is a JSON object matching §9.2 schema with <code>"verdict":"pass"</code>.</li>
+<li>☐ <code>pytest --collect-only</code> count equals <code>pytest</code> "passed" count (no silent skips).</li>
+<li>☐ AST scan reports zero placeholder function bodies in <code>src/</code>.</li>
+<li>☐ <code>grep -RnE 'pytest\.(skip|xfail)' tests/</code> returns nothing new.</li>
+<li>☐ A <strong>held-out input</strong> (one not in the prompt or tests) was asserted to produce the correct output.</li>
+<li>☐ Verifier was run <strong>twice in succession</strong>; both runs produced identical exit codes and verdicts.</li>
+<li>☐ <code>git diff --name-only</code> is a subset of the declared <code>files_in_scope</code> from §4.</li>
+</ol>
+<p>If any item is ☐ unchecked → <strong>NOT DONE</strong>. Fix and re-run.</p>
+<hr />
+<h2 id="12-worked-example-end-to-end">12. Worked Example (end-to-end)<a class="headerlink" href="#12-worked-example-end-to-end" title="Permanent link">&para;</a></h2>
+<h3 id="121-sut-srcwordcountpy">12.1 SUT — <code>src/wordcount.py</code><a class="headerlink" href="#121-sut-srcwordcountpy" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">_PUNCT</span> <span class="o">=</span> <span class="s2">&quot;,.;:!?&quot;</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">count_words</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected str, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    <span class="n">tokens</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="n">_PUNCT</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">if</span> <span class="n">t</span><span class="p">))</span>
+</code></pre></div>
+<h3 id="122-filled-spec-see-42-above">12.2 Filled spec — see §4.2 above.<a class="headerlink" href="#122-filled-spec-see-42-above" title="Permanent link">&para;</a></h3>
+<h3 id="123-verifysh-see-5-template-above-it-is-already-specialized-for-this-example">12.3 <code>verify.sh</code> — see §5 template above (it is already specialized for this example).<a class="headerlink" href="#123-verifysh-see-5-template-above-it-is-already-specialized-for-this-example" title="Permanent link">&para;</a></h3>
+<h3 id="124-verifypy-see-6-template-above-likewise">12.4 <code>verify.py</code> — see §6 template above (likewise).<a class="headerlink" href="#124-verifypy-see-6-template-above-likewise" title="Permanent link">&para;</a></h3>
+<h3 id="125-what-the-verifier-catches">12.5 What the verifier catches<a class="headerlink" href="#125-what-the-verifier-catches" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Broken impl</th>
+<th>Symptom</th>
+<th>Caught by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>def count_words(text): return {}</code> (stub)</td>
+<td>All probes fail; pytest fails</td>
+<td>§5.5 pytest, §5.6 happy path</td>
+</tr>
+<tr>
+<td><code>def count_words(text): return {"the":1,"quick":1,"brown":1,"fox":1}</code> (hardcoded for the prompt's example)</td>
+<td>Happy path passes; held-out probe fails</td>
+<td>§5.6 HELD-OUT INPUT block</td>
+</tr>
+<tr>
+<td>Tests file edited to add <code>@pytest.mark.skip</code></td>
+<td>Static scan fails</td>
+<td>§5.4 anti-cheat scan</td>
+</tr>
+<tr>
+<td><code>count_words</code> uses <code>print(...)</code> for debugging</td>
+<td>Negative probe fails</td>
+<td>§5.6 NEGATIVE block</td>
+</tr>
+<tr>
+<td><code>count_words(42)</code> returns <code>{}</code> instead of raising</td>
+<td>Failure-mode probe fails</td>
+<td>§5.6 FAILURE MODE block</td>
+</tr>
+<tr>
+<td><code>count_words</code> mutates a global <code>_seen = []</code></td>
+<td>Two-witness re-execution diverges</td>
+<td>§5.7</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13-integration-with-agent-protocols">13. Integration with Agent Protocols<a class="headerlink" href="#13-integration-with-agent-protocols" title="Permanent link">&para;</a></h2>
+<h3 id="131-claude-code-subagents">13.1 Claude Code subagents<a class="headerlink" href="#131-claude-code-subagents" title="Permanent link">&para;</a></h3>
+<p>Add to the agent's system prompt or <code>.claude/agents/&lt;name&gt;.agent.md</code>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Before declaring DONE, run `bash verify.sh` in a fresh shell; capture the exit code; abort if nonzero. Parse the last stdout line as JSON; abort if &quot;verdict&quot; != &quot;pass&quot;.
+</code></pre></div>
+Use the <code>validator</code> sub-agent (Claude Agentic Workflow) to enforce this rather than trusting the implementer.</p>
+<h3 id="132-github-copilot-cli-copilot-p-non-interactive">13.2 GitHub Copilot CLI (<code>copilot -p</code> non-interactive)<a class="headerlink" href="#132-github-copilot-cli-copilot-p-non-interactive" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>copilot<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Implement the task in PRD.md. Before declaring done, run verify.sh and exit non-zero if it fails.&quot;</span><span class="w"> </span>--yolo
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1"># Then in the wrapper script:</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>bash<span class="w"> </span>verify.sh<span class="p">;</span><span class="w"> </span><span class="nv">rc</span><span class="o">=</span><span class="nv">$?</span><span class="p">;</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$rc</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;verify failed: </span><span class="nv">$rc</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="nv">$rc</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
+</code></pre></div>
+The wrapper, not the agent, is the source of truth for exit code. <code>[Source: meta-harness COPILOT-AGENT-LEARNING.MD]</code></p>
+<h3 id="133-aider">13.3 Aider<a class="headerlink" href="#133-aider" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>aider<span class="w"> </span>--test-cmd<span class="w"> </span><span class="s2">&quot;bash verify.sh&quot;</span><span class="w"> </span>--auto-test<span class="w"> </span>src/wordcount.py
+</code></pre></div>
+Aider re-runs <code>--test-cmd</code> after every edit and feeds non-zero output back into the conversation. <code>[Source: Aider docs]</code></p>
+<h3 id="134-cursor">13.4 Cursor<a class="headerlink" href="#134-cursor" title="Permanent link">&para;</a></h3>
+<p>Add to <code>.cursor/rules</code>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Before marking any task complete, run `bash verify.sh` in the integrated terminal. If exit code is nonzero or last-line JSON verdict != &quot;pass&quot;, continue working.
+</code></pre></div></p>
+<h3 id="135-per-phase-hook-patterns">13.5 Per-phase hook patterns<a class="headerlink" href="#135-per-phase-hook-patterns" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Hook</th>
+<th>Verifier flavor</th>
+<th>What it checks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pre-commit</code></td>
+<td>L1</td>
+<td>AST scan, no placeholder bodies, no new skips</td>
+</tr>
+<tr>
+<td><code>post-implementer</code> (subagent boundary)</td>
+<td>L1</td>
+<td>Imports resolve in clean subprocess; one happy-path assertion</td>
+</tr>
+<tr>
+<td><code>post-test-writer</code></td>
+<td>L1</td>
+<td>Tests are red BEFORE implementation; turn green after</td>
+</tr>
+<tr>
+<td><code>post-task</code></td>
+<td>L2</td>
+<td>Full <code>verify.sh</code></td>
+</tr>
+<tr>
+<td><code>nightly CI</code></td>
+<td>L3</td>
+<td>All L2 + mutation probe + coverage threshold + cross-task regression</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="14-adversarial-critique-of-this-spec">14. Adversarial Critique of THIS Spec<a class="headerlink" href="#14-adversarial-critique-of-this-spec" title="Permanent link">&para;</a></h2>
+<h3 id="141-the-verifier-itself-can-be-wrong-p1-attack">14.1 The verifier itself can be wrong (P1 attack)<a class="headerlink" href="#141-the-verifier-itself-can-be-wrong-p1-attack" title="Permanent link">&para;</a></h3>
+<p><strong>Risk:</strong> A <code>verify.sh</code> with no assertions exits 0 — the canonical false-pass.
+<strong>Mitigation:</strong> §11 checklist item 7 (collected == passed) and §9 self-test mode. CI must reject any verifier whose <code>--self-test</code> does not exit non-zero. <code>[Source: research-summary §8 P1]</code></p>
+<h3 id="142-held-out-inputs-leak-via-training-data-or-cached-prompts-p2p8-attack">14.2 Held-out inputs leak via training data or cached prompts (P2/P8 attack)<a class="headerlink" href="#142-held-out-inputs-leak-via-training-data-or-cached-prompts-p2p8-attack" title="Permanent link">&para;</a></h3>
+<p><strong>Risk:</strong> If the agent has seen <code>"Goodhart law applies here, here, and here."</code> before, the held-out probe is no longer held out.
+<strong>Mitigation:</strong> Rotate the held-out input per task. Generate it from <code>secrets.token_hex(8)</code> at task creation time and store the expected output in a file the agent cannot read. <code>[Source: research-summary §8 P8]</code></p>
+<h3 id="143-per-phase-gates-fragment-the-task-agent-games-each-gate-locally-p3-attack">14.3 Per-phase gates fragment the task; agent games each gate locally (P3 attack)<a class="headerlink" href="#143-per-phase-gates-fragment-the-task-agent-games-each-gate-locally-p3-attack" title="Permanent link">&para;</a></h3>
+<p><strong>Risk:</strong> The agent satisfies each L1 gate while producing globally incoherent code (Cognition Labs' "subagent 1 built Mario, subagent 2 built Flappy Bird" failure).
+<strong>Mitigation:</strong> Every L1 gate also re-asserts a global invariant — e.g. "all modules in <code>src/</code> still import together as a package." <code>[Source: research-summary §8 P3; Cognition Labs]</code></p>
+<h3 id="144-anti-cheat-probes-flag-legitimate-code-p4-attack">14.4 Anti-cheat probes flag legitimate code (P4 attack)<a class="headerlink" href="#144-anti-cheat-probes-flag-legitimate-code-p4-attack" title="Permanent link">&para;</a></h3>
+<p><strong>Risk:</strong> A real <code>try/except SpecificError: log_and_recover()</code> gets flagged as suppression. A real <code>pass</code> in an abstract base class method is correct.
+<strong>Mitigation:</strong> AST scan only flags <code>bare except:</code> and <code>pass</code>-only bodies in <strong>non-abstract</strong> functions (check for <code>@abstractmethod</code> decorator). Maintain a per-project allowlist. <code>[Source: research-summary §8 P4]</code></p>
+<h3 id="145-two-witness-rule-reduces-to-single-witness-when-both-share-a-broken-oracle-p5-attack">14.5 Two-witness rule reduces to single witness when both share a broken oracle (P5 attack)<a class="headerlink" href="#145-two-witness-rule-reduces-to-single-witness-when-both-share-a-broken-oracle-p5-attack" title="Permanent link">&para;</a></h3>
+<p><strong>Risk:</strong> Both subprocesses parse a config the same wrong way; both agree the broken behavior is correct.
+<strong>Mitigation:</strong> The second witness compares against a <strong>literal</strong> expected-output file committed to the repo, not against generated logic. <code>[Source: research-summary §8 P5]</code></p>
+<h3 id="146-verifier-hermeticity-is-too-expensive-teams-cache-it-cache-rots">14.6 Verifier hermeticity is too expensive; teams cache it; cache rots<a class="headerlink" href="#146-verifier-hermeticity-is-too-expensive-teams-cache-it-cache-rots" title="Permanent link">&para;</a></h3>
+<p><strong>Risk:</strong> <code>python -m venv .verify-venv</code> adds 30+ seconds per run; teams reuse the venv; system Python upgrade breaks the lockfile silently.
+<strong>Mitigation:</strong> Hash <code>requirements.txt</code> + Python version into the venv name; rebuild when hash changes. <code>[Source: research-summary §8 P7]</code></p>
+<h3 id="147-spec-assumes-python-many-real-projects-mix-languages">14.7 Spec assumes Python; many real projects mix languages<a class="headerlink" href="#147-spec-assumes-python-many-real-projects-mix-languages" title="Permanent link">&para;</a></h3>
+<p><strong>Risk:</strong> A Python project with a Rust extension or a TypeScript frontend has verification surface this spec doesn't cover.
+<strong>Mitigation:</strong> §3 levels generalize; §5 template needs a language-specific anti-cheat block (e.g. <code>cargo clippy -- -D warnings</code>, <code>tsc --noEmit</code>). Future work.</p>
+<hr />
+<h2 id="15-sources-further-reading">15. Sources &amp; Further Reading<a class="headerlink" href="#15-sources-further-reading" title="Permanent link">&para;</a></h2>
+<h3 id="external-research-research-summarymd">External research (research-summary.md)<a class="headerlink" href="#external-research-research-summarymd" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Source</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S1</td>
+<td>Anthropic — <em>Claude Code Best Practices</em></td>
+<td>https://www.anthropic.com/engineering/claude-code-best-practices</td>
+</tr>
+<tr>
+<td>S2</td>
+<td>Anthropic — <em>Building Effective Agents</em></td>
+<td>https://www.anthropic.com/engineering/building-effective-agents</td>
+</tr>
+<tr>
+<td>S3</td>
+<td>Anthropic — <em>Claude Code Best Practices</em> (root-cause section)</td>
+<td>(same as S1)</td>
+</tr>
+<tr>
+<td>S4</td>
+<td>Aider — <em>Unified Diffs / laziness benchmark</em></td>
+<td>https://aider.chat/docs/unified-diffs.html</td>
+</tr>
+<tr>
+<td>S5</td>
+<td>Aider — <em>SWE-bench Lite result</em></td>
+<td>https://aider.chat/2024/05/22/swe-bench-lite.html</td>
+</tr>
+<tr>
+<td>S6</td>
+<td>SWE-bench / SWE-bench Verified leaderboard</td>
+<td>https://www.swebench.com/</td>
+</tr>
+<tr>
+<td>S7</td>
+<td>OpenAI Cookbook — <em>Getting started with OpenAI Evals</em></td>
+<td>https://cookbook.openai.com/examples/evaluation/getting_started_with_openai_evals</td>
+</tr>
+<tr>
+<td>S8</td>
+<td>OpenAI Cookbook — <em>How to eval abstractive summarization (G-Eval)</em></td>
+<td>https://cookbook.openai.com/examples/evaluation/how_to_eval_abstractive_summarization</td>
+</tr>
+<tr>
+<td>S9</td>
+<td>Cognition Labs — <em>Don't build multi-agents</em></td>
+<td>https://cognition.ai/blog/dont-build-multi-agents</td>
+</tr>
+<tr>
+<td>S10</td>
+<td>GitHub Docs — <em>Best practices for Copilot coding agent tasks</em></td>
+<td>https://docs.github.com/en/copilot/using-github-copilot/coding-agent/best-practices-for-using-copilot-to-work-on-tasks</td>
+</tr>
+<tr>
+<td>S11</td>
+<td>Anthropic Docs — <em>Claude Agent SDK overview</em></td>
+<td>https://docs.claude.com/en/docs/agents-and-tools/agent-sdk/overview</td>
+</tr>
+</tbody>
+</table>
+<h3 id="meta-harness-internal-references">Meta-harness internal references<a class="headerlink" href="#meta-harness-internal-references" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>AUTO-RULE.MD</code> — task execution protocol (phases 0–6, hard gate on AUTO-RULE.MD read)</li>
+<li><code>plans/design-decisions/DD-003-verify-sh-hardening.md</code> — 5+ assertion standard, rationale</li>
+<li><code>benchmark/search_set/task_305/verify.sh</code> — rule engine — multi-rule chaining + retraction + snapshot isolation idioms</li>
+<li><code>benchmark/search_set/task_309/verify.sh</code> — tiered cache — write-back, TTL fall-through, stats edge case</li>
+<li><code>benchmark/search_set/task_401/verify.sh</code> — job queue — end-to-end priority + retry chain (bug-fix flavor)</li>
+<li><code>scripts/pcr_scorer.py</code> + <code>scripts/pcr_signals*.py</code> — signal design (10 signals, weights summing to 1.0)</li>
+<li><code>findings/benchmark-design-log.md</code> — false-completion case studies (task_109 lenient verify)</li>
+<li><code>findings/loop-enhancement-log.md</code> — basename fix for path-prefix scope-violation false positives</li>
+<li><code>SOP-FEATUREBENCH.MD</code> — task creation standard (no stubs, ≥5 assertions)</li>
+<li><code>PRD.md</code> — Phase 2 reliability roadmap (holdout set, anti-overfitting)</li>
+</ul>
+<hr />
+<p><em>End of specification — v1.0.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.footer", "content.code.copy", "toc.integrate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../assets/javascripts/nav-accordion.js"></script>
+      
+        <script src="../../../assets/javascripts/panzoom.min.js"></script>
+      
+        <script src="../../../assets/javascripts/zoompan.js"></script>
+      
+    
+  </body>
+</html>

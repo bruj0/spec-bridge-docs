@@ -1,0 +1,2169 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Deterministic validation harness for AI agent skill execution">
+      
+      
+      
+        <link rel="canonical" href="https://bruj0.github.io/spec-bridge-docs/01-synthesis-driven-development/">
+      
+      
+        <link rel="prev" href="../00-software-architecture-guidelines/">
+      
+      
+        <link rel="next" href="../02-sydd-methodology-and-implementation/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Synthesis-Driven Development - spec-bridge-v2 Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/panzoom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <meta name="panzoom-theme" content="material">
+<meta name="panzoom-data" content='{"selectors": [".mermaid", ".d2"], "initial_zoom_level": 1.0}'> </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#synthesis-driven-development-sydd" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="spec-bridge-v2 Docs" class="md-header__button md-logo" aria-label="spec-bridge-v2 Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3zm-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spec-bridge-v2 Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Synthesis-Driven Development
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="spec-bridge-v2 Docs" class="md-nav__button md-logo" aria-label="spec-bridge-v2 Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3zm-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4z"/></svg>
+
+    </a>
+    spec-bridge-v2 Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-software-architecture-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software Architecture Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synthesis-Driven Development
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synthesis-Driven Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#applying-the-synthesis-of-form-to-specification-driven-software-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applying the Synthesis of Form to Specification-Driven Software Design
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-sydd-methodology-and-implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SyDD Methodology and Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture (C4)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture (C4)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/1-project-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/2-architecture-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/3-workflow-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Dive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/4-deep-dive/skill-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/4-deep-dive/core-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Module
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/4-deep-dive/adapter-and-init/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adapter and Init
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADRs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADRs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0001-spec-bridge-skill-tool-as-separate-binary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0001 spec-bridge-skill-tool as separate binary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0002-two-responsibility-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0002 Two-responsibility model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0003-skill-module-isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0003 Skill module isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0004-schema-first-artifact-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0004 Schema-first artifact design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0005-spec-bridge-conf-single-configuration-source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0005 spec-bridge.conf single configuration source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0006-structured-stdout-only-output/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0006 Structured stdout-only output
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0007-adapter-pattern-for-agent-specific-file-generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0007 Adapter pattern for agent-specific file generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research/aperant-prompts-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aperant Prompts Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="synthesis-driven-development-sydd">Synthesis-Driven Development (SyDD)<a class="headerlink" href="#synthesis-driven-development-sydd" title="Permanent link">&para;</a></h1>
+<h2 id="applying-the-synthesis-of-form-to-specification-driven-software-design">Applying the Synthesis of Form to Specification-Driven Software Design<a class="headerlink" href="#applying-the-synthesis-of-form-to-specification-driven-software-design" title="Permanent link">&para;</a></h2>
+<hr />
+<h1 id="part-1-the-design-principle">Part 1: The Design Principle<a class="headerlink" href="#part-1-the-design-principle" title="Permanent link">&para;</a></h1>
+<h2 id="11-the-power-inversion">1.1 The Power Inversion<a class="headerlink" href="#11-the-power-inversion" title="Permanent link">&para;</a></h2>
+<p>For decades, code has been king. Specifications served code -- they were scaffolding we built and discarded once the "real work" of coding began. We wrote PRDs to guide development, created design docs to inform implementation, drew diagrams to visualize architecture. But these were always subordinate to the code itself. Code was truth. Everything else was, at best, good intentions.</p>
+<p>Synthesis-Driven Development inverts this power structure. Specifications do not serve code -- code serves specifications. The specification is not a guide for implementation; it is the source that generates implementation. Technical plans are not documents that inform coding; they are precise definitions that produce code. This is not an incremental improvement to how we build software. It is a fundamental rethinking of what drives development.</p>
+<p>The gap between specification and implementation has plagued software development since its inception. We have tried to bridge it with better documentation, more detailed requirements, stricter processes. These approaches fail because they accept the gap as inevitable. They try to narrow it but never eliminate it. SyDD eliminates the gap by making specifications and their concrete implementation plans executable. When specifications and implementation plans generate code, there is no gap -- only transformation.</p>
+<p>This transformation is now possible because AI can understand and implement complex specifications. But raw AI generation without structure produces chaos. SyDD provides that structure through a rigorous methodology grounded in Christopher Alexander's <em>Notes on the Synthesis of Form</em> (1964) -- a mathematical framework for decomposing complex design problems into independently solvable subsystems.</p>
+<p>In this new world, maintaining software means evolving specifications. The intent of the development team is expressed in natural language ("intent-driven development"), design assets, core principles, and other guidelines. The lingua franca of development moves to a higher level, and code is the last-mile artifact.</p>
+<hr />
+<h2 id="12-why-alexanders-synthesis-of-form">1.2 Why Alexander's Synthesis of Form<a class="headerlink" href="#12-why-alexanders-synthesis-of-form" title="Permanent link">&para;</a></h2>
+<p>Christopher Alexander identified a fundamental problem that applies directly to software design:</p>
+<p><strong>Selfconscious designers invent arbitrary categories that misrepresent problem structure.</strong></p>
+<p>Software architects do this constantly. We organize systems around categories like "frontend/backend", "controllers/services/repositories", or "microservice boundaries" that feel natural to us but may not correspond to how requirements actually interact. Alexander calls these arbitrary groupings "concepts" -- intensionally defined (by meaning we assign) rather than extensionally defined (by the actual requirements they cover).</p>
+<p>The result: systems whose structure fits the designer's mental model instead of the problem's actual structure. Components that should be together are split. Components that should be independent are entangled. The system "fits poorly" in Alexander's terms.</p>
+<p>Alexander's fix is methodical:</p>
+<ol>
+<li><strong>List every way a design can fail</strong> (misfit variables) -- not what the system should do, but how it could fail to satisfy its environment.</li>
+<li><strong>Map which failures affect each other</strong> (interaction graph) -- build a graph G(M,L) where M is misfits and L is their causal links.</li>
+<li><strong>Decompose that graph into semi-independent clusters</strong> -- find natural groupings where internal interactions are dense and external interactions are weak.</li>
+<li><strong>Create a constructive diagram per cluster</strong> (pattern) -- a description that simultaneously captures what the requirements demand and what physical form satisfies them.</li>
+</ol>
+<p>The clusters can be mixed, matched, and improved independently. The design's structure mirrors the problem's structure, not whatever categories the designer invented.</p>
+<h3 id="the-subsystem-argument">The Subsystem Argument<a class="headerlink" href="#the-subsystem-argument" title="Permanent link">&para;</a></h3>
+<p>Alexander demonstrates with a lights analogy: 100 independent lights reach equilibrium in 2 seconds. 100 fully coupled lights take 10^22 years. But 10 subsystems of 10 lights each take only 15 minutes.</p>
+<p>No complex adaptive system succeeds unless adaptation proceeds subsystem by subsystem. This is the mathematical heart of decomposition: when we identify the natural subsystem boundaries in a problem, we reduce the solution space from intractable to manageable.</p>
+<p>Traditional software design ("selfconscious" in Alexander's terms) fails because its arbitrary categories break subsystem boundaries that should be preserved. Requirements that interact strongly end up in different modules. Requirements with no interaction share a module. The result is coupling where there should be cohesion, and fragmentation where there should be unity.</p>
+<h3 id="from-architecture-to-software">From Architecture to Software<a class="headerlink" href="#from-architecture-to-software" title="Permanent link">&para;</a></h3>
+<p>In Alexander's domain, the "Form" is a physical building and the "Context" is everything that makes demands on it (climate, social practices, materials, regulations). Good fit means the absence of identifiable misfits between form and context.</p>
+<p>In software, the mapping is direct:</p>
+<table>
+<thead>
+<tr>
+<th>Alexander's Concept</th>
+<th>Software Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Context</td>
+<td>The environment the software operates in: users, external systems, business rules, constraints, data flows</td>
+</tr>
+<tr>
+<td>Form</td>
+<td>The software system: its architecture, modules, APIs, data models</td>
+</tr>
+<tr>
+<td>Misfit</td>
+<td>A way the software can fail to satisfy its context: a use case not supported, a constraint violated, a failure mode unhandled</td>
+</tr>
+<tr>
+<td>Ensemble</td>
+<td>The combined system of software + environment -- misfits describe properties of this ensemble, not of the software alone</td>
+</tr>
+<tr>
+<td>Constructive Diagram</td>
+<td>A design pattern that simultaneously resolves a cluster of misfits and implies a module structure</td>
+</tr>
+<tr>
+<td>Program (Decomposition)</td>
+<td>The hierarchy of subsystems derived from misfit interaction analysis</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13-the-sydd-workflow">1.3 The SyDD Workflow<a class="headerlink" href="#13-the-sydd-workflow" title="Permanent link">&para;</a></h2>
+<p>SyDD organizes the development lifecycle into five phases that mirror Alexander's method. Each phase has a precise input, output, and transformation rule.</p>
+<h3 id="phase-1-context-gathering-the-universe">Phase 1: Context Gathering (The Universe)<a class="headerlink" href="#phase-1-context-gathering-the-universe" title="Permanent link">&para;</a></h3>
+<p><em>"To bake a pie first you must create the universe" -- Carl Sagan</em></p>
+<p>Systems do not exist in a vacuum. They interact with other systems, with users, and with business processes. These interactions define the behavior of the system's subsystems. The first phase defines what these interactions are and what outcomes they demand.</p>
+<p><strong>Input</strong>: An idea -- often vague and incomplete.</p>
+<p><strong>Process</strong>: Through iterative dialogue, the idea becomes a comprehensive understanding of the system's context:</p>
+<ul>
+<li><strong>Use Cases</strong>: What the system must enable. Each use case describes an interaction between the system and its environment. Use cases define the "Context" in Alexander's terms.</li>
+<li><strong>Misfits</strong>: Every identifiable way the system can fail to satisfy its context. Not what the system should do, but how it could fail. Misfits are binary variables: either the system handles the situation (fit) or it does not (misfit). This is a negative definition -- good design is the absence of all identifiable misfits.</li>
+<li><strong>Constraints</strong>: Non-functional requirements, organizational policies, technology standards, performance thresholds. These are permanent misfits -- the system must never violate them.</li>
+<li><strong>Assumptions</strong>: Conditions assumed to be true that, if false, would change the design.</li>
+</ul>
+<p><strong>Output</strong>: A specification document (spec.md) containing use cases, misfits, constraints, assumptions, scope, and success criteria.</p>
+<p><strong>Key insight</strong>: Misfits are more actionable than requirements. "The system must handle payment failures gracefully" is vague. "Misfit: Payment fails but the order is sent to the restaurant's kitchen" is precise -- it describes a specific failure, involves specific subsystems, and has a testable resolution.</p>
+<h3 id="phase-2-decomposition-the-program">Phase 2: Decomposition (The Program)<a class="headerlink" href="#phase-2-decomposition-the-program" title="Permanent link">&para;</a></h3>
+<p><strong>Input</strong>: The specification with its use cases and misfits.</p>
+<p><strong>Process</strong>: Analyze interactions between misfits to discover the problem's natural structure:</p>
+<ol>
+<li>
+<p><strong>Build the interaction graph</strong>: For each pair of misfits, determine whether resolving one forces changes to the resolution of the other. If yes, they are linked. The result is a graph G(M,L) where M is the set of misfits and L is the set of links.</p>
+</li>
+<li>
+<p><strong>Identify subsystem boundaries</strong>: Group misfits into clusters where:</p>
+</li>
+<li><strong>Internal interactions are dense</strong> -- misfits within a cluster strongly affect each other</li>
+<li><strong>External interactions are sparse</strong> -- misfits in different clusters are largely independent</li>
+</ol>
+<p>These clusters are the natural subsystems. Their boundaries emerge from the problem itself, not from the designer's arbitrary categories.</p>
+<ol>
+<li><strong>Define the hierarchy</strong>: Subsystems may themselves decompose into sub-subsystems. The result is a tree -- Alexander's "program" -- that tells the designer which requirements to address together.</li>
+</ol>
+<p><strong>Output</strong>: A decomposition section in the plan document showing subsystem boundaries, their justification (which misfits interact), and the hierarchy.</p>
+<p><strong>Key insight</strong>: The decomposition is derived from the problem, not imposed by the designer. If "payment failure" and "inventory check" strongly interact (because a failed payment must reverse an inventory hold), they belong in the same subsystem. If "delivery address validation" has zero interaction with either, it belongs in a separate subsystem. The designer does not decide this -- the interaction graph reveals it.</p>
+<h3 id="phase-3-design-constructive-diagrams">Phase 3: Design (Constructive Diagrams)<a class="headerlink" href="#phase-3-design-constructive-diagrams" title="Permanent link">&para;</a></h3>
+<p><strong>Input</strong>: The decomposition tree with its subsystem boundaries.</p>
+<p><strong>Process</strong>: For each subsystem, create a design that simultaneously expresses what the requirements demand and what software structure satisfies them. Alexander calls these "constructive diagrams." In software terms, they are:</p>
+<ul>
+<li><strong>Abstract Components</strong>: Each subsystem produces a group of abstract components. Components within a subsystem have high internal coupling (they strongly affect each other) and low external coupling (they weakly affect other subsystems). Each abstract component:</li>
+<li>Owns a set of behaviors (functionality)</li>
+<li>Owns a set of entities (data models)</li>
+<li>
+<p>Has a defined boundary (API, interface, protocol)</p>
+</li>
+<li>
+<p><strong>Inter-system Contracts</strong>: Where subsystems must interact, define explicit contracts that govern the interaction. Contracts specify what flows between subsystems, not how subsystems implement their internals. The contract is the only permitted coupling between subsystems.</p>
+</li>
+</ul>
+<p><strong>Output</strong>: A plan document (plan.md) containing abstract components per subsystem, their entities and behaviors, inter-system contracts, and the technical decisions that support them.</p>
+<p><strong>Key insight</strong>: The constructive diagram has a dual function -- it is simultaneously a requirement diagram (what must be achieved) and a form diagram (what structure achieves it). A good abstract component is specific enough to satisfy its misfits but general enough to represent all valid implementations. It resists the verbal preconceptions that plague selfconscious design.</p>
+<h3 id="phase-4-synthesis-tasks-and-implementation">Phase 4: Synthesis (Tasks and Implementation)<a class="headerlink" href="#phase-4-synthesis-tasks-and-implementation" title="Permanent link">&para;</a></h3>
+<p><strong>Input</strong>: The plan with its abstract components and inter-system contracts.</p>
+<p><strong>Process</strong>: Transform abstract components into concrete implementations. This is the actual code generation phase:</p>
+<ul>
+<li><strong>Work Packages</strong>: Each abstract component (or small group of related components) becomes one or more work packages. The WP inherits the component's misfits as its acceptance criteria.</li>
+<li><strong>TDD Against Misfits</strong>: For each misfit assigned to a component, write a test that reproduces the misfit condition and verify the implementation eliminates it. The misfits become test cases directly.</li>
+<li><strong>Contract Implementation</strong>: Inter-system contracts are implemented as APIs, schemas, event contracts, or protocol interfaces. The implementation must not create interactions between subsystems that are not defined in the plan or modify how they interact.</li>
+<li><strong>Data Model Realization</strong>: Entities defined in the abstract components become concrete data models, migrations, and storage schemas.</li>
+</ul>
+<p><strong>Output</strong>: tasks.md with work packages, execution schedule, and individual WP prompt files. Implementation code in isolated worktrees.</p>
+<p><strong>Key insight</strong>: The tasks phase must not violate the decomposition. A work package must not create coupling between subsystems that the decomposition identified as independent. A work package must not split logic that the decomposition identified as belonging together. The decomposition is the structural contract; the tasks phase is the synthesis that respects it.</p>
+<h3 id="phase-5-verification-review-accept-merge">Phase 5: Verification (Review, Accept, Merge)<a class="headerlink" href="#phase-5-verification-review-accept-merge" title="Permanent link">&para;</a></h3>
+<p><strong>Input</strong>: Implemented work packages in isolated worktrees.</p>
+<p><strong>Process</strong>: Verify that the implementation achieves the specification's goals:</p>
+<ul>
+<li><strong>Review</strong>: Check that each WP's implementation resolves its assigned misfits, respects inter-system contracts, and does not introduce new misfits.</li>
+<li><strong>Accept</strong>: Verify all WPs for a feature are complete, all acceptance criteria pass, and the feature artifacts (spec.md, plan.md, tasks.md) are consistent.</li>
+<li><strong>Merge</strong>: Compose the subsystem implementations into the target branch. Since subsystems are semi-independent by construction, composition should be mechanical rather than creative.</li>
+</ul>
+<p><strong>Output</strong>: Merged, verified feature on the target branch.</p>
+<p><strong>Key insight</strong>: Because the decomposition mirrors the problem's structure, review is tractable. Each subsystem can be reviewed against its own misfits without understanding the entire system. Merge conflicts between subsystems indicate a decomposition failure -- the subsystems were not as independent as claimed.</p>
+<hr />
+<h2 id="14-core-principles">1.4 Core Principles<a class="headerlink" href="#14-core-principles" title="Permanent link">&para;</a></h2>
+<p><strong>1. Misfits Over Requirements</strong>: Define how the system can fail before defining what it should do. Misfits are concrete, testable, and reveal subsystem boundaries. Requirements are abstract and hide coupling.</p>
+<p><strong>2. Problem-Derived Structure</strong>: The system's architecture must mirror the problem's structure, not the designer's mental model. Subsystem boundaries emerge from misfit interaction analysis, not from arbitrary categories like "frontend/backend" or "service A/service B."</p>
+<p><strong>3. Dense Internal, Sparse External</strong>: Every architectural unit (module, service, component) must have strong internal coupling (its parts strongly affect each other) and weak external coupling (it weakly affects other units). This is Alexander's decomposition criterion, and it is the fundamental test of good architecture.</p>
+<p><strong>4. Constructive Diagrams as Dual Descriptions</strong>: Every design element must simultaneously express what is required and what structure satisfies the requirement. A design that specifies behavior without implying structure is incomplete. A structure without traceable requirements is arbitrary.</p>
+<p><strong>5. Specifications as the Lingua Franca</strong>: The specification is the primary artifact. Code is its expression in a particular language and framework. Maintaining software means evolving specifications. Debugging means fixing specifications and plans that generate incorrect code.</p>
+<p><strong>6. Hierarchical Decomposition</strong>: Complex systems decompose recursively. A subsystem may itself be a system of sub-subsystems. The process is self-similar: context, misfits, decomposition, constructive diagrams, synthesis -- at every level.</p>
+<p><strong>7. Continuous Refinement</strong>: Production reality informs specification evolution. Metrics, incidents, and operational learnings become new misfits that trigger the next iteration. The methodology is not waterfall -- it is a continuous cycle of specification, decomposition, synthesis, and feedback.</p>
+<p><strong>8. Executable Specifications</strong>: Specifications and their implementation plans must be precise, complete, and unambiguous enough to generate working systems. The gap between intent and implementation is eliminated through transformation, not translation.</p>
+<hr />
+<h2 id="15-worked-example-food-delivery-checkout-api">1.5 Worked Example: Food Delivery Checkout API<a class="headerlink" href="#15-worked-example-food-delivery-checkout-api" title="Permanent link">&para;</a></h2>
+<p>This example demonstrates the full SyDD workflow applied to a concrete system.</p>
+<h3 id="context-gathering">Context Gathering<a class="headerlink" href="#context-gathering" title="Permanent link">&para;</a></h3>
+<p><strong>Use Cases:</strong>
+- UC1: A customer submits a list of food items they want to buy.
+- UC2: The system securely charges the customer's credit card.
+- UC3: The restaurant receives the order immediately to start cooking.
+- UC4: The system calculates accurate delivery fees based on the user's location.</p>
+<p><strong>Misfits (How the system can fail its context):</strong>
+- Misfit A (Data Integrity): The user submits an order with zero items or a negative total cost.
+- Misfit B (Inventory): The user orders an item that sold out while they were browsing.
+- Misfit C (Financial/State): The payment fails, but the order is still sent to the restaurant's kitchen.
+- Misfit D (Logistics): The delivery address is outside the restaurant's allowed radius.
+- Misfit E (Concurrency): Two users order the last unit of an item simultaneously; both orders are accepted.
+- Misfit F (Idempotency): A network timeout causes the client to retry, creating a duplicate charge.</p>
+<h3 id="decomposition">Decomposition<a class="headerlink" href="#decomposition" title="Permanent link">&para;</a></h3>
+<p><strong>Interaction analysis:</strong>
+- Misfit A (Data Integrity) and Misfit B (Inventory) are highly linked -- both involve validating the contents and availability of items in the cart. Resolving B (inventory check) requires touching the same validation pipeline as A.
+- Misfit C (Financial) and Misfit D (Logistics) have near-zero interaction. A declined credit card has nothing to do with whether a shipping address is valid.
+- Misfit E (Concurrency) is linked to B (Inventory) -- both involve item availability state.
+- Misfit F (Idempotency) is linked to C (Financial) -- both involve payment state management.</p>
+<p><strong>Subsystem boundaries (derived from interaction graph):</strong></p>
+<ol>
+<li><strong>Order Subsystem</strong> [Misfits A, B, E]: Handles item validation, cart totals, and inventory checks. The concurrency misfit (E) lives here because it interacts with inventory state.</li>
+<li><strong>Payment Subsystem</strong> [Misfits C, F]: Handles credit card validation, charging, and financial state. The idempotency misfit (F) lives here because it interacts with payment state.</li>
+<li><strong>Logistics Subsystem</strong> [Misfit D]: Handles address verification and delivery fee calculation.</li>
+</ol>
+<h3 id="constructive-diagrams-abstract-components">Constructive Diagrams (Abstract Components)<a class="headerlink" href="#constructive-diagrams-abstract-components" title="Permanent link">&para;</a></h3>
+<p><strong>Order Subsystem:</strong>
+- Abstract Components: CartValidator, InventoryChecker, OrderAssembler
+- Entities: CartItem, Order, InventoryRecord
+- Behaviors: validate cart contents, check item availability with pessimistic locking, assemble order from validated cart
+- Internal coupling: CartValidator must check InventoryChecker before OrderAssembler runs</p>
+<p><strong>Payment Subsystem:</strong>
+- Abstract Components: PaymentProcessor, IdempotencyGuard, TransactionLog
+- Entities: PaymentIntent, Transaction, IdempotencyKey
+- Behaviors: create payment intent, verify idempotency key before charging, log transaction state
+- Internal coupling: IdempotencyGuard must approve before PaymentProcessor charges</p>
+<p><strong>Inter-system Contract: Order -&gt; Payment:</strong>
+- The Order Subsystem produces a validated OrderReceipt (items confirmed available, totals computed).
+- The Payment Subsystem consumes the OrderReceipt and returns a PaymentResult (success/failure).
+- If PaymentResult is failure, Order Subsystem releases inventory holds.
+- This contract is the only permitted coupling between Order and Payment.</p>
+<p><strong>Inter-system Contract: Order -&gt; Logistics:</strong>
+- The Order Subsystem provides a DeliveryRequest (delivery address, restaurant location).
+- The Logistics Subsystem returns a DeliveryFeeResult (fee amount, or rejection with reason).
+- This happens before OrderAssembler finalizes the order.</p>
+<h3 id="synthesis">Synthesis<a class="headerlink" href="#synthesis" title="Permanent link">&para;</a></h3>
+<p>Work packages map directly to abstract components:
+- WP01: CartValidator + InventoryChecker (Misfits A, B, E) -- TDD: test empty cart rejection, sold-out item detection, concurrent reservation conflict
+- WP02: PaymentProcessor + IdempotencyGuard (Misfits C, F) -- TDD: test payment failure does not trigger kitchen notification, test duplicate charge prevention
+- WP03: Logistics address validation (Misfit D) -- TDD: test out-of-radius rejection
+- WP04: Inter-system contracts (Order-&gt;Payment, Order-&gt;Logistics) -- TDD: test contract compliance, test failure propagation</p>
+<p>The misfits were eliminated at the structural level by the decomposition. The resulting software fits its required environment without unnecessary complexity.</p>
+<hr />
+<h1 id="part-2-implementation-via-spec-bridge-v2-skills">Part 2: Implementation via spec-bridge-v2 Skills<a class="headerlink" href="#part-2-implementation-via-spec-bridge-v2-skills" title="Permanent link">&para;</a></h1>
+<p>This section maps the SyDD methodology to concrete changes in the spec-bridge-v2 skill architecture. Each subsection describes what changes to the skill's template, contract (<code>SkillOutputContract</code>), and validation logic are required.</p>
+<p>The reference implementations are specs <code>042-spec-bridge-commands-as-cursor-skills</code> and <code>043-modular-skill-aligned-cli-refactor</code>, which demonstrate what well-formed SDD output looks like across spec.md, plan.md, tasks.md, and WP files.</p>
+<hr />
+<h2 id="21-current-skill-architecture">2.1 Current Skill Architecture<a class="headerlink" href="#21-current-skill-architecture" title="Permanent link">&para;</a></h2>
+<p>spec-bridge-v2 has 7 skill modules plus an <code>init</code> command:</p>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Produces</th>
+<th>Key Validations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>specify</code></td>
+<td>spec.md</td>
+<td>Frontmatter + body sections + placeholder count</td>
+</tr>
+<tr>
+<td><code>plan</code></td>
+<td>plan.md</td>
+<td>Template filled + technical section</td>
+</tr>
+<tr>
+<td><code>tasks</code></td>
+<td>tasks.md, tasks/WP*.md, execution-schedule.json</td>
+<td>WP frontmatter + schedule schema</td>
+</tr>
+<tr>
+<td><code>implement</code></td>
+<td>(modifies WP frontmatter)</td>
+<td>WP lane=doing, agent, history, worktree exists</td>
+</tr>
+<tr>
+<td><code>review</code></td>
+<td>(modifies WP frontmatter)</td>
+<td>WP lane=for_review, review_status, reviewed_by</td>
+</tr>
+<tr>
+<td><code>accept</code></td>
+<td>(modifies WP frontmatter)</td>
+<td>WP lane=done, Activity Log, spec/plan/tasks exist</td>
+</tr>
+<tr>
+<td><code>merge</code></td>
+<td>(feature-level)</td>
+<td>All WP lane=done, worktrees removed</td>
+</tr>
+</tbody>
+</table>
+<p>Each skill has two layers: the <strong>skill layer</strong> (AI agent instructions, template, workflow intent) and the <strong>CLI layer</strong> (deterministic validation, outcome verification via <code>SkillOutputContract</code>).</p>
+<hr />
+<h2 id="22-skill-modifications">2.2 Skill Modifications<a class="headerlink" href="#22-skill-modifications" title="Permanent link">&para;</a></h2>
+<h3 id="221-specify-skill-add-context-and-misfits">2.2.1 <code>specify</code> Skill -- Add Context and Misfits<a class="headerlink" href="#221-specify-skill-add-context-and-misfits" title="Permanent link">&para;</a></h3>
+<p>The specify skill currently produces a spec.md with User Scenarios, Requirements, Key Entities, Success Criteria, Assumptions, and Out of Scope. The SyDD methodology requires explicit context gathering and misfit identification as the foundation for all downstream work.</p>
+<p><strong>Template changes</strong> (modify <code>skills/specify/template.md</code>):</p>
+<p>Add two new mandatory sections and restructure the flow. The template should guide the AI agent toward Alexander-style context gathering rather than traditional requirements listing.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gh"># Feature Specification: [TODO: Feature Name]</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gs">**Feature Branch**</span>: <span class="sb">`[TODO: ###-feature-name]`</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="gs">**Created**</span>: [TODO: YYYY-MM-DD]
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="gs">**Status**</span>: Draft
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>---
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="gu">## Context *(mandatory)*</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="gu">### System Interactions</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>[TODO: Describe the environment the software operates in. Who and what
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>interacts with this system? List external systems, user roles, data flows,
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>and business processes that make demands on the system.]
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="gu">### Use Cases</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>[TODO: Each use case describes a specific interaction between the system and
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>its environment. Use the format: UC#: Actor + Action + Expected Outcome]
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="k">-</span><span class="w"> </span><span class="gs">**UC1**</span>: [TODO: actor] [TODO: action] [TODO: outcome]
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="k">-</span><span class="w"> </span><span class="gs">**UC2**</span>: [TODO: actor] [TODO: action] [TODO: outcome]
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>---
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="gu">## Misfits *(mandatory)*</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>[TODO: List every identifiable way the system can fail to satisfy its
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>context. Each misfit is a specific failure scenario -- not what the system
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>should do, but how it could fail. Tag each misfit with the domain it
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>affects (e.g., Data Integrity, Financial, Concurrency, Security).]
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Misfit A**</span> ([TODO: domain]): [TODO: specific failure scenario]
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Misfit B**</span> ([TODO: domain]): [TODO: specific failure scenario]
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Misfit C**</span> ([TODO: domain]): [TODO: specific failure scenario]
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="gu">### Misfit Interaction Notes</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>[TODO: Which misfits affect each other? If resolving one misfit forces
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>changes to the resolution of another, they are linked. Document known
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>interactions here. This feeds the decomposition in the plan phase.]
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>---
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="gu">## User Scenarios &amp; Testing *(mandatory)*</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="gu">### User Story 1 - [TODO: Title] (Priority: P1)</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>[TODO: As a ... I want ... So that ...]
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a><span class="gs">**Why this priority**</span>: [TODO: Explain why this is the highest-priority story]
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="gs">**Independent Test**</span>: [TODO: Describe how to validate this story end-to-end]
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="gs">**Acceptance Scenarios**</span>:
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="k">1.</span> <span class="gs">**Given**</span> [TODO], <span class="gs">**When**</span> [TODO], <span class="gs">**Then**</span> [TODO]
+<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>
+<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>---
+<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>
+<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a><span class="gu">## Requirements *(mandatory)*</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>
+<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a><span class="gu">### Functional Requirements</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a>
+<a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a><span class="k">-</span><span class="w"> </span><span class="gs">**FR-001**</span>: [TODO: Derived from use cases and misfit resolutions]
+<a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a>
+<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a><span class="gu">### Non-Functional Requirements (Constraints)</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a>
+<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a><span class="k">-</span><span class="w"> </span><span class="gs">**NFR-001**</span>: [TODO: These are permanent misfits -- conditions the system
+<a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a>  must never violate. Performance, security, compliance.]
+<a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a>
+<a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a>---
+<a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a>
+<a id="__codelineno-0-75" name="__codelineno-0-75" href="#__codelineno-0-75"></a><span class="gu">## Key Entities</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76" href="#__codelineno-0-76"></a>
+<a id="__codelineno-0-77" name="__codelineno-0-77" href="#__codelineno-0-77"></a><span class="k">-</span><span class="w"> </span><span class="gs">**[TODO: Entity Name]**</span>: [TODO: Description, key fields, relationships]
+<a id="__codelineno-0-78" name="__codelineno-0-78" href="#__codelineno-0-78"></a>
+<a id="__codelineno-0-79" name="__codelineno-0-79" href="#__codelineno-0-79"></a>---
+<a id="__codelineno-0-80" name="__codelineno-0-80" href="#__codelineno-0-80"></a>
+<a id="__codelineno-0-81" name="__codelineno-0-81" href="#__codelineno-0-81"></a><span class="gu">## Success Criteria *(mandatory)*</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82" href="#__codelineno-0-82"></a>
+<a id="__codelineno-0-83" name="__codelineno-0-83" href="#__codelineno-0-83"></a><span class="k">-</span><span class="w"> </span><span class="gs">**SC-001**</span>: [TODO: Measurable outcome linked to misfit elimination]
+<a id="__codelineno-0-84" name="__codelineno-0-84" href="#__codelineno-0-84"></a>
+<a id="__codelineno-0-85" name="__codelineno-0-85" href="#__codelineno-0-85"></a>---
+<a id="__codelineno-0-86" name="__codelineno-0-86" href="#__codelineno-0-86"></a>
+<a id="__codelineno-0-87" name="__codelineno-0-87" href="#__codelineno-0-87"></a><span class="gu">## Assumptions</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88" href="#__codelineno-0-88"></a>
+<a id="__codelineno-0-89" name="__codelineno-0-89" href="#__codelineno-0-89"></a><span class="k">-</span><span class="w"> </span>[TODO: Conditions assumed true that, if false, would change the design]
+<a id="__codelineno-0-90" name="__codelineno-0-90" href="#__codelineno-0-90"></a>
+<a id="__codelineno-0-91" name="__codelineno-0-91" href="#__codelineno-0-91"></a>---
+<a id="__codelineno-0-92" name="__codelineno-0-92" href="#__codelineno-0-92"></a>
+<a id="__codelineno-0-93" name="__codelineno-0-93" href="#__codelineno-0-93"></a><span class="gu">## Out of Scope</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94" href="#__codelineno-0-94"></a>
+<a id="__codelineno-0-95" name="__codelineno-0-95" href="#__codelineno-0-95"></a><span class="k">-</span><span class="w"> </span>[TODO: Explicitly list what this feature does NOT cover]
+</code></pre></div>
+<p><strong>Contract changes</strong> (modify <code>skills/specify/skill.py</code>):</p>
+<p>Add new checks to <code>SpecifySkill.run_checks()</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Check Name</th>
+<th>Rule</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>body_context_non_empty</code></td>
+<td>SyDD-S01</td>
+<td><code>## Context</code> section exists and has content</td>
+</tr>
+<tr>
+<td><code>body_misfits_non_empty</code></td>
+<td>SyDD-S02</td>
+<td><code>## Misfits</code> section exists and has at least 2 misfits</td>
+</tr>
+<tr>
+<td><code>body_use_cases_present</code></td>
+<td>SyDD-S03</td>
+<td><code>### Use Cases</code> subsection exists with at least one UC</td>
+</tr>
+</tbody>
+</table>
+<p>Existing checks (<code>body_user_scenarios_non_empty</code>, <code>body_requirements_non_empty</code>, <code>body_placeholder_count</code>) remain unchanged. The new checks are additive -- they do not replace existing FR-016 validations.</p>
+<p><strong>Schema changes</strong>: Add optional <code>misfits_count</code> field to <code>spec.yaml</code> schema (integer, populated by the CLI after validation for downstream awareness).</p>
+<p><strong>Rationale</strong>: The Context and Misfits sections are the foundation of the entire SyDD methodology. Without them, the plan phase has no interaction graph to analyze, and the decomposition becomes arbitrary. Making them mandatory ensures the AI agent gathers the right information before proceeding.</p>
+<hr />
+<h3 id="222-plan-skill-add-decomposition-abstract-components-and-contracts">2.2.2 <code>plan</code> Skill -- Add Decomposition, Abstract Components, and Contracts<a class="headerlink" href="#222-plan-skill-add-decomposition-abstract-components-and-contracts" title="Permanent link">&para;</a></h3>
+<p>The plan skill currently produces a plan.md with Summary, Technical Context, Constitution Check, Project Structure, Phase 0/1, Implementation Phases, Key Design Decisions, Risk Register, and Open Questions. SyDD requires the plan to include an explicit decomposition step derived from misfit interactions, abstract component definitions per subsystem, and inter-system contracts.</p>
+<p><strong>Template changes</strong> (modify <code>skills/plan/template.md</code>):</p>
+<p>Add three new sections after Phase 0 and before Implementation Phases. These sections formalize the analytical step that Alexander prescribes.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gu">## Phase 0: Research</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>[TODO: Research findings, resolved unknowns]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>---
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="gu">## Decomposition *(mandatory)*</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="gu">### Misfit Interaction Graph</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>[TODO: For each pair of misfits from spec.md, determine whether resolving
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>one forces changes to the resolution of the other. Document linked pairs.
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>This can be a table, a list, or a Mermaid graph.]
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>| Misfit | Linked To | Reason |
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>|--------|-----------|--------|
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>| A (Data Integrity) | B (Inventory) | Both validate cart contents |
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>| C (Financial) | F (Idempotency) | Both involve payment state |
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="gu">### Subsystem Boundaries</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>[TODO: Group linked misfits into subsystems. Each subsystem contains misfits
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>that strongly interact. Subsystems are weakly connected to each other.
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>Justify each boundary with interaction evidence.]
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="k">1.</span> <span class="gs">**[TODO: Subsystem Name]**</span> [Misfits: A, B, E]
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">   </span><span class="k">-</span><span class="w"> </span><span class="gs">**Boundary justification**</span>: [TODO: Why these misfits belong together]
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">   </span><span class="k">-</span><span class="w"> </span><span class="gs">**External interactions**</span>: [TODO: Which other subsystems this one must
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>     communicate with, and why]
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="k">2.</span> <span class="gs">**[TODO: Subsystem Name]**</span> [Misfits: C, F]
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">   </span><span class="k">-</span><span class="w"> </span><span class="gs">**Boundary justification**</span>: [TODO]
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">   </span><span class="k">-</span><span class="w"> </span><span class="gs">**External interactions**</span>: [TODO]
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>---
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="gu">## Abstract Components *(mandatory)*</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>[TODO: For each subsystem, define its abstract components. Each component
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>owns a set of behaviors and entities. Components within a subsystem have
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>high internal coupling and low external coupling.]
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>
+<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="gu">### [TODO: Subsystem Name]</span>
+<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>
+<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="gs">**Components:**</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a><span class="k">-</span><span class="w"> </span><span class="gs">**[TODO: Component Name]**</span>: [TODO: Behaviors it owns, entities it manages]
+<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a><span class="k">-</span><span class="w"> </span><span class="gs">**[TODO: Component Name]**</span>: [TODO: Behaviors, entities]
+<a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a>
+<a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a><span class="gs">**Entities:**</span>
+<a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a><span class="k">-</span><span class="w"> </span><span class="gs">**[TODO: Entity Name]**</span>: [TODO: Key fields and relationships]
+<a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a>
+<a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a><span class="gs">**Internal coupling**</span>: [TODO: How these components interact within the subsystem]
+<a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a>
+<a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a>---
+<a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a>
+<a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a><span class="gu">## Inter-System Contracts *(mandatory if &gt;1 subsystem)*</span>
+<a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a>
+<a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a>[TODO: Define the contracts between subsystems. A contract specifies what
+<a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a>data flows between subsystems, not how subsystems implement their internals.
+<a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a>The contract is the only permitted coupling between subsystems.]
+<a id="__codelineno-1-61" name="__codelineno-1-61" href="#__codelineno-1-61"></a>
+<a id="__codelineno-1-62" name="__codelineno-1-62" href="#__codelineno-1-62"></a><span class="gu">### Contract: [TODO: Subsystem A] -&gt; [TODO: Subsystem B]</span>
+<a id="__codelineno-1-63" name="__codelineno-1-63" href="#__codelineno-1-63"></a>
+<a id="__codelineno-1-64" name="__codelineno-1-64" href="#__codelineno-1-64"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Producer**</span>: [TODO: What the producing subsystem provides]
+<a id="__codelineno-1-65" name="__codelineno-1-65" href="#__codelineno-1-65"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Consumer**</span>: [TODO: What the consuming subsystem expects]
+<a id="__codelineno-1-66" name="__codelineno-1-66" href="#__codelineno-1-66"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Failure mode**</span>: [TODO: What happens if the contract fails]
+<a id="__codelineno-1-67" name="__codelineno-1-67" href="#__codelineno-1-67"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Implementation method**</span>: [TODO: API, event, schema, protocol -- decided here,
+<a id="__codelineno-1-68" name="__codelineno-1-68" href="#__codelineno-1-68"></a>  implemented in tasks phase]
+<a id="__codelineno-1-69" name="__codelineno-1-69" href="#__codelineno-1-69"></a>
+<a id="__codelineno-1-70" name="__codelineno-1-70" href="#__codelineno-1-70"></a>---
+<a id="__codelineno-1-71" name="__codelineno-1-71" href="#__codelineno-1-71"></a>
+<a id="__codelineno-1-72" name="__codelineno-1-72" href="#__codelineno-1-72"></a><span class="gu">## Phase 1: Design &amp; Contracts</span>
+<a id="__codelineno-1-73" name="__codelineno-1-73" href="#__codelineno-1-73"></a>
+<a id="__codelineno-1-74" name="__codelineno-1-74" href="#__codelineno-1-74"></a>[TODO: Data models, API contracts, key design decisions]
+<a id="__codelineno-1-75" name="__codelineno-1-75" href="#__codelineno-1-75"></a>
+<a id="__codelineno-1-76" name="__codelineno-1-76" href="#__codelineno-1-76"></a>---
+<a id="__codelineno-1-77" name="__codelineno-1-77" href="#__codelineno-1-77"></a>
+<a id="__codelineno-1-78" name="__codelineno-1-78" href="#__codelineno-1-78"></a><span class="gu">## Implementation Phases and WP Candidates</span>
+<a id="__codelineno-1-79" name="__codelineno-1-79" href="#__codelineno-1-79"></a>
+<a id="__codelineno-1-80" name="__codelineno-1-80" href="#__codelineno-1-80"></a>[TODO: WP candidates must align with subsystem boundaries. Each WP
+<a id="__codelineno-1-81" name="__codelineno-1-81" href="#__codelineno-1-81"></a>implements one or more abstract components from a single subsystem.
+<a id="__codelineno-1-82" name="__codelineno-1-82" href="#__codelineno-1-82"></a>A WP must not span subsystem boundaries unless it implements a contract.]
+<a id="__codelineno-1-83" name="__codelineno-1-83" href="#__codelineno-1-83"></a>
+<a id="__codelineno-1-84" name="__codelineno-1-84" href="#__codelineno-1-84"></a>| Phase | WPs | Subsystem | Depends on | Can parallelise |
+<a id="__codelineno-1-85" name="__codelineno-1-85" href="#__codelineno-1-85"></a>|-------|-----|-----------|------------|-----------------|
+<a id="__codelineno-1-86" name="__codelineno-1-86" href="#__codelineno-1-86"></a>| [TODO] | WP01 | [TODO: subsystem] | -- | No |
+<a id="__codelineno-1-87" name="__codelineno-1-87" href="#__codelineno-1-87"></a>| [TODO] | WP02, WP03 | [TODO: subsystem] | WP01 | Yes |
+</code></pre></div>
+<p><strong>Contract changes</strong> (modify <code>skills/plan/skill.py</code>):</p>
+<p>Add new checks to <code>PlanSkill.run_checks()</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Check Name</th>
+<th>Rule</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>body_decomposition_present</code></td>
+<td>SyDD-P01</td>
+<td><code>## Decomposition</code> section exists and has content</td>
+</tr>
+<tr>
+<td><code>body_abstract_components_present</code></td>
+<td>SyDD-P02</td>
+<td><code>## Abstract Components</code> section exists and has content</td>
+</tr>
+<tr>
+<td><code>body_contracts_present_if_multiple_subsystems</code></td>
+<td>SyDD-P03</td>
+<td>If <code>## Decomposition</code> contains &gt;1 subsystem, <code>## Inter-System Contracts</code> must exist</td>
+</tr>
+<tr>
+<td><code>wp_candidates_have_subsystem</code></td>
+<td>SyDD-P04</td>
+<td>Each WP candidate in <code>## Implementation Phases</code> has a <code>Subsystem</code> column value</td>
+</tr>
+</tbody>
+</table>
+<p>Existing checks (<code>body_template_filled</code>, <code>body_technical_approach</code>) remain unchanged.</p>
+<p><strong>Rationale</strong>: The plan is where decomposition happens. Without explicit misfit interaction analysis, subsystem boundaries are arbitrary. Without abstract components, work packages lack the structural guidance needed to produce a system whose architecture mirrors the problem. Without contracts, subsystem interactions are implicit and prone to coupling drift.</p>
+<hr />
+<h3 id="223-tasks-skill-add-subsystem-traceability-and-misfit-coverage">2.2.3 <code>tasks</code> Skill -- Add Subsystem Traceability and Misfit Coverage<a class="headerlink" href="#223-tasks-skill-add-subsystem-traceability-and-misfit-coverage" title="Permanent link">&para;</a></h3>
+<p>The tasks skill currently produces tasks.md with work packages, an execution schedule, and individual WP prompt files. SyDD requires that WPs trace back to abstract components and subsystems, and that every misfit from the spec is covered by at least one WP.</p>
+<p><strong>Template changes</strong> (modify <code>skills/tasks/template.md</code>):</p>
+<p>Add subsystem traceability to WP definitions and a misfit coverage matrix.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gu">## Work Package WP01: [TODO: Title] (Priority: P0)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="gs">**Goal**</span>: [TODO: what this WP delivers]
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="gs">**Subsystem**</span>: [TODO: which subsystem from plan.md this WP implements]
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="gs">**Abstract Components**</span>: [TODO: which components from plan.md]
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="gs">**Misfits Addressed**</span>: [TODO: which misfits from spec.md this WP resolves]
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="gs">**Independent Test**</span>: [TODO: how to verify completion]
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="gs">**Prompt**</span>: <span class="sb">`tasks/WP01-[TODO: slug].md`</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="gu">### Included Subtasks</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="k">- [ ]</span> T001 [TODO: subtask description]
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="gu">### TDD Targets (from Misfits)</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="k">- [ ]</span> Test: [TODO: misfit-derived test scenario]
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="gu">### Dependencies</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="k">-</span><span class="w"> </span>None (first WP)
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>---
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="gu">## Misfit Coverage Matrix</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>[TODO: Every misfit from spec.md must appear in at least one WP&#39;s
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>&quot;Misfits Addressed&quot; field. Uncovered misfits are implementation gaps.]
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>| Misfit | Domain | Covered by WP(s) |
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>|--------|--------|-------------------|
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>| A | Data Integrity | WP01 |
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>| B | Inventory | WP01 |
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>| C | Financial | WP02 |
+</code></pre></div>
+<p><strong>Contract changes</strong> (modify <code>skills/tasks/skill.py</code>):</p>
+<p>Add new checks to <code>TasksSkill.run_checks()</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Check Name</th>
+<th>Rule</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wp_has_subsystem_field</code></td>
+<td>SyDD-T01</td>
+<td>Each WP file's body or frontmatter references a subsystem</td>
+</tr>
+<tr>
+<td><code>misfit_coverage_section_present</code></td>
+<td>SyDD-T02</td>
+<td><code>## Misfit Coverage Matrix</code> section exists in tasks.md</td>
+</tr>
+</tbody>
+</table>
+<p><strong>WP frontmatter schema changes</strong> (modify <code>init_cmd/schemas/v1/wp.yaml</code>):</p>
+<p>Add optional fields to the WP schema:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">subsystem</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">misfits_addressed</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">list[str]</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">abstract_components</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">list[str]</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">  </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+</code></pre></div>
+<p><strong>Rationale</strong>: Traceability from WPs back to subsystems and misfits is the mechanism that prevents decomposition drift during implementation. The misfit coverage matrix makes it impossible for a misfit to fall through the cracks -- every identified failure mode must be assigned to a WP that resolves it. The TDD targets derived from misfits connect Alexander's analytical framework directly to test-driven development.</p>
+<hr />
+<h3 id="224-implement-skill-tdd-against-misfits">2.2.4 <code>implement</code> Skill -- TDD Against Misfits<a class="headerlink" href="#224-implement-skill-tdd-against-misfits" title="Permanent link">&para;</a></h3>
+<p>The implement skill currently manages worktree creation and WP lane transitions. SyDD adds the expectation that the AI agent uses the WP's <code>misfits_addressed</code> field to drive TDD.</p>
+<p><strong>Adapter template changes</strong> (modify <code>adapters/templates/implement.md</code>):</p>
+<p>Add a workflow step after worktree creation:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gu">## TDD from Misfits</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Before writing implementation code, read the WP&#39;s <span class="sb">`misfits_addressed`</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>frontmatter field. For each misfit:
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">1.</span> Write a test that reproduces the misfit condition (the system fails
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>   in the way described by the misfit).
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">2.</span> Run the test to confirm it fails (red).
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="k">3.</span> Write the minimum implementation to make the test pass (green).
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="k">4.</span> Refactor while keeping tests green.
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>This ensures every identified failure mode has a corresponding test, and
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>the implementation is driven by misfit elimination rather than feature
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>accumulation.
+</code></pre></div>
+<p><strong>Contract changes</strong>: No changes to <code>ImplementSkill.run_checks()</code>. The existing FR-019 checks (lane=doing, agent set, worktree exists) remain sufficient. TDD discipline is encoded in the skill instructions, not in the CLI validation layer -- consistent with the CLI vs Skill responsibility boundary.</p>
+<p><strong>Rationale</strong>: The implement skill is where synthesis happens. By directing the AI agent to write tests from misfits first, the methodology ensures that implementation is grounded in the analytical work done during decomposition. The CLI does not validate test existence (that would violate the boundary rule), but the skill instructions encode it as a mandatory workflow step.</p>
+<hr />
+<h3 id="225-review-skill-misfit-elimination-check">2.2.5 <code>review</code> Skill -- Misfit Elimination Check<a class="headerlink" href="#225-review-skill-misfit-elimination-check" title="Permanent link">&para;</a></h3>
+<p>The review skill currently validates WP lane transitions and review metadata. SyDD adds review criteria that check whether the implementation resolves its assigned misfits and respects subsystem boundaries.</p>
+<p><strong>Adapter template changes</strong> (modify <code>adapters/templates/review.md</code>):</p>
+<p>Add review checklist items:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gu">## SyDD Review Checklist</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>In addition to standard code review, verify:
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">1.</span> <span class="gs">**Misfit Resolution**</span>: For each misfit in the WP&#39;s <span class="sb">`misfits_addressed`</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>   field, confirm that a test exists and passes. The misfit is structurally
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>   eliminated, not just handled with error checking.
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="k">2.</span> <span class="gs">**Subsystem Boundary Respect**</span>: The implementation does not introduce
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>   coupling between subsystems that is not declared in the plan&#39;s
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>   Inter-System Contracts section. No imports, calls, or data flows
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>   cross subsystem boundaries outside of contracted interfaces.
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="k">3.</span> <span class="gs">**Contract Compliance**</span>: If this WP implements an inter-system contract,
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>   verify that the implementation matches the contract specification in
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>   plan.md (producer output, consumer input, failure mode handling).
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="k">4.</span> <span class="gs">**No New Misfits**</span>: The implementation does not introduce failure modes
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>   that are not covered by existing misfits or documented as new misfits
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>   requiring a spec update.
+</code></pre></div>
+<p><strong>Contract changes</strong>: No changes to <code>ReviewSkill.run_checks()</code>. Review quality criteria are encoded in the skill instructions. The CLI validates lane transitions and metadata -- review judgment remains AI-driven.</p>
+<hr />
+<h3 id="226-accept-and-merge-skills-no-structural-changes">2.2.6 <code>accept</code> and <code>merge</code> Skills -- No Structural Changes<a class="headerlink" href="#226-accept-and-merge-skills-no-structural-changes" title="Permanent link">&para;</a></h3>
+<p>The accept and merge skills operate at the feature level and validate completeness (all WPs done, all artifacts present, worktrees cleaned up). Their validation logic is agnostic to the SyDD methodology -- they verify process completion, not design quality.</p>
+<p><strong>No template, contract, or schema changes required.</strong></p>
+<hr />
+<h2 id="23-new-skill-decompose-optional-recommended-for-complex-features">2.3 New Skill: <code>decompose</code> (Optional, Recommended for Complex Features)<a class="headerlink" href="#23-new-skill-decompose-optional-recommended-for-complex-features" title="Permanent link">&para;</a></h2>
+<p>For features with more than 5 misfits, the decomposition step in the plan phase can become complex enough to warrant its own dedicated skill. The <code>decompose</code> skill sits between <code>specify</code> and <code>plan</code> and produces a standalone decomposition artifact.</p>
+<p><strong>When to use</strong>: Features with &gt;5 misfits, &gt;3 potential subsystems, or where misfit interactions are non-obvious and require explicit graph analysis.</p>
+<p><strong>When to skip</strong>: Small features with &lt;5 misfits where the decomposition can be done inline in plan.md.</p>
+<h3 id="skill-definition">Skill Definition<a class="headerlink" href="#skill-definition" title="Permanent link">&para;</a></h3>
+<p><strong>Artifact produced</strong>: <code>decomposition.md</code> in the feature directory.</p>
+<p><strong>Template</strong> (<code>skills/decompose/template.md</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gh"># Decomposition: [TODO: Feature Name]</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="gs">**Feature**</span>: <span class="sb">`[TODO: ###-feature-name]`</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="gs">**Date**</span>: [TODO: YYYY-MM-DD]
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="gs">**Spec**</span>: [<span class="nt">spec.md</span>](<span class="na">spec.md</span>)
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>---
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="gu">## Misfit Inventory</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>[TODO: Copy all misfits from spec.md. For each misfit, assign an ID
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>(A, B, C...) and note the domain.]
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>| ID | Domain | Description |
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>|----|--------|-------------|
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>| A | [TODO] | [TODO] |
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>---
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="gu">## Interaction Matrix</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>[TODO: For each pair of misfits, mark whether they interact (X) or not (-).
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>Two misfits interact if resolving one forces changes to the resolution of
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>the other.]
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>|   | A | B | C | D | E |
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>|---|---|---|---|---|---|
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>| A | - | X | - | - | - |
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a>| B | X | - | - | - | X |
+<a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a>| C | - | - | - | - | - |
+<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a>| D | - | - | - | - | - |
+<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a>| E | - | X | - | - | - |
+<a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a>
+<a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a>---
+<a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a>
+<a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a><span class="gu">## Subsystem Identification</span>
+<a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a>
+<a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a>[TODO: Group misfits into clusters based on the interaction matrix.
+<a id="__codelineno-6-39" name="__codelineno-6-39" href="#__codelineno-6-39"></a>Each cluster has dense internal interactions and sparse external
+<a id="__codelineno-6-40" name="__codelineno-6-40" href="#__codelineno-6-40"></a>interactions. Name each subsystem and justify the boundary.]
+<a id="__codelineno-6-41" name="__codelineno-6-41" href="#__codelineno-6-41"></a>
+<a id="__codelineno-6-42" name="__codelineno-6-42" href="#__codelineno-6-42"></a><span class="gu">### Subsystem 1: [TODO: Name]</span>
+<a id="__codelineno-6-43" name="__codelineno-6-43" href="#__codelineno-6-43"></a>
+<a id="__codelineno-6-44" name="__codelineno-6-44" href="#__codelineno-6-44"></a><span class="gs">**Misfits**</span>: [TODO: A, B, E]
+<a id="__codelineno-6-45" name="__codelineno-6-45" href="#__codelineno-6-45"></a><span class="gs">**Boundary justification**</span>: [TODO: Why these misfits cluster together]
+<a id="__codelineno-6-46" name="__codelineno-6-46" href="#__codelineno-6-46"></a><span class="gs">**Diagrammability**</span>: [TODO: Does this cluster suggest a coherent software
+<a id="__codelineno-6-47" name="__codelineno-6-47" href="#__codelineno-6-47"></a>module? What structure resolves all its misfits simultaneously?]
+<a id="__codelineno-6-48" name="__codelineno-6-48" href="#__codelineno-6-48"></a>
+<a id="__codelineno-6-49" name="__codelineno-6-49" href="#__codelineno-6-49"></a>---
+<a id="__codelineno-6-50" name="__codelineno-6-50" href="#__codelineno-6-50"></a>
+<a id="__codelineno-6-51" name="__codelineno-6-51" href="#__codelineno-6-51"></a><span class="gu">## Subsystem Interaction Map</span>
+<a id="__codelineno-6-52" name="__codelineno-6-52" href="#__codelineno-6-52"></a>
+<a id="__codelineno-6-53" name="__codelineno-6-53" href="#__codelineno-6-53"></a>[TODO: Document how subsystems interact with each other. These interactions
+<a id="__codelineno-6-54" name="__codelineno-6-54" href="#__codelineno-6-54"></a>become the inter-system contracts in plan.md.]
+<a id="__codelineno-6-55" name="__codelineno-6-55" href="#__codelineno-6-55"></a>
+<a id="__codelineno-6-56" name="__codelineno-6-56" href="#__codelineno-6-56"></a>```mermaid
+<a id="__codelineno-6-57" name="__codelineno-6-57" href="#__codelineno-6-57"></a>graph LR
+<a id="__codelineno-6-58" name="__codelineno-6-58" href="#__codelineno-6-58"></a>    Order[Order Subsystem] --&gt;|OrderReceipt| Payment[Payment Subsystem]
+<a id="__codelineno-6-59" name="__codelineno-6-59" href="#__codelineno-6-59"></a>    Order --&gt;|DeliveryRequest| Logistics[Logistics Subsystem]
+</code></pre></div>
+<hr />
+<h2 id="decomposition-validation">Decomposition Validation<a class="headerlink" href="#decomposition-validation" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Every misfit from spec.md appears in exactly one subsystem</li>
+<li>[ ] No subsystem has misfits with zero internal interaction</li>
+<li>[ ] Subsystem interactions are documented and will become contracts</li>
+<li>[ ] The decomposition is derivable from the interaction matrix
+  (not from arbitrary categories)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>### Contract (SkillOutputContract)
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>| Check Name | Rule | Description |
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>|-----------|------|-------------|
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>| `decomposition_exists` | SyDD-D01 | `decomposition.md` exists in feature directory |
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>| `decomposition_readable` | SyDD-D02 | File is readable and frontmatter parseable |
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>| `misfit_inventory_non_empty` | SyDD-D03 | `## Misfit Inventory` has at least 2 rows |
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>| `interaction_matrix_present` | SyDD-D04 | `## Interaction Matrix` section exists |
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>| `subsystems_identified` | SyDD-D05 | At least one `### Subsystem` heading exists |
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>### Schema (add `decomposition.yaml` to `init_cmd/schemas/v1/`)
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>```yaml
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>artifact_type: decomposition
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>schema_version: v1
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>fields:
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>  - name: feature_slug
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>    type: str
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>    required: true
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>  - name: status
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>    type: str
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>    required: true
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>    default: draft
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>  - name: created
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>    type: str
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>    required: true
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>  - name: misfits_count
+<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>    type: int
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>    required: false
+<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a>  - name: subsystems_count
+<a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a>    type: int
+<a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>    required: false
+</code></pre></div></li>
+</ul>
+<h3 id="integration-with-existing-skills">Integration with Existing Skills<a class="headerlink" href="#integration-with-existing-skills" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The <code>plan</code> skill's template references <code>decomposition.md</code> as an optional input alongside <code>spec.md</code>. If <code>decomposition.md</code> exists, the plan's Decomposition section is pre-populated from it.</li>
+<li>The <code>plan</code> skill's contract does NOT require <code>decomposition.md</code> to exist -- the decomposition can be done inline in plan.md for simple features.</li>
+<li>The <code>tasks</code> skill reads subsystem names from either <code>decomposition.md</code> or plan.md's Decomposition section.</li>
+</ul>
+<hr />
+<h2 id="24-skills-removed">2.4 Skills Removed<a class="headerlink" href="#24-skills-removed" title="Permanent link">&para;</a></h2>
+<p>No skills are removed. All 7 existing skills (specify, plan, tasks, implement, review, accept, merge) retain their roles. The SyDD methodology enhances them with additional structure rather than replacing them.</p>
+<hr />
+<h2 id="25-validation-harness-changes">2.5 Validation Harness Changes<a class="headerlink" href="#25-validation-harness-changes" title="Permanent link">&para;</a></h2>
+<h3 id="new-validation-rules">New Validation Rules<a class="headerlink" href="#new-validation-rules" title="Permanent link">&para;</a></h3>
+<p>All new rules are prefixed with <code>SyDD-</code> to distinguish them from existing <code>FR-</code> rules.</p>
+<table>
+<thead>
+<tr>
+<th>Rule ID</th>
+<th>Skill</th>
+<th>Check</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SyDD-S01</td>
+<td>specify</td>
+<td><code>## Context</code> section non-empty</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-S02</td>
+<td>specify</td>
+<td><code>## Misfits</code> section has &gt;= 2 misfits</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-S03</td>
+<td>specify</td>
+<td><code>### Use Cases</code> subsection exists</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-P01</td>
+<td>plan</td>
+<td><code>## Decomposition</code> section non-empty</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-P02</td>
+<td>plan</td>
+<td><code>## Abstract Components</code> section non-empty</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-P03</td>
+<td>plan</td>
+<td><code>## Inter-System Contracts</code> exists if &gt;1 subsystem</td>
+<td>Warning</td>
+</tr>
+<tr>
+<td>SyDD-P04</td>
+<td>plan</td>
+<td>WP candidates have <code>Subsystem</code> column</td>
+<td>Warning</td>
+</tr>
+<tr>
+<td>SyDD-T01</td>
+<td>tasks</td>
+<td>WP body/frontmatter references a subsystem</td>
+<td>Warning</td>
+</tr>
+<tr>
+<td>SyDD-T02</td>
+<td>tasks</td>
+<td><code>## Misfit Coverage Matrix</code> exists</td>
+<td>Warning</td>
+</tr>
+<tr>
+<td>SyDD-D01</td>
+<td>decompose</td>
+<td><code>decomposition.md</code> exists (only if skill invoked)</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-D02</td>
+<td>decompose</td>
+<td>File readable and frontmatter parseable</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-D03</td>
+<td>decompose</td>
+<td>Misfit inventory has &gt;= 2 rows</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-D04</td>
+<td>decompose</td>
+<td>Interaction matrix present</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-D05</td>
+<td>decompose</td>
+<td>At least one subsystem identified</td>
+<td>Error</td>
+</tr>
+</tbody>
+</table>
+<p>Rules marked <strong>Warning</strong> are advisory -- they do not cause non-zero exit. Rules marked <strong>Error</strong> cause non-zero exit. This allows gradual adoption: teams can start using SyDD without being blocked by missing subsystem fields on WPs.</p>
+<h3 id="schema-additions">Schema Additions<a class="headerlink" href="#schema-additions" title="Permanent link">&para;</a></h3>
+<p>New artifact schema file: <code>init_cmd/schemas/v1/decomposition.yaml</code> (only created if <code>decompose</code> skill is included in the project's skill set).</p>
+<p>Modified schemas:
+- <code>wp.yaml</code>: Add optional <code>subsystem</code>, <code>misfits_addressed</code>, <code>abstract_components</code> fields
+- <code>spec.yaml</code>: Add optional <code>misfits_count</code> field</p>
+<p>No existing required fields are removed or renamed. All changes are additive.</p>
+<hr />
+<h2 id="26-reference-how-existing-specs-map-to-sydd-phases">2.6 Reference: How Existing Specs Map to SyDD Phases<a class="headerlink" href="#26-reference-how-existing-specs-map-to-sydd-phases" title="Permanent link">&para;</a></h2>
+<p>The specs in <code>specs/042-*</code> and <code>specs/043-*</code> are examples of good SDD output. Here is how their structure maps to SyDD phases, showing what would change and what would stay the same.</p>
+<h3 id="specmd-042-and-043">spec.md (042 and 043)<a class="headerlink" href="#specmd-042-and-043" title="Permanent link">&para;</a></h3>
+<p><strong>Already present (keep):</strong>
+- User Stories with Given/When/Then acceptance scenarios
+- Priority ranking with rationale
+- Independent tests per story
+- Numbered functional requirements (FR-001, FR-002...)
+- Success criteria (SC-001, SC-002...)
+- Edge cases and clarifications
+- Assumptions and out of scope</p>
+<p><strong>Would add under SyDD:</strong>
+- <strong>Context section</strong>: The "Tool Objective" and "CLI vs Skill Responsibility Boundary" in 043's spec.md is effectively a context description. SyDD formalizes this as a mandatory section with explicit system interactions and use cases.
+- <strong>Misfits section</strong>: The "Edge Cases" section in 043's spec.md lists 25+ failure scenarios. SyDD promotes these from an appendix to a primary artifact, tags them by domain, and maps their interactions.</p>
+<h3 id="planmd-043">plan.md (043)<a class="headerlink" href="#planmd-043" title="Permanent link">&para;</a></h3>
+<p><strong>Already present (keep):</strong>
+- Technical Context (language, dependencies, storage, testing)
+- Constitution Check
+- Project Structure
+- Phase 0: Research
+- Phase 1: Design &amp; Contracts (data models, CLI contracts)
+- Implementation Phases and WP Candidates
+- Key Design Decisions
+- Risk Register</p>
+<p><strong>Would add under SyDD:</strong>
+- <strong>Decomposition section</strong>: 043's plan implicitly decomposes the system (core vs skills vs adapters vs init) but does not show the interaction analysis that justifies these boundaries. SyDD requires explicit misfit-to-subsystem mapping.
+- <strong>Abstract Components section</strong>: 043's plan describes the module layout but does not formally define each component's owned behaviors and entities. SyDD formalizes this.
+- <strong>Inter-System Contracts section</strong>: 043's plan defines the <code>SkillOutputContract</code> protocol and the CLI command contracts. SyDD would consolidate these as formal inter-system contracts between the Core, Skill, and Adapter subsystems.</p>
+<h3 id="tasksmd-043">tasks.md (043)<a class="headerlink" href="#tasksmd-043" title="Permanent link">&para;</a></h3>
+<p><strong>Already present (keep):</strong>
+- WPs with goal, independent test, prompt file reference
+- Subtask index with priority and parallelization
+- Dependency graph and execution schedule
+- Requirement references per WP</p>
+<p><strong>Would add under SyDD:</strong>
+- <strong>Subsystem column</strong> in WP definitions (e.g., WP01: Core, WP04-WP10: Skills, WP03: Adapters)
+- <strong>Misfits Addressed</strong> per WP (traced from spec.md edge cases)
+- <strong>Misfit Coverage Matrix</strong> ensuring every edge case from spec.md is covered by at least one WP</p>
+<hr />
+<h2 id="27-adoption-path">2.7 Adoption Path<a class="headerlink" href="#27-adoption-path" title="Permanent link">&para;</a></h2>
+<p>SyDD is designed for incremental adoption alongside existing spec-bridge-v2 skills.</p>
+<p><strong>Phase 1 (Minimal)</strong>: Add Context and Misfits sections to the specify template. Add Decomposition and Abstract Components sections to the plan template. No schema or contract changes. The new sections are guidance for the AI agent, enforced by convention.</p>
+<p><strong>Phase 2 (Enforced)</strong>: Add <code>SyDD-S01</code>, <code>SyDD-S02</code>, <code>SyDD-P01</code>, <code>SyDD-P02</code> validation rules to the specify and plan skill contracts. The CLI now verifies these sections are non-empty. Teams that do not use SyDD can disable these rules via <code>spec-bridge.conf</code> (add a <code>methodology: sydd | classic</code> config option).</p>
+<p><strong>Phase 3 (Full)</strong>: Add the <code>decompose</code> skill for complex features. Add WP schema fields (<code>subsystem</code>, <code>misfits_addressed</code>, <code>abstract_components</code>). Add the misfit coverage matrix check. Add <code>SyDD-T01</code>, <code>SyDD-T02</code> validation rules to the tasks skill.</p>
+<p>Each phase is independently valuable and does not require the subsequent phases to provide benefit.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../00-software-architecture-guidelines/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Software Architecture Guidelines">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Software Architecture Guidelines
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../02-sydd-methodology-and-implementation/" class="md-footer__link md-footer__link--next" aria-label="Next: SyDD Methodology and Implementation">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                SyDD Methodology and Implementation
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.footer", "content.code.copy", "toc.integrate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../assets/javascripts/nav-accordion.js"></script>
+      
+        <script src="../assets/javascripts/panzoom.min.js"></script>
+      
+        <script src="../assets/javascripts/zoompan.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1781 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Deterministic validation harness for AI agent skill execution">
+      
+      
+      
+        <link rel="canonical" href="https://bruj0.github.io/spec-bridge-docs/03-guide-synthesis-driven-development/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Building Software with Synthesis-Driven Development - spec-bridge-v2 Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/panzoom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <meta name="panzoom-theme" content="material">
+<meta name="panzoom-data" content='{"selectors": [".mermaid", ".d2"], "initial_zoom_level": 1.0}'> </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#building-software-with-synthesis-driven-development" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="spec-bridge-v2 Docs" class="md-header__button md-logo" aria-label="spec-bridge-v2 Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3zm-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spec-bridge-v2 Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Building Software with Synthesis-Driven Development
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="spec-bridge-v2 Docs" class="md-nav__button md-logo" aria-label="spec-bridge-v2 Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3zm-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4z"/></svg>
+
+    </a>
+    spec-bridge-v2 Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-software-architecture-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software Architecture Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-synthesis-driven-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synthesis-Driven Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-sydd-methodology-and-implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SyDD Methodology and Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture (C4)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture (C4)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/1-project-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/2-architecture-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/3-workflow-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Dive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/4-deep-dive/skill-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/4-deep-dive/core-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Module
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/4-deep-dive/adapter-and-init/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adapter and Init
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADRs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADRs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0001-spec-bridge-skill-tool-as-separate-binary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0001 spec-bridge-skill-tool as separate binary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0002-two-responsibility-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0002 Two-responsibility model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0003-skill-module-isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0003 Skill module isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0004-schema-first-artifact-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0004 Schema-first artifact design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0005-spec-bridge-conf-single-configuration-source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0005 spec-bridge.conf single configuration source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0006-structured-stdout-only-output/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0006 Structured stdout-only output
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0007-adapter-pattern-for-agent-specific-file-generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0007 Adapter pattern for agent-specific file generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research/aperant-prompts-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aperant Prompts Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="building-software-with-synthesis-driven-development">Building Software with Synthesis-Driven Development<a class="headerlink" href="#building-software-with-synthesis-driven-development" title="Permanent link">&para;</a></h1>
+<p>A practical guide for developers new to specification-driven workflows.</p>
+<hr />
+<h1 id="part-1-what-is-synthesis-driven-development">Part 1: What Is Synthesis-Driven Development?<a class="headerlink" href="#part-1-what-is-synthesis-driven-development" title="Permanent link">&para;</a></h1>
+<h2 id="the-problem">The Problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h2>
+<p>Most software projects start the same way. Someone describes what they want. A developer jumps into code. Along the way, they discover edge cases nobody thought of, make architectural choices under pressure, and end up with a system whose structure reflects the order in which problems were discovered rather than the nature of the problems themselves.</p>
+<p>The result is familiar: modules that seem logical ("UserService", "PaymentController", "OrderRepository") but hide tangled dependencies. Changing the payment flow breaks inventory. Adding a delivery option requires touching five services. The architecture mirrors how the team thought about the problem, not how the problem actually works.</p>
+<p>Synthesis-Driven Development (SyDD) is a methodology that fixes this. Instead of organizing software around intuitive categories, it analyzes how requirements interact and derives the system's structure from that analysis. The architecture mirrors the problem's structure, not the developer's mental model.</p>
+<h2 id="the-key-idea-misfits-instead-of-requirements">The Key Idea: Misfits Instead of Requirements<a class="headerlink" href="#the-key-idea-misfits-instead-of-requirements" title="Permanent link">&para;</a></h2>
+<p>Traditional development starts with requirements -- statements about what a system should do:</p>
+<blockquote>
+<p>"The system must handle payment failures gracefully."</p>
+</blockquote>
+<p>This is vague. What does "gracefully" mean? Which components are involved? How does this interact with order processing? Requirements describe intent but hide the real complexity.</p>
+<p>SyDD starts from the opposite direction. Instead of asking "what should the system do?", it asks "how can the system fail?"</p>
+<blockquote>
+<p>"Misfit: The payment fails, but the order is still sent to the restaurant's kitchen."</p>
+</blockquote>
+<p>This is concrete. It names two specific things (payment, kitchen notification) and a specific failure (one fails but the other proceeds). It immediately reveals that payment and order dispatch are coupled -- you cannot design one without considering the other.</p>
+<p>These failure scenarios are called <strong>misfits</strong> -- ways the system can fail to satisfy its environment. They are the foundation of SyDD.</p>
+<h2 id="why-misfits-work-better">Why Misfits Work Better<a class="headerlink" href="#why-misfits-work-better" title="Permanent link">&para;</a></h2>
+<p>Misfits have three properties that make them powerful for design:</p>
+<p><strong>They are testable.</strong> "Handle payment failures gracefully" has no clear test. "Payment fails but order reaches the kitchen" is a test case you can write right now.</p>
+<p><strong>They reveal structure.</strong> If two misfits interact -- resolving one forces you to change how you resolve the other -- they belong in the same subsystem. If they do not interact, they can be designed independently. This interaction pattern reveals the natural architecture.</p>
+<p><strong>They are binary.</strong> Either the system handles the situation or it does not. There is no ambiguity about whether a misfit has been resolved.</p>
+<h2 id="the-origin-christopher-alexander">The Origin: Christopher Alexander<a class="headerlink" href="#the-origin-christopher-alexander" title="Permanent link">&para;</a></h2>
+<p>SyDD is grounded in the work of architect Christopher Alexander, who published <em>Notes on the Synthesis of Form</em> in 1964. Alexander was solving a problem in building design: how do you decompose a complex design into parts that can be worked on independently?</p>
+<p>His answer was methodical:</p>
+<ol>
+<li>List every way a design can fail its environment (misfits).</li>
+<li>Map which failures affect each other (the interaction graph).</li>
+<li>Group tightly interacting failures into clusters (subsystems).</li>
+<li>Design each cluster independently.</li>
+</ol>
+<p>The clusters have a critical property: things inside a cluster strongly affect each other (dense internal coupling), while things in different clusters barely affect each other (sparse external coupling). This is exactly the property that makes good software modules.</p>
+<p>Alexander demonstrated the power of decomposition with a simple analogy. Imagine 100 lights that need to reach a stable state. If they are all independent, equilibrium takes 2 seconds. If they are all coupled together, it takes longer than the age of the universe. But if you group them into 10 subsystems of 10 lights each, it takes 15 minutes.</p>
+<p>The lesson: complex systems only become tractable when you find the right subsystem boundaries. Those boundaries exist in the problem itself -- the designer's job is to discover them, not invent them.</p>
+<h2 id="the-five-phases-of-sydd">The Five Phases of SyDD<a class="headerlink" href="#the-five-phases-of-sydd" title="Permanent link">&para;</a></h2>
+<p>SyDD organizes development into five phases:</p>
+<h3 id="phase-1-context-gathering">Phase 1: Context Gathering<a class="headerlink" href="#phase-1-context-gathering" title="Permanent link">&para;</a></h3>
+<p>Understand the system's environment. Who uses it? What external systems does it interact with? What business rules apply? Then identify every way the system can fail that environment -- every misfit. Tag each misfit with a domain (Data Integrity, Financial, Concurrency, Security, etc.) and note which misfits affect each other.</p>
+<p><strong>You produce</strong>: A specification document with use cases, misfits, constraints, and interaction notes.</p>
+<h3 id="phase-2-decomposition">Phase 2: Decomposition<a class="headerlink" href="#phase-2-decomposition" title="Permanent link">&para;</a></h3>
+<p>Analyze misfit interactions to discover natural subsystem boundaries. Build a graph where misfits are nodes and interactions are edges. Group tightly connected misfits into clusters. Each cluster becomes a subsystem.</p>
+<p><strong>You produce</strong>: A decomposition showing which misfits belong to which subsystem and why.</p>
+<h3 id="phase-3-design">Phase 3: Design<a class="headerlink" href="#phase-3-design" title="Permanent link">&para;</a></h3>
+<p>For each subsystem, define abstract components -- design elements that describe what behaviors and data the subsystem owns. Where subsystems must communicate, define explicit contracts specifying what data flows between them. The contract is the only permitted coupling.</p>
+<p><strong>You produce</strong>: A plan with abstract components per subsystem and inter-system contracts.</p>
+<h3 id="phase-4-synthesis-implementation">Phase 4: Synthesis (Implementation)<a class="headerlink" href="#phase-4-synthesis-implementation" title="Permanent link">&para;</a></h3>
+<p>Transform abstract components into code. Each component becomes a work package. For each misfit assigned to a work package, write a test that reproduces the failure condition (the misfit), then write the minimum code to make the test pass. This is Test-Driven Development (TDD), but driven by misfits rather than arbitrary test cases.</p>
+<p><strong>You produce</strong>: Working code in isolated branches, one per work package.</p>
+<h3 id="phase-5-verification">Phase 5: Verification<a class="headerlink" href="#phase-5-verification" title="Permanent link">&para;</a></h3>
+<p>Review each work package against its assigned misfits. Does it resolve them? Does it respect subsystem boundaries? Does it introduce new failure modes? Then merge the work packages into the main codebase.</p>
+<p><strong>You produce</strong>: A verified, merged feature.</p>
+<h2 id="a-quick-note-on-tdd">A Quick Note on TDD<a class="headerlink" href="#a-quick-note-on-tdd" title="Permanent link">&para;</a></h2>
+<p>Test-Driven Development is a practice where you write tests before writing implementation code. The cycle is:</p>
+<ol>
+<li><strong>Red</strong>: Write a test that describes the behavior you want. Run it. It fails (because the code does not exist yet).</li>
+<li><strong>Green</strong>: Write the minimum code to make the test pass.</li>
+<li><strong>Refactor</strong>: Clean up the code while keeping the test green.</li>
+</ol>
+<p>In SyDD, the misfits tell you what tests to write. Each misfit is a failure scenario -- a test that says "the system fails in this specific way." You write a test that reproduces the misfit, then write code that eliminates it. This connects the analytical work (decomposition) directly to the implementation work (coding).</p>
+<h2 id="worked-example-food-delivery-checkout">Worked Example: Food Delivery Checkout<a class="headerlink" href="#worked-example-food-delivery-checkout" title="Permanent link">&para;</a></h2>
+<p>To make this concrete, here is SyDD applied to a food delivery checkout system.</p>
+<h3 id="context-gathering">Context Gathering<a class="headerlink" href="#context-gathering" title="Permanent link">&para;</a></h3>
+<p><strong>Use cases:</strong>
+- A customer submits food items to buy.
+- The system charges the customer's credit card.
+- The restaurant receives the order to start cooking.
+- The system calculates delivery fees based on location.</p>
+<p><strong>Misfits -- how the system can fail:</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Domain</th>
+<th>Failure Scenario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Data Integrity</td>
+<td>User submits an order with zero items or negative total</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Inventory</td>
+<td>User orders an item that sold out while browsing</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Financial/State</td>
+<td>Payment fails but order is sent to the kitchen</td>
+</tr>
+<tr>
+<td>D</td>
+<td>Logistics</td>
+<td>Delivery address is outside the restaurant's radius</td>
+</tr>
+<tr>
+<td>E</td>
+<td>Concurrency</td>
+<td>Two users order the last unit simultaneously; both accepted</td>
+</tr>
+<tr>
+<td>F</td>
+<td>Idempotency</td>
+<td>Network timeout causes retry, creating a duplicate charge</td>
+</tr>
+</tbody>
+</table>
+<h3 id="decomposition">Decomposition<a class="headerlink" href="#decomposition" title="Permanent link">&para;</a></h3>
+<p>Analyze which misfits interact:
+- <strong>A and B interact</strong>: Both validate cart contents and availability. Fixing one affects how you fix the other.
+- <strong>C and F interact</strong>: Both involve payment state. Idempotency (F) directly affects how payment failure (C) is handled.
+- <strong>E interacts with B</strong>: Both involve item availability state.
+- <strong>D has near-zero interaction</strong> with the others. Address validation is independent.</p>
+<p>This reveals three natural subsystems:</p>
+<ol>
+<li><strong>Order Subsystem</strong> [Misfits A, B, E]: Everything about validating and assembling the order.</li>
+<li><strong>Payment Subsystem</strong> [Misfits C, F]: Everything about charging and financial state.</li>
+<li><strong>Logistics Subsystem</strong> [Misfit D]: Address and delivery fee calculation.</li>
+</ol>
+<p>These boundaries were not decided by the developer -- they emerged from analyzing which misfits interact.</p>
+<h3 id="design">Design<a class="headerlink" href="#design" title="Permanent link">&para;</a></h3>
+<p><strong>Order Subsystem</strong> components: CartValidator, InventoryChecker, OrderAssembler. Internal coupling: CartValidator must check InventoryChecker before OrderAssembler runs.</p>
+<p><strong>Payment Subsystem</strong> components: PaymentProcessor, IdempotencyGuard, TransactionLog. Internal coupling: IdempotencyGuard must approve before PaymentProcessor charges.</p>
+<p><strong>Contract (Order -&gt; Payment):</strong> Order produces a validated OrderReceipt. Payment returns a PaymentResult. If payment fails, Order releases inventory holds.</p>
+<h3 id="synthesis">Synthesis<a class="headerlink" href="#synthesis" title="Permanent link">&para;</a></h3>
+<p>Work packages map to components:
+- WP01: CartValidator + InventoryChecker. TDD targets: test zero-item rejection, test sold-out detection, test concurrent reservation conflict.
+- WP02: PaymentProcessor + IdempotencyGuard. TDD targets: test payment failure does not notify kitchen, test duplicate charge prevention.
+- WP03: Logistics validation. TDD targets: test out-of-radius rejection.
+- WP04: Inter-system contracts. TDD targets: test contract compliance, test failure propagation.</p>
+<p>Every misfit has a work package. Every work package has tests derived from its misfits.</p>
+<hr />
+<h1 id="part-2-using-spec-bridge-v2-to-build-software-with-sydd">Part 2: Using spec-bridge-v2 to Build Software with SyDD<a class="headerlink" href="#part-2-using-spec-bridge-v2-to-build-software-with-sydd" title="Permanent link">&para;</a></h1>
+<p>spec-bridge-v2 is a tool that guides you through the SyDD workflow step by step. It provides templates for each phase, validates that your artifacts have the required structure, and keeps everything organized in a predictable directory layout.</p>
+<p>You do not need to memorize the methodology. The templates tell you what to fill in. The validation tool tells you if you missed something.</p>
+<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>spec-bridge-v2 has eight skills, each corresponding to a step in the workflow. An AI coding assistant (like Cursor, Claude Code, or similar) reads the skill instructions and walks you through the process interactively. At the end of each step, a validation tool (<code>spec-bridge-skill-tool</code>) checks that the output has the required structure.</p>
+<p>The workflow is linear:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>specify -&gt; decompose (optional) -&gt; plan -&gt; tasks -&gt; implement -&gt; review -&gt; accept -&gt; merge
+</code></pre></div>
+<p>Each step produces artifacts (markdown files with structured content) in a feature directory under <code>specs/</code>.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>Install the skill tool:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>skill-tool
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</code></pre></div>
+<p>Initialize a project:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>spec-bridge-skill-tool<span class="w"> </span>init<span class="w"> </span>--project-root<span class="w"> </span>.
+</code></pre></div>
+<p>This creates the <code>specs/</code> directory, copies schema files, and generates skill instruction files for your AI agent.</p>
+<h2 id="step-1-specify-describe-what-you-are-building">Step 1: Specify -- Describe What You Are Building<a class="headerlink" href="#step-1-specify-describe-what-you-are-building" title="Permanent link">&para;</a></h2>
+<p><strong>What happens</strong>: You have a conversation with the AI agent about what you want to build. The agent asks discovery questions scaled to the complexity of the feature (1-2 for simple, 5+ for complex). Then it creates a <code>spec.md</code> file.</p>
+<p><strong>Command</strong>: Run the <code>spec-bridge-specify</code> skill (via slash command or agent instruction).</p>
+<p><strong>What you produce</strong>: A <code>specs/&lt;feature-slug&gt;/spec.md</code> file. The template has these sections:</p>
+<h3 id="context-mandatory">Context (mandatory)<a class="headerlink" href="#context-mandatory" title="Permanent link">&para;</a></h3>
+<p>Describe the environment the software operates in. The template asks for two things:</p>
+<p><strong>System Interactions</strong> -- Who and what interacts with this system? List external systems, user roles, data flows, and business processes.</p>
+<p><strong>Use Cases</strong> -- Each use case is a specific interaction. Use the format: <code>UC#: Actor + Action + Expected Outcome</code>.</p>
+<p>For the food delivery example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gu">## Context</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="gu">### System Interactions</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>The checkout API interacts with: customers (via mobile/web app),
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>the restaurant management system (receives orders), a payment gateway
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>(Stripe), and a delivery routing service (calculates fees and ETAs).
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="gu">### Use Cases</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="k">-</span><span class="w"> </span><span class="gs">**UC1**</span>: Customer submits a list of food items to purchase
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="k">-</span><span class="w"> </span><span class="gs">**UC2**</span>: System charges the customer&#39;s credit card via Stripe
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="k">-</span><span class="w"> </span><span class="gs">**UC3**</span>: Restaurant receives the confirmed order to begin preparation
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="k">-</span><span class="w"> </span><span class="gs">**UC4**</span>: System calculates delivery fee based on customer location
+</code></pre></div></p>
+<h3 id="misfits-mandatory">Misfits (mandatory)<a class="headerlink" href="#misfits-mandatory" title="Permanent link">&para;</a></h3>
+<p>List every way the system can fail. Tag each with a domain. The template provides the format:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gu">## Misfits</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Misfit A**</span> (Data Integrity): User submits an order with zero items
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  or a negative total cost
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Misfit B**</span> (Inventory): User orders an item that sold out while
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  they were browsing the menu
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Misfit C**</span> (Financial/State): Payment fails but the order is still
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>  sent to the restaurant&#39;s kitchen
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="gu">### Misfit Interaction Notes</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>A and B are linked -- both validate cart contents. C and F are linked --
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>both involve payment state management.
+</code></pre></div>
+<p>The validation tool requires at least 2 misfits. If you cannot identify 2 failure scenarios, the feature may be too trivial for formal specification.</p>
+<h3 id="remaining-sections">Remaining sections<a class="headerlink" href="#remaining-sections" title="Permanent link">&para;</a></h3>
+<p>The template also includes sections for User Scenarios (with Given/When/Then acceptance criteria), Requirements (functional and non-functional), Key Entities, Success Criteria, Assumptions, and Out of Scope. Fill these as you would in any specification.</p>
+<h3 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h3>
+<p>After writing spec.md, the AI agent runs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>spec-bridge-skill-tool<span class="w"> </span>specify<span class="w"> </span>--feature<span class="w"> </span>&lt;feature-slug&gt;<span class="w"> </span>--session-id<span class="w"> </span><span class="nv">$SESSION_ID</span>
+</code></pre></div>
+<p>This checks:
+- The Context section exists and has content (SyDD-S01).
+- The Misfits section has at least 2 entries (SyDD-S02).
+- The Use Cases subsection exists (SyDD-S03).
+- User Scenarios and Requirements are non-empty (existing checks).
+- No more than a few unresolved placeholders remain.</p>
+<p>If validation passes, commit and move to the next step.</p>
+<h2 id="step-2-optional-decompose-analyze-misfit-interactions">Step 2 (Optional): Decompose -- Analyze Misfit Interactions<a class="headerlink" href="#step-2-optional-decompose-analyze-misfit-interactions" title="Permanent link">&para;</a></h2>
+<p><strong>When to use</strong>: Features with 5+ misfits or non-obvious interactions between failure scenarios. Skip this for simple features -- the decomposition can be done inline in the plan.</p>
+<p><strong>What happens</strong>: You create a <code>decomposition.md</code> that systematically maps which misfits interact and derives subsystem boundaries.</p>
+<p><strong>What you produce</strong>: A file with four key sections:</p>
+<h3 id="misfit-inventory">Misfit Inventory<a class="headerlink" href="#misfit-inventory" title="Permanent link">&para;</a></h3>
+<p>A table copying every misfit from spec.md with a short ID:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>| ID | Misfit | Domain | Description |
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>|----|--------|--------|-------------|
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>| M1 | A | Data Integrity | Zero items or negative total |
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>| M2 | B | Inventory | Item sold out while browsing |
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>| M3 | C | Financial/State | Payment fails, order sent to kitchen |
+</code></pre></div>
+<h3 id="interaction-matrix">Interaction Matrix<a class="headerlink" href="#interaction-matrix" title="Permanent link">&para;</a></h3>
+<p>A pairwise matrix showing which misfits are linked:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>|    | M1 | M2 | M3 | M4 | M5 | M6 |
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>|----|----|----|----|----|----|----|
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>| M1 | -- | X  | -  | -  | -  | -  |
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>| M2 | X  | -- | -  | -  | X  | -  |
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>| M3 | -  | -  | -- | -  | -  | X  |
+</code></pre></div>
+<p>An "X" means resolving one misfit forces changes to the resolution of the other.</p>
+<h3 id="subsystem-identification">Subsystem Identification<a class="headerlink" href="#subsystem-identification" title="Permanent link">&para;</a></h3>
+<p>Group linked misfits into subsystems. Justify each boundary with evidence from the matrix:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="gu">### Subsystem Order</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="gs">**Misfits**</span>: M1, M2, M5
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="gs">**Boundary justification**</span>: M1 and M2 both validate cart contents.
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>M5 (concurrency) affects item availability, linking it to M2.
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="gs">**Key responsibilities**</span>: Cart validation, inventory checking, order assembly
+</code></pre></div>
+<h3 id="constructive-diagrams-optional">Constructive Diagrams (optional)<a class="headerlink" href="#constructive-diagrams-optional" title="Permanent link">&para;</a></h3>
+<p>Sketch how each subsystem's components resolve its assigned misfits. This bridges the analytical decomposition to concrete software design.</p>
+<h3 id="validation_1">Validation<a class="headerlink" href="#validation_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>spec-bridge-skill-tool<span class="w"> </span>decompose<span class="w"> </span>--feature<span class="w"> </span>&lt;feature-slug&gt;<span class="w"> </span>--session-id<span class="w"> </span><span class="nv">$SESSION_ID</span>
+</code></pre></div>
+<p>This checks that the misfit inventory has at least 2 rows, the interaction matrix exists, and at least one subsystem is identified.</p>
+<h2 id="step-3-plan-design-the-architecture">Step 3: Plan -- Design the Architecture<a class="headerlink" href="#step-3-plan-design-the-architecture" title="Permanent link">&para;</a></h2>
+<p><strong>What happens</strong>: The AI agent asks architecture questions (language, dependencies, storage, testing approach), then creates a <code>plan.md</code> that translates the decomposition into a concrete software design.</p>
+<p><strong>What you produce</strong>: A <code>specs/&lt;feature-slug&gt;/plan.md</code> file. The SyDD-specific sections are:</p>
+<h3 id="decomposition-mandatory">Decomposition (mandatory)<a class="headerlink" href="#decomposition-mandatory" title="Permanent link">&para;</a></h3>
+<p>If you ran the decompose step, this section references that work. If not, you do the analysis here. Either way, the plan must contain:</p>
+<p><strong>Misfit Interaction Graph</strong> -- a table or diagram showing linked misfit pairs with reasons:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>| Misfit | Linked To | Reason |
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>|--------|-----------|--------|
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>| A (Data Integrity) | B (Inventory) | Both validate cart contents |
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>| C (Financial) | F (Idempotency) | Both involve payment state |
+</code></pre></div>
+<p><strong>Subsystem Boundaries</strong> -- numbered subsystems with their misfits and justification:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">1.</span> <span class="gs">**Order Subsystem**</span> [Misfits: A, B, E]
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">   </span><span class="k">-</span><span class="w"> </span><span class="gs">**Boundary justification**</span>: All three involve cart/item state
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">   </span><span class="k">-</span><span class="w"> </span><span class="gs">**External interactions**</span>: Sends OrderReceipt to Payment
+</code></pre></div>
+<h3 id="abstract-components-mandatory">Abstract Components (mandatory)<a class="headerlink" href="#abstract-components-mandatory" title="Permanent link">&para;</a></h3>
+<p>For each subsystem, define what software components it contains:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="gu">### Order Subsystem</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="gs">**Components:**</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="k">-</span><span class="w"> </span><span class="gs">**CartValidator**</span>: Validates item count, prices, totals
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="k">-</span><span class="w"> </span><span class="gs">**InventoryChecker**</span>: Checks availability with pessimistic locking
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="gs">**Entities:**</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="k">-</span><span class="w"> </span><span class="gs">**CartItem**</span>: item_id, quantity, unit_price
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Order**</span>: order_id, items, total, status
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="gs">**Internal coupling**</span>: CartValidator calls InventoryChecker before assembly
+</code></pre></div>
+<h3 id="inter-system-contracts-mandatory-if-more-than-one-subsystem">Inter-System Contracts (mandatory if more than one subsystem)<a class="headerlink" href="#inter-system-contracts-mandatory-if-more-than-one-subsystem" title="Permanent link">&para;</a></h3>
+<p>Define what flows between subsystems. The contract is the only permitted coupling:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="gu">### Contract: Order -&gt; Payment</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Producer**</span>: Order provides a validated OrderReceipt
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Consumer**</span>: Payment expects OrderReceipt, returns PaymentResult
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Failure mode**</span>: If payment fails, Order releases inventory holds
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Implementation method**</span>: Synchronous function call with result type
+</code></pre></div>
+<h3 id="implementation-phases-and-wp-candidates">Implementation Phases and WP Candidates<a class="headerlink" href="#implementation-phases-and-wp-candidates" title="Permanent link">&para;</a></h3>
+<p>The plan includes a table mapping work packages to subsystems:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>| Phase | WPs | Subsystem | Depends on | Can parallelise |
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>|-------|-----|-----------|------------|-----------------|
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>| Core | WP01 | Order | -- | No |
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>| Core | WP02 | Payment | WP01 | Yes |
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>| Support | WP03 | Logistics | -- | Yes |
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>| Integration | WP04 | Contracts | WP01, WP02 | No |
+</code></pre></div>
+<p>Each WP must implement components from a single subsystem (unless it implements a contract between subsystems).</p>
+<h3 id="validation_2">Validation<a class="headerlink" href="#validation_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>spec-bridge-skill-tool<span class="w"> </span>plan<span class="w"> </span>--feature<span class="w"> </span>&lt;feature-slug&gt;<span class="w"> </span>--session-id<span class="w"> </span><span class="nv">$SESSION_ID</span>
+</code></pre></div>
+<p>This checks that Decomposition and Abstract Components sections exist with content. It also provides advisory warnings if the WP candidates table is missing a Subsystem column or if multiple subsystems exist without an Inter-System Contracts section.</p>
+<h2 id="step-4-tasks-create-work-packages">Step 4: Tasks -- Create Work Packages<a class="headerlink" href="#step-4-tasks-create-work-packages" title="Permanent link">&para;</a></h2>
+<p><strong>What happens</strong>: The AI agent reads spec.md and plan.md, derives fine-grained subtasks, groups them into work packages, and creates individual WP prompt files.</p>
+<p><strong>What you produce</strong>:
+- <code>specs/&lt;feature-slug&gt;/tasks.md</code> -- the master task list.
+- <code>specs/&lt;feature-slug&gt;/tasks/WP01-slug.md</code>, <code>WP02-slug.md</code>, etc. -- one prompt file per work package.</p>
+<h3 id="work-package-definitions">Work package definitions<a class="headerlink" href="#work-package-definitions" title="Permanent link">&para;</a></h3>
+<p>Each WP in tasks.md includes SyDD traceability fields:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="gu">## Work Package WP01: Cart Validation (Priority: P0)</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="gs">**Goal**</span>: Validate cart contents and check inventory availability
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="gs">**Subsystem**</span>: Order
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="gs">**Abstract Components**</span>: CartValidator, InventoryChecker
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="gs">**Misfits Addressed**</span>: A (zero items), B (sold out), E (concurrency)
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="gs">**Independent Test**</span>: Submit valid and invalid carts; verify rejections
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="gs">**Prompt**</span>: <span class="sb">`tasks/WP01-cart-validation.md`</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="gu">### Included Subtasks</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="k">- [ ]</span> T001 Implement CartValidator with item count and price checks
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="k">- [ ]</span> T002 Implement InventoryChecker with pessimistic locking
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="k">- [ ]</span> T003 Write concurrency tests for simultaneous last-item orders
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="gu">### TDD Targets (from Misfits)</span>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a><span class="k">- [ ]</span> Test: Submit order with zero items -&gt; rejected with validation error
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a><span class="k">- [ ]</span> Test: Submit order for sold-out item -&gt; rejected with availability error
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a><span class="k">- [ ]</span> Test: Two simultaneous orders for last unit -&gt; only one succeeds
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a><span class="gu">### Dependencies</span>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a><span class="k">-</span><span class="w"> </span>None (first WP)
+</code></pre></div>
+<p>The <strong>Subsystem</strong>, <strong>Abstract Components</strong>, and <strong>Misfits Addressed</strong> fields trace each WP back to the plan and spec. The <strong>TDD Targets</strong> translate misfits directly into test scenarios.</p>
+<h3 id="misfit-coverage-matrix">Misfit Coverage Matrix<a class="headerlink" href="#misfit-coverage-matrix" title="Permanent link">&para;</a></h3>
+<p>At the bottom of tasks.md, a table ensures every misfit from the spec is covered:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="gu">## Misfit Coverage Matrix</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>| Misfit | Domain | Covered by WP(s) |
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>|--------|--------|-------------------|
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>| A | Data Integrity | WP01 |
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>| B | Inventory | WP01 |
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>| C | Financial/State | WP02 |
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>| D | Logistics | WP03 |
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>| E | Concurrency | WP01 |
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>| F | Idempotency | WP02 |
+</code></pre></div>
+<p>If a misfit does not appear in this table, it is an implementation gap. Every failure scenario you identified must have a work package responsible for eliminating it.</p>
+<h3 id="wp-prompt-files">WP prompt files<a class="headerlink" href="#wp-prompt-files" title="Permanent link">&para;</a></h3>
+<p>Each <code>tasks/WPxx-slug.md</code> file has YAML frontmatter that the tool validates:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nn">---</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="nt">work_package_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WP01</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Cart Validation</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="nt">lane</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">planned</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="nt">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="nt">subsystem</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Order</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="nt">misfits_addressed</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">A</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">B</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">E</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="nt">abstract_components</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">CartValidator</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">InventoryChecker</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="nn">---</span>
+</code></pre></div>
+<p>The <code>subsystem</code>, <code>misfits_addressed</code>, and <code>abstract_components</code> fields are optional but recommended. They enable the review step to verify that the implementation respects the decomposition.</p>
+<h3 id="validation_3">Validation<a class="headerlink" href="#validation_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>spec-bridge-skill-tool<span class="w"> </span>tasks<span class="w"> </span>--feature<span class="w"> </span>&lt;feature-slug&gt;<span class="w"> </span>--session-id<span class="w"> </span><span class="nv">$SESSION_ID</span>
+</code></pre></div>
+<p>This checks that WP files exist with valid frontmatter. It provides advisory warnings if WP files lack a <code>subsystem</code> field or if tasks.md is missing the Misfit Coverage Matrix.</p>
+<h2 id="step-5-implement-build-each-work-package">Step 5: Implement -- Build Each Work Package<a class="headerlink" href="#step-5-implement-build-each-work-package" title="Permanent link">&para;</a></h2>
+<p><strong>What happens</strong>: For each work package, the AI agent creates an isolated git worktree (a separate working directory with its own branch), implements the WP, and commits the code.</p>
+<p><strong>Commands</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># From the planning repository root:</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>spec-bridge<span class="w"> </span>agent<span class="w"> </span>workflow<span class="w"> </span>implement<span class="w"> </span>WP01<span class="w"> </span>--agent<span class="w"> </span>my-agent
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="c1"># Move into the worktree:</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="nb">cd</span><span class="w"> </span>.worktrees/&lt;feature-slug&gt;-WP01/
+</code></pre></div>
+<h3 id="tdd-from-misfits">TDD from Misfits<a class="headerlink" href="#tdd-from-misfits" title="Permanent link">&para;</a></h3>
+<p>This is where SyDD connects analysis to code. Before writing any implementation, read the WP's <code>misfits_addressed</code> field. For each misfit:</p>
+<ol>
+<li><strong>Write a test</strong> that reproduces the misfit condition. For example, for Misfit A ("zero items"):</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_empty_cart_rejected</span><span class="p">():</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    <span class="n">cart</span> <span class="o">=</span> <span class="n">Cart</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[])</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">validate_cart</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">is_error</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    <span class="k">assert</span> <span class="s2">&quot;at least one item&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">error_message</span>
+</code></pre></div>
+<ol>
+<li>
+<p><strong>Run the test.</strong> It fails because <code>validate_cart</code> does not exist yet. This is the "red" phase.</p>
+</li>
+<li>
+<p><strong>Write the minimum code</strong> to make the test pass:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">validate_cart</span><span class="p">(</span><span class="n">cart</span><span class="p">:</span> <span class="n">Cart</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ValidationResult</span><span class="p">:</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">cart</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>        <span class="k">return</span> <span class="n">ValidationResult</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Cart must contain at least one item&quot;</span><span class="p">)</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="k">return</span> <span class="n">ValidationResult</span><span class="o">.</span><span class="n">ok</span><span class="p">()</span>
+</code></pre></div>
+<ol>
+<li>
+<p><strong>Run the test again.</strong> It passes. This is the "green" phase.</p>
+</li>
+<li>
+<p><strong>Refactor</strong> if needed, keeping the test green.</p>
+</li>
+</ol>
+<p>Repeat for every misfit assigned to the WP. When done, every failure scenario has a test, and the implementation exists to eliminate each one.</p>
+<h3 id="completing-the-wp">Completing the WP<a class="headerlink" href="#completing-the-wp" title="Permanent link">&para;</a></h3>
+<p>After implementation:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Commit from inside the worktree</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>git<span class="w"> </span>add<span class="w"> </span>&lt;files&gt;
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat(WP01): cart validation with inventory checking&quot;</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="c1"># Return to the planning repo and move the WP to review</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="nb">cd</span><span class="w"> </span>&lt;planning-repo-root&gt;
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>spec-bridge<span class="w"> </span>agent<span class="w"> </span>tasks<span class="w"> </span>move-task<span class="w"> </span>WP01<span class="w"> </span>--to<span class="w"> </span>for_review<span class="w"> </span>--note<span class="w"> </span><span class="s2">&quot;Ready for review&quot;</span>
+</code></pre></div>
+<h3 id="validation_4">Validation<a class="headerlink" href="#validation_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>spec-bridge-skill-tool<span class="w"> </span>implement<span class="w"> </span>--feature<span class="w"> </span>&lt;feature-slug&gt;<span class="w"> </span>--wp<span class="w"> </span>WP01<span class="w"> </span>--session-id<span class="w"> </span><span class="nv">$SESSION_ID</span>
+</code></pre></div>
+<p>This checks that the worktree exists, the WP is in the <code>doing</code> lane, and at least one commit has been made.</p>
+<h2 id="step-6-review-verify-against-misfits">Step 6: Review -- Verify Against Misfits<a class="headerlink" href="#step-6-review-verify-against-misfits" title="Permanent link">&para;</a></h2>
+<p><strong>What happens</strong>: The AI agent (or a different agent/developer) reviews the implementation against the WP's acceptance criteria and the SyDD checklist.</p>
+<p><strong>Command</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>spec-bridge<span class="w"> </span>agent<span class="w"> </span>workflow<span class="w"> </span>review<span class="w"> </span>WP01<span class="w"> </span>--agent<span class="w"> </span>reviewer-agent
+</code></pre></div>
+<h3 id="the-sydd-review-checklist">The SyDD Review Checklist<a class="headerlink" href="#the-sydd-review-checklist" title="Permanent link">&para;</a></h3>
+<p>In addition to standard code review (correctness, style, test coverage), the review verifies four SyDD-specific criteria:</p>
+<ol>
+<li>
+<p><strong>Misfit Resolution</strong>: For each misfit in <code>misfits_addressed</code>, does a test exist that reproduces the failure scenario? Does it pass? Is the misfit structurally eliminated (the design prevents it) rather than just caught with error handling?</p>
+</li>
+<li>
+<p><strong>Subsystem Boundary Respect</strong>: Does the implementation introduce coupling between subsystems that is not declared in the plan's Inter-System Contracts? No imports, function calls, or data flows should cross subsystem boundaries except through contracted interfaces.</p>
+</li>
+<li>
+<p><strong>Contract Compliance</strong>: If the WP implements an inter-system contract, does the implementation match the contract specification (producer output, consumer input, failure mode handling)?</p>
+</li>
+<li>
+<p><strong>No New Misfits</strong>: Does the implementation introduce failure modes that are not covered by existing misfits? If so, they should be documented as new misfits requiring a spec update.</p>
+</li>
+</ol>
+<h3 id="review-outcome">Review outcome<a class="headerlink" href="#review-outcome" title="Permanent link">&para;</a></h3>
+<p>If the review passes:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>spec-bridge<span class="w"> </span>agent<span class="w"> </span>tasks<span class="w"> </span>move-task<span class="w"> </span>WP01<span class="w"> </span>--to<span class="w"> </span><span class="k">done</span><span class="w"> </span>--note<span class="w"> </span><span class="s2">&quot;Review passed&quot;</span>
+</code></pre></div></p>
+<p>If changes are requested:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>spec-bridge<span class="w"> </span>agent<span class="w"> </span>tasks<span class="w"> </span>move-task<span class="w"> </span>WP01<span class="w"> </span>--to<span class="w"> </span>planned<span class="w"> </span>--review-feedback-file<span class="w"> </span>&lt;feedback-file&gt;
+</code></pre></div></p>
+<p>The WP goes back to the implementer for fixes.</p>
+<h2 id="step-7-accept-confirm-feature-completeness">Step 7: Accept -- Confirm Feature Completeness<a class="headerlink" href="#step-7-accept-confirm-feature-completeness" title="Permanent link">&para;</a></h2>
+<p><strong>What happens</strong>: After all WPs reach <code>lane: done</code>, the accept step verifies that the entire feature is complete and consistent.</p>
+<p><strong>Command</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>spec-bridge<span class="w"> </span>agent<span class="w"> </span>accept<span class="w"> </span>--actor<span class="w"> </span><span class="s2">&quot;my-agent&quot;</span><span class="w"> </span>--feature<span class="w"> </span>&lt;feature-slug&gt;<span class="w"> </span>--mode<span class="w"> </span><span class="nb">local</span><span class="w"> </span>--test<span class="w"> </span><span class="s2">&quot;pytest tests/ -v&quot;</span>
+</code></pre></div>
+<p>This checks that all WPs are done, all artifacts (spec.md, plan.md, tasks.md) exist, and provides merge instructions.</p>
+<h2 id="step-8-merge-compose-subsystems">Step 8: Merge -- Compose Subsystems<a class="headerlink" href="#step-8-merge-compose-subsystems" title="Permanent link">&para;</a></h2>
+<p><strong>What happens</strong>: All work package branches are merged into the target branch and worktrees are cleaned up.</p>
+<p><strong>Commands</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># Preview the merge plan</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>spec-bridge<span class="w"> </span>merge<span class="w"> </span>--feature<span class="w"> </span>&lt;feature-slug&gt;<span class="w"> </span>--dry-run<span class="w"> </span>--json
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="c1"># Execute the merge</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>spec-bridge<span class="w"> </span>merge<span class="w"> </span>--feature<span class="w"> </span>&lt;feature-slug&gt;
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="c1"># Clean up worktrees</span>
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>.worktrees/&lt;feature-slug&gt;-WP01
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>.worktrees/&lt;feature-slug&gt;-WP02
+</code></pre></div>
+<p>Because subsystems are semi-independent by construction, merge conflicts should be rare. If they occur, they indicate that the decomposition had a gap -- two subsystems were more coupled than the interaction analysis suggested.</p>
+<h2 id="what-you-end-up-with">What You End Up With<a class="headerlink" href="#what-you-end-up-with" title="Permanent link">&para;</a></h2>
+<p>After completing all eight steps, your feature directory looks like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>specs/042-checkout-api/
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>  spec.md                  # Use cases, misfits, requirements
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>  decomposition.md         # Misfit interactions, subsystem boundaries (if used)
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>  plan.md                  # Architecture, components, contracts, WP candidates
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>  tasks.md                 # WP definitions, misfit coverage matrix
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>  meta.json                # Feature metadata
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>  tasks/
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>    WP01-cart-validation.md    # WP prompt with subsystem traceability
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>    WP02-payment-processing.md
+<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>    WP03-logistics.md
+<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>    WP04-contracts.md
+</code></pre></div>
+<p>And in your codebase, you have:
+- Code whose module structure mirrors the problem's subsystem structure.
+- Tests derived from every identified failure scenario.
+- Clear contracts governing how subsystems communicate.
+- A complete paper trail from use cases through misfits through decomposition through implementation.</p>
+<h2 id="complete-skill-workflow">Complete Skill Workflow<a class="headerlink" href="#complete-skill-workflow" title="Permanent link">&para;</a></h2>
+<div class="panzoom-box" data-key="alt" id="panzoom0" oncontextmenu="return false;">
+    <div class="panzoom-info-box panzoom-info-box-top panzoom-hidden">
+Hold "Alt" / "Option" to enable pan &amp; zoom
+</div>
+    <nav class="panzoom-nav panzoom-top-nav">
+    <button class="panzoom-info panzoom-button">
+    <svg class="panzoom-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3l58.3 0c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24l0-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1l-58.3 0c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"></path>
+    </svg>
+</button><button class="panzoom-reset panzoom-button">
+    <svg class="panzoom-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M125.7 160l50.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L48 224c-17.7 0-32-14.3-32-32L16 64c0-17.7 14.3-32 32-32s32 14.3 32 32l0 51.2L97.6 97.6c87.5-87.5 229.3-87.5 316.8 0s87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3s-163.8-62.5-226.3 0L125.7 160z"></path>
+    </svg>
+</button><button class="panzoom-max panzoom-button">
+    <svg class="panzoom-icon" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 32C14.3 32 0 46.3 0 64l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-64 64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L32 32zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0 0-64zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0 0 64c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96c0-17.7-14.3-32-32-32l-96 0zM448 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c17.7 0 32-14.3 32-32l0-96z"></path>
+    </svg>
+</button><button class="panzoom-min panzoom-button panzoom-hidden">
+    <svg class="panzoom-icon" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M160 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c17.7 0 32-14.3 32-32l0-96zM32 320c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0 0 64c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96c0-17.7-14.3-32-32-32l-96 0zM352 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0 0-64zM320 320c-17.7 0-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-64 64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0z"></path>
+    </svg>
+</button>
+    </nav>
+    <pre class="mermaid"><code>flowchart TB
+    SP["specify
+    Context and Use Cases
+    Misfits by domain
+    Misfit Interaction Notes"]
+
+    SM[("spec.md")]
+
+    DC["decompose (optional)
+    Misfit Inventory
+    Interaction Matrix
+    Subsystem Identification"]
+
+    DM[("decomposition.md")]
+
+    PL["plan
+    Decomposition and Subsystems
+    Abstract Components
+    Inter-System Contracts
+    WP Candidates + Subsystem col"]
+
+    PM[("plan.md")]
+
+    TS["tasks
+    WP + Subsystem traceability
+    TDD Targets from Misfits
+    Misfit Coverage Matrix"]
+
+    TM[("tasks.md + WP files")]
+
+    IM["implement
+    TDD from Misfits
+    red - green - refactor"]
+
+    RV["review
+    Misfit resolution
+    Boundary respect
+    Contract compliance
+    No new misfits"]
+
+    AP{Approved?}
+    AC[accept]
+    MG[merge]
+
+    SP --&gt; SM
+    SM --&gt;|"skip"| PL
+    SM --&gt; DC --&gt; DM --&gt; PL
+    PL --&gt; PM --&gt; TS --&gt; TM --&gt; IM
+    IM --&gt; RV --&gt; AP
+    AP --&gt;|"changes"| IM
+    AP --&gt;|"approved"| AC --&gt; MG</code></pre> 
+    
+</div>
+<h2 id="summary-of-the-workflow">Summary of the Workflow<a class="headerlink" href="#summary-of-the-workflow" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Skill</th>
+<th>Input</th>
+<th>Output</th>
+<th>Key SyDD Element</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>specify</td>
+<td>Idea</td>
+<td>spec.md</td>
+<td>Use cases + misfits</td>
+</tr>
+<tr>
+<td>2</td>
+<td>decompose</td>
+<td>spec.md</td>
+<td>decomposition.md</td>
+<td>Interaction matrix + subsystems</td>
+</tr>
+<tr>
+<td>3</td>
+<td>plan</td>
+<td>spec.md + decomposition</td>
+<td>plan.md</td>
+<td>Abstract components + contracts</td>
+</tr>
+<tr>
+<td>4</td>
+<td>tasks</td>
+<td>plan.md</td>
+<td>tasks.md + WP files</td>
+<td>Misfit coverage matrix</td>
+</tr>
+<tr>
+<td>5</td>
+<td>implement</td>
+<td>WP file</td>
+<td>Code in worktree</td>
+<td>TDD from misfits</td>
+</tr>
+<tr>
+<td>6</td>
+<td>review</td>
+<td>Code + WP spec</td>
+<td>Review verdict</td>
+<td>SyDD checklist</td>
+</tr>
+<tr>
+<td>7</td>
+<td>accept</td>
+<td>All WPs done</td>
+<td>Acceptance record</td>
+<td>Completeness check</td>
+</tr>
+<tr>
+<td>8</td>
+<td>merge</td>
+<td>Accepted WPs</td>
+<td>Merged feature</td>
+<td>Subsystem composition</td>
+</tr>
+</tbody>
+</table>
+<p>The key difference from traditional development: every architectural decision is traceable back to the misfits that motivated it, and every test is traceable back to a specific failure scenario. Nothing is arbitrary. The structure serves the problem.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.footer", "content.code.copy", "toc.integrate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../assets/javascripts/nav-accordion.js"></script>
+      
+        <script src="../assets/javascripts/panzoom.min.js"></script>
+      
+        <script src="../assets/javascripts/zoompan.js"></script>
+      
+    
+  </body>
+</html>

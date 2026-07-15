@@ -1,0 +1,1695 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Deterministic validation harness for AI agent skill execution">
+      
+      
+      
+        <link rel="canonical" href="https://bruj0.github.io/spec-bridge-docs/research/spec-bridge-worktree-isolation-gaps/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Spec-Bridge Skills: Worktree Isolation Gap Report - spec-bridge-v2 Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/panzoom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <meta name="panzoom-theme" content="material">
+<meta name="panzoom-data" content='{"selectors": [".mermaid", ".d2"], "initial_zoom_level": 1.0}'> </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spec-bridge-skills-worktree-isolation-gap-report" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="spec-bridge-v2 Docs" class="md-header__button md-logo" aria-label="spec-bridge-v2 Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3zm-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spec-bridge-v2 Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Spec-Bridge Skills: Worktree Isolation Gap Report
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="spec-bridge-v2 Docs" class="md-nav__button md-logo" aria-label="spec-bridge-v2 Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3zm-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4z"/></svg>
+
+    </a>
+    spec-bridge-v2 Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-software-architecture-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software Architecture Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-synthesis-driven-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synthesis-Driven Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-sydd-methodology-and-implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SyDD Methodology and Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture (C4)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture (C4)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c4/1-project-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c4/2-architecture-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c4/3-workflow-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Dive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c4/4-deep-dive/skill-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c4/4-deep-dive/core-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Module
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c4/4-deep-dive/adapter-and-init/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adapter and Init
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADRs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADRs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0001-spec-bridge-skill-tool-as-separate-binary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0001 spec-bridge-skill-tool as separate binary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0002-two-responsibility-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0002 Two-responsibility model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0003-skill-module-isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0003 Skill module isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0004-schema-first-artifact-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0004 Schema-first artifact design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0005-spec-bridge-conf-single-configuration-source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0005 spec-bridge.conf single configuration source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0006-structured-stdout-only-output/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0006 Structured stdout-only output
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0007-adapter-pattern-for-agent-specific-file-generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0007 Adapter pattern for agent-specific file generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aperant-prompts-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aperant Prompts Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="spec-bridge-skills-worktree-isolation-gap-report">Spec-Bridge Skills: Worktree Isolation Gap Report<a class="headerlink" href="#spec-bridge-skills-worktree-isolation-gap-report" title="Permanent link">&para;</a></h1>
+<p><strong>Date:</strong> 2026-05-24<br />
+<strong>Trigger:</strong> Feature <code>019-skills-discovery-invocation</code> — product code and merges landed on <code>main</code> during implement/review, before <code>spec-bridge-accept</code> and <code>spec-bridge-merge</code>.<br />
+<strong>Goal:</strong> Document what to change in SyDD skills (and optional tooling) so <strong>all implementation, validation, and manual testing happen in WP worktrees</strong>, and <strong><code>main</code> is touched only by <code>spec-bridge-merge</code> after <code>spec-bridge-accept</code></strong>.</p>
+<hr />
+<h2 id="executive-summary">Executive summary<a class="headerlink" href="#executive-summary" title="Permanent link">&para;</a></h2>
+<p>The skills <strong>describe</strong> worktree isolation correctly in places (<code>spec-bridge-implement</code> Steps 5–7, <code>spec-bridge-review</code> Step 4c), but they <strong>do not enforce</strong> it. Agents routinely:</p>
+<ol>
+<li>Run tests and dev servers from the <strong>planning root</strong> (<code>main</code>) because paths are familiar and <code>lane: done</code> is confused with “shipped to <code>main</code>”.</li>
+<li><strong>Merge WP branches into <code>main</code> during implement</strong> when integration testing “needs everything on main”.</li>
+<li>Add <strong>ad-hoc “merge-land” WPs</strong> (e.g. WP06) that duplicate <code>spec-bridge-merge</code>.</li>
+<li>Commit <strong>task/planning artifacts</strong> from <code>main</code> while <strong>product code</strong> is split between worktrees and <code>main</code>.</li>
+</ol>
+<p><strong>Fix strategy:</strong> Add hard guards, explicit test/dev commands scoped to <code>$WORKTREES_DIR</code>, a single merge entrypoint, and optional <code>spec-bridge-skill-tool</code> checks — not more prose alone.</p>
+<hr />
+<h2 id="intended-model-canonical">Intended model (canonical)<a class="headerlink" href="#intended-model-canonical" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Git location</th>
+<th>Allowed git operations on <code>main</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>specify → tasks</td>
+<td>Planning root</td>
+<td>Task/spec commits only</td>
+</tr>
+<tr>
+<td><strong>implement</strong></td>
+<td><code>.worktrees/&lt;feature&gt;-&lt;WP&gt;/</code></td>
+<td><strong>None</strong> (no merge to <code>main</code>, no product commits on <code>main</code>)</td>
+</tr>
+<tr>
+<td><strong>review</strong></td>
+<td>Inspect via <code>git -C worktree</code>; typecheck/tests <strong>in worktree</strong></td>
+<td>Task lane commits on planning root only</td>
+</tr>
+<tr>
+<td><strong>accept</strong></td>
+<td>Planning root</td>
+<td>Readiness checks; no product merge</td>
+</tr>
+<tr>
+<td><strong>merge</strong></td>
+<td>Planning root on <code>$TARGET_BRANCH</code></td>
+<td><strong>Only</strong> skill that merges WP branches → <code>main</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Dependency integration:</strong> <code>git merge --no-ff &lt;feature&gt;-&lt;dep&gt;</code> runs <strong>inside the current WP worktree</strong>, never <code>git checkout main &amp;&amp; git merge</code>.</p>
+<p><strong>Integration testing before merge:</strong> Either run tests in the <strong>last WP worktree</strong> after merging all dependency branches into it, or use a <strong>temporary integration worktree</strong> — not <code>main</code>.</p>
+<hr />
+<h2 id="case-study-what-went-wrong-on-019">Case study: what went wrong on 019<a class="headerlink" href="#case-study-what-went-wrong-on-019" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Symptom</th>
+<th>Root cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Early harness WIP</td>
+<td><code>22f64bbb</code> on <code>main</code></td>
+<td>Work started on planning root before WP01 worktree discipline</td>
+</tr>
+<tr>
+<td>WP02 / WP03</td>
+<td>Commits on <code>main</code> “so IDE/bridge can test”</td>
+<td>Agent treated <code>main</code> as integration branch</td>
+</tr>
+<tr>
+<td>WP04–WP05</td>
+<td>Linear product commits on <code>main</code></td>
+<td>Implement effectively on <code>main</code>; worktrees stale or unused for edits</td>
+</tr>
+<tr>
+<td>WP06 merge-land</td>
+<td><code>3ca4c97e</code> merges WP04–05 during <strong>implement</strong></td>
+<td>Ad-hoc WP duplicated <strong>merge</strong>; review only audited, did not block</td>
+</tr>
+<tr>
+<td>Review “approved”</td>
+<td>User told “landed on main”</td>
+<td><strong>Lane <code>done</code> ≠ merged to <code>main</code></strong>; skill never required “code only on WP branch”</td>
+</tr>
+</tbody>
+</table>
+<p>Transcript pattern (paraphrased): <em>“approved in worktree but not on main — merge so we can run the app from main.”</em> That contradicts the skill contract.</p>
+<hr />
+<h2 id="gap-analysis-by-skill">Gap analysis by skill<a class="headerlink" href="#gap-analysis-by-skill" title="Permanent link">&para;</a></h2>
+<h3 id="1-spec-bridge-implement-highest-priority">1. <code>spec-bridge-implement</code> — highest priority<a class="headerlink" href="#1-spec-bridge-implement-highest-priority" title="Permanent link">&para;</a></h3>
+<p><strong>What exists today</strong></p>
+<ul>
+<li>“Working directory isolation” section (Steps 1–4 planning root, 5–7 worktree).</li>
+<li>Step 6: dependency merges <strong>inside worktree</strong>.</li>
+<li>Step 7b: type-check “Run from inside the worktree” but <strong>no <code>cd</code> block</strong> in the snippet (unlike review Step 4c).</li>
+</ul>
+<p><strong>Gaps</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Gap</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I1</td>
+<td>No <strong>forbidden commands</strong> list (<code>git checkout main</code>, <code>git merge … main</code>, <code>git push origin main</code> for product)</td>
+<td>Agents merge to <code>main</code> during implement</td>
+</tr>
+<tr>
+<td>I2</td>
+<td><code>&lt;project-test-command&gt;</code> placeholders with <strong>no rule</strong> “must run with <code>pwd</code> = worktree”</td>
+<td>Tests run on <code>main</code> checkout</td>
+</tr>
+<tr>
+<td>I3</td>
+<td>No guidance for <strong>IDE / bridge / extension</strong> dev (<code>npm run dev</code>, VS Code F5) from worktree path</td>
+<td>“Open repo from main” default</td>
+</tr>
+<tr>
+<td>I4</td>
+<td>Steps 7b, 8, 9: <code>cd &lt;planning-repo-root&gt;</code> for task frontmatter — easy to <strong>stay on main</strong> and edit product files</td>
+<td>Slippage after worktree</td>
+</tr>
+<tr>
+<td>I5</td>
+<td><code>tdd_red_clean</code> / <code>build_validated</code> committed from planning root — <strong>no check</strong> that product diff is empty on <code>main</code></td>
+<td>False green on wrong tree</td>
+</tr>
+<tr>
+<td>I6</td>
+<td>No <strong>pre-flight</strong>: <code>git -C worktree branch</code> must equal <code>$FEATURE_SLUG-$WP_ID</code> before first edit</td>
+<td>Wrong directory</td>
+</tr>
+<tr>
+<td>I7</td>
+<td>No ban on <strong>ad-hoc merge-land WPs</strong>; WP06-style tasks encouraged “merge to main” in implement</td>
+<td>Bypasses accept + merge</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommended skill edits</strong></p>
+<ol>
+<li>Add section <strong>“Hard rules (implement)”</strong>:</li>
+<li>NEVER <code>git checkout $TARGET_BRANCH</code> for product work during this skill.</li>
+<li>NEVER <code>git merge $FEATURE_SLUG-*</code> into <code>$TARGET_BRANCH</code>.</li>
+<li>ALL product file paths in commits must appear in <code>git -C $WORKTREE diff $TARGET_BRANCH...HEAD --name-only</code>.</li>
+<li>Add <strong>Step 5a — Worktree sentinel</strong> (run after <code>cd</code> worktree):</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">WORKTREE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$WORKTREES_DIR</span><span class="s2">/</span><span class="nv">$FEATURE_SLUG</span><span class="s2">-</span><span class="nv">$WP_ID</span><span class="s2">&quot;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">test</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>git<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$WORKTREE</span><span class="s2">&quot;</span><span class="w"> </span>rev-parse<span class="w"> </span>--show-toplevel<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>git<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$WORKTREE</span><span class="s2">&quot;</span><span class="w"> </span>rev-parse<span class="w"> </span>--git-dir<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s|/.git/worktrees/.*||&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nv">BR</span><span class="o">=</span><span class="k">$(</span>git<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$WORKTREE</span><span class="s2">&quot;</span><span class="w"> </span>branch<span class="w"> </span>--show-current<span class="k">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">test</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BR</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FEATURE_SLUG</span><span class="s2">-</span><span class="nv">$WP_ID</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ERROR: not on WP branch&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Product must not be committed on main:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>git<span class="w"> </span>diff<span class="w"> </span>--name-only<span class="w"> </span><span class="nv">$TARGET_BRANCH</span><span class="w"> </span>--<span class="w"> </span><span class="s1">&#39;:!specs/&#39;</span><span class="w"> </span><span class="s1">&#39;:!.cursor/&#39;</span><span class="w"> </span><span class="s1">&#39;:!CHANGELOG.md&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span>.<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;WARN: main has product diff; stop and use worktree only&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+</code></pre></div>
+<ol>
+<li>Replace generic test placeholder with:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$WORKTREES_DIR</span><span class="s2">/</span><span class="nv">$FEATURE_SLUG</span><span class="s2">-</span><span class="nv">$WP_ID</span><span class="s2">&quot;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># record: pwd must be worktree in implement summary test_results.command</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>&lt;project-test-command&gt;
+</code></pre></div>
+<ol>
+<li>
+<p>Add <strong>“Running the app from a worktree”</strong> subsection: set <code>cwd</code> to worktree for CLI; for VS Code, open folder <code>$WORKTREE</code> or use multi-root; document <code>DEEPAGENT_*</code> / bridge base URL if env-specific.</p>
+</li>
+<li>
+<p><strong>Forbidden WP types:</strong> If a task title/description contains “merge to main”, “land on main”, “integrate to main” — STOP and tell user to run <code>spec-bridge-merge</code> after accept, not implement.</p>
+</li>
+</ol>
+<hr />
+<h3 id="2-spec-bridge-review-high-priority">2. <code>spec-bridge-review</code> — high priority<a class="headerlink" href="#2-spec-bridge-review-high-priority" title="Permanent link">&para;</a></h3>
+<p><strong>What exists today</strong></p>
+<ul>
+<li>Step 4: <code>git -C $WORKTREES_DIR/...</code> log/diff.</li>
+<li>Step 4c: explicit <code>cd</code> worktree for type-check.</li>
+<li>SyDD checklist: “test exists and passes” — <strong>no command</strong> saying where to run tests.</li>
+</ul>
+<p><strong>Gaps</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Gap</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1</td>
+<td><strong>No mandatory test run in worktree</strong> before approve</td>
+<td>Reviewer validates “green” from agent memory or <code>main</code></td>
+</tr>
+<tr>
+<td>R2</td>
+<td>No check that <strong>WP branch tip</strong> contains product commits not on <code>main</code> yet</td>
+<td>Approving work that only exists on <code>main</code></td>
+</tr>
+<tr>
+<td>R3</td>
+<td>Step 5a “done” does not require <code>git merge-base --is-ancestor $WP_BRANCH $TARGET</code> <strong>false</strong> for product</td>
+<td>Confuses lane with merge</td>
+</tr>
+<tr>
+<td>R4</td>
+<td>Review can pass when worktree is <strong>missing</strong> or <strong>stale</strong> vs <code>main</code></td>
+<td>WP06-style audit-only review</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommended skill edits</strong></p>
+<ol>
+<li>Add <strong>Step 4c2 — Test gate (required)</strong>:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$WORKTREES_DIR</span><span class="s2">/</span><span class="nv">$FEATURE_SLUG</span><span class="s2">-</span><span class="nv">$WP_ID</span><span class="s2">&quot;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>&lt;project-test-command&gt;<span class="w">   </span><span class="c1"># must match implement summary command</span>
+</code></pre></div>
+<p>Fail approve if exit non-zero.</p>
+<ol>
+<li>Add <strong>Step 4c3 — Branch isolation check</strong>:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Product commits on WP branch not merged to target:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>git<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$WORKTREE</span><span class="s2">&quot;</span><span class="w"> </span>log<span class="w"> </span><span class="nv">$TARGET_BRANCH</span>..HEAD<span class="w"> </span>--oneline<span class="w"> </span>--<span class="w"> </span><span class="s1">&#39;:!specs/&#39;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># If empty AND main has feature files not in WP branch → FAIL (implemented on main)</span>
+</code></pre></div>
+<ol>
+<li>
+<p>In <strong>Step 5a</strong>, add explicit note: <strong><code>lane: done</code> does not merge to <code>main</code></strong>. Merge is only <code>spec-bridge-merge</code>.</p>
+</li>
+<li>
+<p>If worktree directory missing: <strong>request changes</strong>, do not approve from <code>main</code> diff alone.</p>
+</li>
+</ol>
+<hr />
+<h3 id="3-spec-bridge-merge-medium-clarify-dont-weaken">3. <code>spec-bridge-merge</code> — medium (clarify, don’t weaken)<a class="headerlink" href="#3-spec-bridge-merge-medium-clarify-dont-weaken" title="Permanent link">&para;</a></h3>
+<p><strong>What exists today</strong></p>
+<ul>
+<li>Strong guard: must be on <code>$TARGET</code> from <strong>main repo root</strong>, not inside worktree (Step 3c).</li>
+<li>Post-merge integration tests on target branch — correct <strong>only here</strong>.</li>
+</ul>
+<p><strong>Gaps</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Gap</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M1</td>
+<td>No prerequisite: <strong><code>spec-bridge-accept</code> passed</strong></td>
+<td>Merge before acceptance</td>
+</tr>
+<tr>
+<td>M2</td>
+<td>No detection “target already contains WP commits” vs silent skip</td>
+<td>False confidence after partial early merges</td>
+</tr>
+<tr>
+<td>M3</td>
+<td><code>ls src/</code> sanity check is project-specific</td>
+<td>deepagent may use other roots</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommended skill edits</strong></p>
+<ol>
+<li>Prerequisite bullet: <code>spec.md</code> lane <code>planned_accepted</code> (or accept skill completed).</li>
+<li>Before each WP merge, log:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>log<span class="w"> </span>-1<span class="w"> </span>--oneline<span class="w"> </span><span class="nv">$FEATURE_SLUG</span>-<span class="nv">$WP_ID</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>merge<span class="w"> </span>--no-ff<span class="w"> </span>...<span class="w">  </span><span class="c1"># existing</span>
+</code></pre></div>
+<ol>
+<li>If <code>git merge</code> reports “Already up to date” <strong>and</strong> <code>git log $TARGET..$FEATURE_SLUG-$WP_ID</code> is empty <strong>but</strong> files exist on target from an earlier rogue merge — emit <strong>WARNING</strong> in review/merge summary (document in CHANGELOG).</li>
+</ol>
+<hr />
+<h3 id="4-spec-bridge-accept-medium">4. <code>spec-bridge-accept</code> — medium<a class="headerlink" href="#4-spec-bridge-accept-medium" title="Permanent link">&para;</a></h3>
+<p><strong>What exists today</strong></p>
+<ul>
+<li>“Main repository root (not inside a worktree)” — good for accept metadata.</li>
+</ul>
+<p><strong>Gaps</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Gap</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1</td>
+<td>Does not verify <strong>each WP branch exists</strong> and has product commits</td>
+<td>Accept with hollow WPs</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>Does not assert <strong>no required product commit only on <code>main</code></strong></td>
+<td>Accept after 019-style leakage</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommended:</strong> Add accept checklist item: “For each WP in <code>done</code>, worktree branch <code>$FEATURE-$WP</code> is ahead of <code>$TARGET_BRANCH</code> for at least one non-spec path OR merge skill will no-op with documented warning.”</p>
+<hr />
+<h3 id="5-spec-bridge-execute-medium">5. <code>spec-bridge-execute</code> — medium<a class="headerlink" href="#5-spec-bridge-execute-medium" title="Permanent link">&para;</a></h3>
+<p><strong>Gaps</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Gap</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E1</td>
+<td>Orchestrates implement → review but <strong>never states</strong> “executor must not work on <code>main</code>”</td>
+<td>Long runs amplify leakage</td>
+</tr>
+<tr>
+<td>E2</td>
+<td>Crash recovery: “inspect worktree” — no “do not continue on main”</td>
+<td>Recovery on wrong tree</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommended:</strong> One paragraph at top: <strong>Executor agents must pass worktree path to subprocess skills; never open planning root for product edits.</strong></p>
+<hr />
+<h3 id="6-spec-bridge-fast-iterate-medium">6. <code>spec-bridge-fast-iterate</code> — medium<a class="headerlink" href="#6-spec-bridge-fast-iterate-medium" title="Permanent link">&para;</a></h3>
+<p><strong>Gaps</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Gap</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F1</td>
+<td>Combines specify/plan/tasks then implement — still subject to I* gaps</td>
+<td>Same leakage, faster</td>
+</tr>
+<tr>
+<td>F2</td>
+<td>Documents merge after review — good — but <strong>no stronger isolation</strong> than implement</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommended:</strong> Mirror all <strong>implement</strong> hard rules; single WP still uses one worktree.</p>
+<hr />
+<h3 id="7-planning-skills-specify-plan-tasks-decompose-low">7. Planning skills (specify, plan, tasks, decompose) — low<a class="headerlink" href="#7-planning-skills-specify-plan-tasks-decompose-low" title="Permanent link">&para;</a></h3>
+<p>Generally safe (artifacts under <code>specs/</code>). <strong>Exception:</strong> WPs must not be authored with instructions like “merge branches to main” or “verify on main” — use “verify in WP worktree after dependency merge”.</p>
+<p><strong>tasks skill:</strong> Add template line under each WP:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gu">## Execution constraints</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">-</span><span class="w"> </span>Product code and tests: only in <span class="sb">`.worktrees/&lt;feature&gt;-&lt;WP&gt;/`</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">-</span><span class="w"> </span>Do not merge to <span class="sb">`main`</span> until <span class="sb">`spec-bridge-merge`</span> after accept
+</code></pre></div>
+<hr />
+<h2 id="tooling-gaps-spec-bridge-skill-tool">Tooling gaps (<code>spec-bridge-skill-tool</code>)<a class="headerlink" href="#tooling-gaps-spec-bridge-skill-tool" title="Permanent link">&para;</a></h2>
+<p>Skills can be ignored; <strong>automated gates</strong> reduce recurrence.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>When</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>implement</code> validate</td>
+<td>Step 9</td>
+<td>Fail if <code>git diff $TARGET_BRANCH --name-only</code> on planning root includes paths outside allowlist (<code>specs/</code>, <code>.gitignore</code>, task chore)</td>
+</tr>
+<tr>
+<td><code>implement</code> validate</td>
+<td>Step 9</td>
+<td>Require <code>test_results.command</code> contains worktree path or <code>cwd</code> proof</td>
+</tr>
+<tr>
+<td><code>review</code> validate</td>
+<td>Step 5</td>
+<td>Fail approve if worktree missing</td>
+</tr>
+<tr>
+<td><code>review</code> validate</td>
+<td>Step 5</td>
+<td>Optional: require <code>test_results</code> sidecar from worktree run</td>
+</tr>
+<tr>
+<td><code>merge</code></td>
+<td>Start</td>
+<td>Fail if accept lane not satisfied</td>
+</tr>
+<tr>
+<td>New: <code>wp-branch-ahead</code></td>
+<td>CI / manual</td>
+<td>Lists product files on WP not on target</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Source of truth:</strong> Implement validators in <code>spec-bridge-v2/skill-tool/</code> and redeploy skills via <code>spec-bridge-skill-tool init</code> (per spec-bridge-v2 AGENTS.md — edit <strong>adapter templates</strong>, not <code>.cursor/skills/</code> only).</p>
+<hr />
+<h2 id="anti-patterns-to-ban-explicit-in-all-execution-skills">Anti-patterns to ban (explicit in all execution skills)<a class="headerlink" href="#anti-patterns-to-ban-explicit-in-all-execution-skills" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>“Merge to main so I can test”</strong> — use worktree + dependency merges instead.</li>
+<li><strong><code>lane: done</code> means on main</strong> — lane is workflow state only.</li>
+<li><strong>Review without running tests in worktree</strong> — not a valid review.</li>
+<li><strong>WP06-style “merge-land” in implement</strong> — merge is one skill, one time, after accept.</li>
+<li><strong>Stash/pop on main to “bring WP work over”</strong> — conflicts with worktree model; use branch merge inside worktree.</li>
+<li><strong>Committing product code from planning root</strong> — even if tests passed there.</li>
+</ol>
+<hr />
+<h2 id="testing-and-dev-workflow-deepagent-specific">Testing and dev workflow (deepagent-specific)<a class="headerlink" href="#testing-and-dev-workflow-deepagent-specific" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Correct location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>make test</code> / <code>uv run pytest</code></td>
+<td><code>$WORKTREES_DIR/&lt;feature&gt;-&lt;WP&gt;/</code></td>
+</tr>
+<tr>
+<td><code>npm run dev</code> (IDE)</td>
+<td><code>apps/ide</code> from worktree; bridge/env points at worktree root</td>
+</tr>
+<tr>
+<td>VS Code extension host</td>
+<td>Open <code>$WORKTREE</code> or launch config <code>cwd</code></td>
+</tr>
+<tr>
+<td>Task frontmatter / <code>spec-bridge-skill-tool</code></td>
+<td>Planning root</td>
+</tr>
+<tr>
+<td>Final integration test</td>
+<td><code>spec-bridge-merge</code> Step 3e on <code>$TARGET_BRANCH</code> only</td>
+</tr>
+</tbody>
+</table>
+<p>Document in <strong>implement</strong> skill: monorepo may need <code>uv sync</code> / <code>npm install</code> <strong>inside worktree</strong> (separate <code>node_modules</code> is OK; do not “test from main node_modules” for WP code).</p>
+<hr />
+<h2 id="prioritized-remediation-backlog">Prioritized remediation backlog<a class="headerlink" href="#prioritized-remediation-backlog" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Item</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0</td>
+<td>Implement: hard rules + worktree sentinel + test <code>cd</code></td>
+<td><code>spec-bridge-implement/SKILL.md</code></td>
+</tr>
+<tr>
+<td>P0</td>
+<td>Review: mandatory worktree tests + isolation check</td>
+<td><code>spec-bridge-review/SKILL.md</code></td>
+</tr>
+<tr>
+<td>P0</td>
+<td>Ban merge-land WPs in implement + tasks template</td>
+<td>implement + tasks skills</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Merge: accept prerequisite + already-on-main warning</td>
+<td>merge + accept skills</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Execute / fast-iterate: isolation preamble</td>
+<td>execute, fast-iterate</td>
+</tr>
+<tr>
+<td>P2</td>
+<td><code>spec-bridge-skill-tool</code> validate hooks</td>
+<td>spec-bridge-v2 skill-tool</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Sync templates → deepagent <code>.cursor/skills</code> via init</td>
+<td>process</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Agent rule in <code>AGENTS.md</code> / constitution</td>
+<td><code>.spec-bridge/memory/constitution.md</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sync-note-two-skill-trees">Sync note (two skill trees)<a class="headerlink" href="#sync-note-two-skill-trees" title="Permanent link">&para;</a></h2>
+<p>DeepAgent carries skills at:</p>
+<ul>
+<li><code>deepagent/.cursor/skills/spec-bridge-*/SKILL.md</code></li>
+</ul>
+<p>Spec-bridge-v2 source of truth for deployed copies:</p>
+<ul>
+<li><code>skill-tool/src/skill_tool/adapters/templates/</code> (flat or directory)</li>
+</ul>
+<p>After editing templates, run <code>spec-bridge-skill-tool init</code> in each consumer repo so agents do not read stale deployed skills.</p>
+<hr />
+<h2 id="success-criteria">Success criteria<a class="headerlink" href="#success-criteria" title="Permanent link">&para;</a></h2>
+<p>For a new feature <code>0NN-*</code>:</p>
+<ol>
+<li><code>git log main --oneline</code> during implement/review shows <strong>only</strong> <code>chore(tasks):</code> / spec commits — no product feature commits until merge.</li>
+<li>Every WP’s product diff lives on <code>$FEATURE_SLUG-$WP_ID</code> until merge.</li>
+<li>Review artifacts record test command run from worktree path.</li>
+<li>No WP markdown instructs merging to <code>main</code> before accept.</li>
+<li><code>spec-bridge-merge</code> is the <strong>first</strong> commit on <code>main</code> that introduces the feature’s product code (modulo explicitly documented early mistakes).</li>
+</ol>
+<hr />
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Feature artifacts: <code>specs/019-skills-discovery-invocation/</code></li>
+<li>Ad-hoc merge WP: <code>specs/019-skills-discovery-invocation/tasks/WP06-merge-land.md</code></li>
+<li>Skills: <code>.cursor/skills/spec-bridge-{implement,review,merge,accept,execute}/SKILL.md</code></li>
+<li>Session transcript: <code>agent-transcripts/100c813a-0023-463a-bde6-1c253454296b.jsonl</code> (WP02 merge-to-main rationale)</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.footer", "content.code.copy", "toc.integrate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../assets/javascripts/nav-accordion.js"></script>
+      
+        <script src="../../assets/javascripts/panzoom.min.js"></script>
+      
+        <script src="../../assets/javascripts/zoompan.js"></script>
+      
+    
+  </body>
+</html>

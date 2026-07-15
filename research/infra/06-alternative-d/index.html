@@ -1,0 +1,1890 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Deterministic validation harness for AI agent skill execution">
+      
+      
+      
+        <link rel="canonical" href="https://bruj0.github.io/spec-bridge-docs/research/infra/06-alternative-d/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Alternative D: Agent-as-Orchestrator with Deterministic Validation - spec-bridge-v2 Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/panzoom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <meta name="panzoom-theme" content="material">
+<meta name="panzoom-data" content='{"selectors": [".mermaid", ".d2"], "initial_zoom_level": 1.0}'> </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#alternative-d-agent-as-orchestrator-with-deterministic-validation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="spec-bridge-v2 Docs" class="md-header__button md-logo" aria-label="spec-bridge-v2 Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3zm-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spec-bridge-v2 Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Alternative D: Agent-as-Orchestrator with Deterministic Validation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="spec-bridge-v2 Docs" class="md-nav__button md-logo" aria-label="spec-bridge-v2 Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3zm-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4z"/></svg>
+
+    </a>
+    spec-bridge-v2 Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00-software-architecture-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software Architecture Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-synthesis-driven-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synthesis-Driven Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-sydd-methodology-and-implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SyDD Methodology and Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture (C4)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture (C4)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../c4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../c4/1-project-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../c4/2-architecture-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../c4/3-workflow-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Dive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../c4/4-deep-dive/skill-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../c4/4-deep-dive/core-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Module
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../c4/4-deep-dive/adapter-and-init/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adapter and Init
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADRs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADRs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0001-spec-bridge-skill-tool-as-separate-binary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0001 spec-bridge-skill-tool as separate binary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0002-two-responsibility-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0002 Two-responsibility model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0003-skill-module-isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0003 Skill module isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0004-schema-first-artifact-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0004 Schema-first artifact design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0005-spec-bridge-conf-single-configuration-source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0005 spec-bridge.conf single configuration source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0006-structured-stdout-only-output/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0006 Structured stdout-only output
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0007-adapter-pattern-for-agent-specific-file-generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0007 Adapter pattern for agent-specific file generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aperant-prompts-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aperant Prompts Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="alternative-d-agent-as-orchestrator-with-deterministic-validation">Alternative D: Agent-as-Orchestrator with Deterministic Validation<a class="headerlink" href="#alternative-d-agent-as-orchestrator-with-deterministic-validation" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Approach</strong>: The LLM agent is the control plane. A deterministic validation tool
+(like spec-bridge) only checks outcomes — it never orchestrates, schedules, or
+reconciles. One of the key artifacts is <strong>executor prompts</strong>: instructions that the
+user hands to a second agent session to perform the actual infrastructure changes.
+The first agent then validates the result.
+<strong>Working name</strong>: "ops-bridge" or "runbook-bridge"</p>
+</blockquote>
+<hr />
+<h2 id="core-idea">Core Idea<a class="headerlink" href="#core-idea" title="Permanent link">&para;</a></h2>
+<p>Alternative C introduces a programmatic controller (state machine, reconciler, executors)
+that drives the process. This alternative <strong>removes all of that</strong> and returns to
+spec-bridge's original philosophy:</p>
+<blockquote>
+<p>The tool is <strong>not</strong> an orchestrator. Skills encode all workflow logic as AI agent
+instructions. The agent calls this tool at the end to get a pass/fail verdict.
+— spec-bridge-v2 README</p>
+</blockquote>
+<p>The insight is: <strong>the LLM is already a better orchestrator than any state machine we
+could write</strong>. It understands context, adapts to failures, asks clarifying questions,
+and coordinates across sessions. What it lacks is <strong>deterministic verification</strong> — the
+ability to distinguish "I think this worked" from "I can prove this worked."</p>
+<p>The tool provides that verification. Nothing more.</p>
+<p><strong>Two-agent pattern:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  Agent 1 (Planner + Validator)                              │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│  - Reads RFC                                                │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  - Decomposes into phases                                   │
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  - Produces EXECUTOR PROMPTS for each phase                 │
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  - After execution: runs deterministic validation tool      │
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│  - Advances to next phase or reports failures               │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>└────────────────────────────────────┬────────────────────────┘
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                                     │
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                          executor prompts (artifacts on disk)
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                                     │
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                                     ▼
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>┌─────────────────────────────────────────────────────────────┐
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>│  Agent 2 (Executor) — separate session / window / worktree  │
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>│  - Receives prompt with full context for ONE phase          │
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>│  - Makes configuration changes in target repos              │
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>│  - Runs verification commands as instructed                  │
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>│  - Reports results back (files on disk / commit messages)   │
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>└─────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<p>The user is the bridge between the two agents. They take the executor prompt
+from Agent 1, open a new session (different repo, different context), paste the
+prompt, let Agent 2 do the work, then return to Agent 1 for validation.</p>
+<hr />
+<h2 id="why-two-agents">Why Two Agents?<a class="headerlink" href="#why-two-agents" title="Permanent link">&para;</a></h2>
+<p>Infrastructure changes span multiple repositories. An LLM agent session is
+typically scoped to one workspace. The two-agent pattern solves this naturally:</p>
+<ul>
+<li><strong>Agent 1</strong> lives in the spec/planning repo (or the RFC repo). It has the full
+  picture: what the RFC says, which phases exist, what's been validated so far.</li>
+<li><strong>Agent 2</strong> lives in the target repo (e.g., <code>bf-container-base-images</code>,
+  <code>ci-templates</code>, <code>bf-terraform</code>). It has deep context on that specific codebase
+  and makes changes there.</li>
+</ul>
+<p>The executor prompt is the <strong>interface contract</strong> between them. It contains
+everything Agent 2 needs to act without needing Agent 1's full context.</p>
+<p>This mirrors how platform engineers actually work: one person holds the RFC
+plan in their head, and they (or another engineer) execute changes in each repo.</p>
+<hr />
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ops-bridge/
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── src/ops_bridge/
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│   ├── __main__.py          # CLI entrypoint
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│   ├── config.py            # Project config (ops-bridge.yaml)
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│   │
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│   ├── core/
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│   │   ├── dispatch.py      # Skill dispatch (same pattern as spec-bridge)
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│   │   ├── output.py        # JSON verdict on stdout
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│   │   ├── logging.py       # Session + audit logging
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│   │   └── frontmatter.py   # YAML frontmatter parsing
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│   │
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│   ├── skills/
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>│   │   ├── ingest/          # RFC → infra-spec.md (validate RFC structure)
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│   │   ├── plan/            # infra-plan.md + phases (validate phase structure)
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>│   │   ├── prompts/         # Validate executor prompts are complete
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>│   │   ├── verify/          # Validate phase outcomes (the core value)
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>│   │   └── close/           # Validate all phases done + decommission
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>│   │
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>│   ├── checks/
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>│   │   ├── protocol.py      # Check Protocol (same as spec-bridge CheckResult)
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>│   │   ├── file_checks.py   # File exists, contains string, YAML parses
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>│   │   ├── shell_checks.py  # Run command, check exit code + output
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>│   │   ├── git_checks.py    # Branch exists, file on branch, commit message
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>│   │   └── composite.py     # AND/OR check combinators
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>│   │
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>│   └── adapters/
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>│       ├── cursor.py        # Generate .cursor/skills/ SKILL.md files
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>│       └── templates/       # SKILL.md templates per skill
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>│           ├── ingest.md
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>│           ├── plan.md
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>│           ├── prompts.md
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>│           ├── verify.md
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>│           └── close.md
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>│
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>├── schemas/v1/
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>│   ├── infra-spec.yaml      # RFC-derived spec frontmatter
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>│   ├── phase.yaml           # Phase file frontmatter
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>│   ├── executor-prompt.yaml # Executor prompt frontmatter
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>│   └── verify-result.yaml   # Verification result schema
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>│
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>└── ops-bridge.yaml          # Project config
+</code></pre></div>
+<p><strong>What's NOT here</strong> (compared to Alternative C):
+- No <code>state_machine.py</code> — the agent tracks state via phase frontmatter lanes
+- No <code>reconciler.py</code> — the agent decides what to do next
+- No <code>executors/</code> — the agent generates prompts; the user dispatches them
+- No <code>evidence.py</code> — verification is done by running checks, not collecting evidence
+- No <code>gates/</code> — replaced by <code>checks/</code> which are simpler (pass/fail, no state)</p>
+<hr />
+<h2 id="key-artifacts">Key Artifacts<a class="headerlink" href="#key-artifacts" title="Permanent link">&para;</a></h2>
+<h3 id="1-infra-specmd-normalized-rfc">1. <code>infra-spec.md</code> — Normalized RFC<a class="headerlink" href="#1-infra-specmd-normalized-rfc" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nn">---</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Replace</span><span class="nv"> </span><span class="s">BuildKitd</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">Rootless</span><span class="nv"> </span><span class="s">Podman&quot;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nt">rfc_source</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./RFC-017-replace-buildkitd-with-podman.md&quot;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">planned</span><span class="w">        </span><span class="c1"># planned → in_progress → done</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nt">systems_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nt">phases_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="nt">created_at</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2026-05-11&quot;</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nn">---</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1">## Summary</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p p-Indicator">[</span><span class="nv">Extracted from RFC</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="c1">## Systems</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="p p-Indicator">[</span><span class="nv">List of systems with their types and access methods</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="c1">## Success Criteria</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="p p-Indicator">[</span><span class="nv">Extracted from RFC&#39;s Success Metrics section</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="2-phasespxx-slugmd-phase-definition">2. <code>phases/Pxx-slug.md</code> — Phase Definition<a class="headerlink" href="#2-phasespxx-slugmd-phase-definition" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nn">---</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">phase_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">P01</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Add</span><span class="nv"> </span><span class="s">Podman</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">bf-runner-allinone&quot;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nt">lane</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">planned</span><span class="w">          </span><span class="c1"># planned → doing → done</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nt">depends_on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nt">target_systems</span><span class="p">:</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bf-container-base-images</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git-repo</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git@gitlab.com:bridgefund/bf-container-base-images.git</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="nt">changes_summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Add</span><span class="nv"> </span><span class="s">podman,</span><span class="nv"> </span><span class="s">buildah,</span><span class="nv"> </span><span class="s">fuse-overlayfs</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">runner</span><span class="nv"> </span><span class="s">Dockerfile&quot;</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="nt">verification</span><span class="p">:</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">check</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shell</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;podman</span><span class="nv"> </span><span class="s">--version&quot;</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="nt">expect_contains</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;podman</span><span class="nv"> </span><span class="s">version&quot;</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Inside</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">runner</span><span class="nv"> </span><span class="s">pod</span><span class="nv"> </span><span class="s">after</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">image</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">deployed&quot;</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">check</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ci_pipeline</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="nt">project</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bf-container-base-images</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="nt">job</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build-runner</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="nt">expect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">success</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="nt">history</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="nn">---</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="c1">## Description</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="p p-Indicator">[</span><span class="nv">What this phase achieves and why</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">extracted from RFC implementation plan</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="c1">## Changes Required</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="p p-Indicator">[</span><span class="nv">Detailed description of what configuration changes are needed</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="c1">## Verification Criteria</span>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="p p-Indicator">[</span><span class="nv">Human-readable description of how to know this phase succeeded</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="3-promptspxx-executormd-executor-prompt-the-key-artifact">3. <code>prompts/Pxx-executor.md</code> — Executor Prompt (the key artifact)<a class="headerlink" href="#3-promptspxx-executormd-executor-prompt-the-key-artifact" title="Permanent link">&para;</a></h3>
+<p>This is what the user gives to Agent 2. It's a complete, self-contained instruction
+set for making the changes in one phase:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nn">---</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nt">phase_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">P01</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Add</span><span class="nv"> </span><span class="s">Podman</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">bf-runner-allinone&quot;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nt">target_repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git@gitlab.com:bridgefund/bf-container-base-images.git</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nt">branch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infra/rfc-017-podman-p01</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nt">generated_by</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ops-bridge</span><span class="nv"> </span><span class="s">plan&quot;</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="nt">generated_at</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2026-05-11T10:00:00Z&quot;</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="nn">---</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1"># Executor Prompt: P01 — Add Podman to bf-runner-allinone</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="c1">## Context</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="l l-Scalar l-Scalar-Plain">You are implementing Phase 1 of RFC-017 (Replace BuildKitd with Rootless Podman).</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="l l-Scalar l-Scalar-Plain">This phase adds Podman and Buildah to the `bf-runner-allinone` Docker image so that</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="l l-Scalar l-Scalar-Plain">CI jobs can build container images without a shared buildkitd daemon.</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="l l-Scalar l-Scalar-Plain">## Target</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="l l-Scalar l-Scalar-Plain">- **Repository**</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="err">`</span><span class="l l-Scalar l-Scalar-Plain">bf-container-base-images`</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">**Branch**</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create `infra/rfc-017-podman-p01` from `main`</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">**Working directory**</span><span class="p">:</span><span class="w"> </span><span class="err">`</span><span class="l l-Scalar l-Scalar-Plain">bf-runner-allinone/`</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="c1">## Changes</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="nt">1. **Modify `bf-runner-allinone/Dockerfile`**</span><span class="p">:</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Add `podman`, `buildah`, and `fuse-overlayfs` packages</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Add a `COPY containers.conf /etc/containers/containers.conf` instruction</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="nt">2. **Create `bf-runner-allinone/containers.conf`**</span><span class="p">:</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">   </span><span class="err">```</span><span class="l l-Scalar l-Scalar-Plain">toml</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">[containers]</span>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">default_capabilities = [</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="w">       </span><span class="l l-Scalar l-Scalar-Plain">&quot;CHOWN&quot;, &quot;DAC_OVERRIDE&quot;, &quot;FOWNER&quot;, &quot;FSETID&quot;, &quot;KILL&quot;,</span>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="w">       </span><span class="l l-Scalar l-Scalar-Plain">&quot;NET_BIND_SERVICE&quot;, &quot;SETFCAP&quot;, &quot;SETGID&quot;, &quot;SETPCAP&quot;, &quot;SETUID&quot;,</span>
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">]</span>
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>
+<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">[engine]</span>
+<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">cgroup_manager = &quot;cgroupfs&quot;</span>
+<a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">events_logger = &quot;file&quot;</span>
+<a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">```</span>
+<a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a>
+<a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a><span class="c1">## Verification Commands</span>
+<a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a>
+<a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a><span class="l l-Scalar l-Scalar-Plain">After making changes, run these commands and include the output in your response</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a>
+<a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a><span class="err">```</span><span class="l l-Scalar l-Scalar-Plain">bash</span>
+<a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a><span class="c1"># Verify Dockerfile syntax</span>
+<a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a><span class="l l-Scalar l-Scalar-Plain">docker build --check -f bf-runner-allinone/Dockerfile .</span>
+<a id="__codelineno-4-50" name="__codelineno-4-50" href="#__codelineno-4-50"></a>
+<a id="__codelineno-4-51" name="__codelineno-4-51" href="#__codelineno-4-51"></a><span class="c1"># Verify containers.conf is valid TOML</span>
+<a id="__codelineno-4-52" name="__codelineno-4-52" href="#__codelineno-4-52"></a><span class="l l-Scalar l-Scalar-Plain">python3 -c &quot;import tomllib; tomllib.load(open(&#39;bf-runner-allinone/containers.conf&#39;, &#39;rb&#39;))&quot;</span>
+</code></pre></div>
+<h2 id="commit-message">Commit Message<a class="headerlink" href="#commit-message" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>feat(runner): add podman and buildah to bf-runner-allinone
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Part of RFC-017: Replace BuildKitd with Rootless Podman (Phase 1).
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>Adds rootless container build capability directly in the runner image.
+</code></pre></div>
+<h2 id="done-when">Done When<a class="headerlink" href="#done-when" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Branch <code>infra/rfc-017-podman-p01</code> exists with the changes</li>
+<li>[ ] Dockerfile parses without errors</li>
+<li>[ ] containers.conf is valid TOML</li>
+<li>[ ] Changes are committed with the specified message format
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>### 4. `phases/Pxx-verify-results.json` — Verification Output
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>After Agent 2 executes, Agent 1 runs the validation tool:
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>```json
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>{
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  &quot;phase_id&quot;: &quot;P01&quot;,
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>  &quot;skill&quot;: &quot;verify&quot;,
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>  &quot;status&quot;: &quot;ok&quot;,
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>  &quot;checks&quot;: [
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    {
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>      &quot;name&quot;: &quot;branch_exists&quot;,
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>      &quot;passed&quot;: true,
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>      &quot;actual&quot;: &quot;infra/rfc-017-podman-p01&quot;,
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>      &quot;expected&quot;: &quot;infra/rfc-017-podman-p01&quot;
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    },
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>    {
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>      &quot;name&quot;: &quot;file_modified&quot;,
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>      &quot;passed&quot;: true,
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>      &quot;artifact_path&quot;: &quot;bf-runner-allinone/Dockerfile&quot;,
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>      &quot;expected&quot;: &quot;contains &#39;podman&#39;&quot;,
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>      &quot;actual&quot;: &quot;line 47: RUN apt-get install -y podman buildah fuse-overlayfs&quot;
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>    },
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>    {
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>      &quot;name&quot;: &quot;file_created&quot;,
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>      &quot;passed&quot;: true,
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>      &quot;artifact_path&quot;: &quot;bf-runner-allinone/containers.conf&quot;
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>    },
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a>    {
+<a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a>      &quot;name&quot;: &quot;ci_pipeline&quot;,
+<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a>      &quot;passed&quot;: true,
+<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a>      &quot;expected&quot;: &quot;build-runner job succeeds&quot;,
+<a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a>      &quot;actual&quot;: &quot;pipeline #12345 passed&quot;
+<a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a>    }
+<a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a>  ],
+<a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a>  &quot;errors&quot;: [],
+<a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a>  &quot;duration_ms&quot;: 3400
+<a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a>}
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="lifecycle-agent-1s-perspective">Lifecycle (Agent 1's Perspective)<a class="headerlink" href="#lifecycle-agent-1s-perspective" title="Permanent link">&para;</a></h2>
+<p>The agent reads the SKILL.md and follows this flow. The tool only appears at
+validation checkpoints — everything else is the agent's judgment:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>1. Agent reads SKILL.md for &#39;ingest&#39;
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>2. Agent reads the RFC, creates infra-spec.md
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>3. Agent calls: ops-bridge ingest --feature rfc-017 --session-id &lt;uuid&gt;
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>   → Tool validates: RFC sections present, systems enumerated, schema valid
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>   → JSON verdict: pass/fail
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>4. Agent reads SKILL.md for &#39;plan&#39;
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>5. Agent decomposes RFC into phases, creates phase files + systems manifest
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>6. Agent calls: ops-bridge plan --feature rfc-017 --session-id &lt;uuid&gt;
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>   → Tool validates: DAG acyclic, all deps exist, verification defined per phase
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>   → JSON verdict: pass/fail
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>7. Agent reads SKILL.md for &#39;prompts&#39;
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>8. Agent generates executor prompts for each phase (prompts/P01-executor.md, ...)
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>9. Agent calls: ops-bridge prompts --feature rfc-017 --session-id &lt;uuid&gt;
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>   → Tool validates: prompt covers all changes, has verification commands, has branch name
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>   → JSON verdict: pass/fail
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>10. USER takes prompts/P01-executor.md → opens Agent 2 in target repo → executes
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>11. Agent reads SKILL.md for &#39;verify&#39;
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>12. Agent runs verification checks for the phase
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>13. Agent calls: ops-bridge verify --feature rfc-017 --phase P01 --session-id &lt;uuid&gt;
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>    → Tool validates: checks defined in phase file all pass
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>    → JSON verdict: pass/fail
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>    → If pass: agent updates P01 lane to &#39;done&#39;, proceeds to next phase
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>
+<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>14. Repeat 10-13 for each phase in dependency order
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>
+<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a>15. Agent reads SKILL.md for &#39;close&#39;
+<a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a>16. Agent confirms all phases done, decommission verified
+<a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>17. Agent calls: ops-bridge close --feature rfc-017 --session-id &lt;uuid&gt;
+<a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a>    → Tool validates: all phases lane=done, decommission checks pass
+<a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a>    → JSON verdict: pass/fail
+</code></pre></div>
+<hr />
+<h2 id="what-the-tool-validates-per-skill">What the Tool Validates (Per Skill)<a class="headerlink" href="#what-the-tool-validates-per-skill" title="Permanent link">&para;</a></h2>
+<h3 id="ingest"><code>ingest</code><a class="headerlink" href="#ingest" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rfc_source_readable</code></td>
+<td>The RFC file exists and is non-empty</td>
+</tr>
+<tr>
+<td><code>infra_spec_exists</code></td>
+<td><code>infra-spec.md</code> was created</td>
+</tr>
+<tr>
+<td><code>infra_spec_frontmatter_valid</code></td>
+<td>Frontmatter matches schema</td>
+</tr>
+<tr>
+<td><code>systems_identified</code></td>
+<td>At least one system listed</td>
+</tr>
+<tr>
+<td><code>success_criteria_present</code></td>
+<td>Success criteria section is non-trivial</td>
+</tr>
+</tbody>
+</table>
+<h3 id="plan"><code>plan</code><a class="headerlink" href="#plan" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>phases_exist</code></td>
+<td>At least one phase file created</td>
+</tr>
+<tr>
+<td><code>dag_acyclic</code></td>
+<td>Phase dependencies form a DAG</td>
+</tr>
+<tr>
+<td><code>deps_exist</code></td>
+<td>Every <code>depends_on</code> reference points to a real phase</td>
+</tr>
+<tr>
+<td><code>verification_defined</code></td>
+<td>Every phase has at least one verification check</td>
+</tr>
+<tr>
+<td><code>systems_covered</code></td>
+<td>Every system in <code>infra-spec.md</code> is targeted by at least one phase</td>
+</tr>
+</tbody>
+</table>
+<h3 id="prompts"><code>prompts</code><a class="headerlink" href="#prompts" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>prompt_per_phase</code></td>
+<td>Every phase has a corresponding executor prompt</td>
+</tr>
+<tr>
+<td><code>prompt_frontmatter_valid</code></td>
+<td>Prompt frontmatter matches schema</td>
+</tr>
+<tr>
+<td><code>prompt_has_target</code></td>
+<td>Prompt specifies target repo and branch</td>
+</tr>
+<tr>
+<td><code>prompt_has_changes</code></td>
+<td>Prompt describes what to change</td>
+</tr>
+<tr>
+<td><code>prompt_has_verification</code></td>
+<td>Prompt includes verification commands</td>
+</tr>
+<tr>
+<td><code>prompt_has_done_criteria</code></td>
+<td>Prompt defines "done when" checklist</td>
+</tr>
+</tbody>
+</table>
+<h3 id="verify-per-phase"><code>verify</code> (per phase)<a class="headerlink" href="#verify-per-phase" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>phase_deps_done</code></td>
+<td>All dependency phases have lane=done</td>
+</tr>
+<tr>
+<td><code>verification_checks_pass</code></td>
+<td>All checks defined in phase file pass</td>
+</tr>
+<tr>
+<td><code>branch_exists</code></td>
+<td>Target branch exists in the repo (if git-repo type)</td>
+</tr>
+<tr>
+<td><code>changes_present</code></td>
+<td>Expected file changes are on the branch</td>
+</tr>
+</tbody>
+</table>
+<p>Verification checks are <strong>executed by the agent, not the tool</strong>. The tool validates
+that the agent <em>reported</em> running them and the results match expectations. This keeps
+the tool dependency-free (no kubectl, no terraform, no boto3).</p>
+<p><strong>Critical design decision</strong>: The tool trusts the agent's reported check output. If
+the agent says <code>kubectl get deploy -n gitlab-runner</code> returned empty, the tool accepts
+that. The tool validates <em>structure</em> (did you run the checks? do the results satisfy
+the criteria?) not <em>execution</em> (did kubectl actually return that?).</p>
+<p>For higher assurance, the tool CAN shell out to run checks itself — but this is
+opt-in via a <code>--live</code> flag, not the default. The default mode is <strong>structural
+validation</strong> identical to spec-bridge.</p>
+<h3 id="close"><code>close</code><a class="headerlink" href="#close" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>all_phases_done</code></td>
+<td>Every phase has lane=done</td>
+</tr>
+<tr>
+<td><code>spec_status_done</code></td>
+<td><code>infra-spec.md</code> status is <code>done</code></td>
+</tr>
+<tr>
+<td><code>decommission_verified</code></td>
+<td>Decommission checks (if any) pass</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="the-executor-prompt-as-a-first-class-artifact">The Executor Prompt as a First-Class Artifact<a class="headerlink" href="#the-executor-prompt-as-a-first-class-artifact" title="Permanent link">&para;</a></h2>
+<p>The executor prompt is this alternative's unique contribution. It is:</p>
+<ol>
+<li>
+<p><strong>A complete instruction set</strong> — Agent 2 needs nothing else to act. No prior
+   context, no access to the plan, no knowledge of other phases.</p>
+</li>
+<li>
+<p><strong>Auditable</strong> — The prompt records exactly what was asked. If the change goes
+   wrong, you can review what instructions were given.</p>
+</li>
+<li>
+<p><strong>Replayable</strong> — If a phase fails, give the same prompt to a different agent
+   (or a human) and try again. The prompt is idempotent in intent.</p>
+</li>
+<li>
+<p><strong>Scope-limited</strong> — Each prompt targets ONE repo and ONE branch. This matches
+   how LLM agent sessions work (one workspace at a time).</p>
+</li>
+<li>
+<p><strong>Verifiable</strong> — The prompt includes its own verification commands. Agent 2
+   runs them and reports. Agent 1 validates the report.</p>
+</li>
+</ol>
+<h3 id="prompt-quality-checks">Prompt Quality Checks<a class="headerlink" href="#prompt-quality-checks" title="Permanent link">&para;</a></h3>
+<p>The <code>prompts</code> skill validates that executor prompts are good enough to hand off:</p>
+<ul>
+<li><strong>Context section</strong>: Does it explain <em>why</em> this change is being made?</li>
+<li><strong>Target section</strong>: Repo URL, branch name, working directory</li>
+<li><strong>Changes section</strong>: Specific files to create/modify with expected content</li>
+<li><strong>Verification section</strong>: Commands to run after changes</li>
+<li><strong>Done criteria</strong>: Checklist the executor can self-evaluate against</li>
+<li><strong>Commit message</strong>: Consistent format referencing the RFC</li>
+</ul>
+<p>A bad prompt (missing context, vague changes, no verification) will fail validation
+just like a bad <code>spec.md</code> fails spec-bridge's specify check.</p>
+<hr />
+<h2 id="comparison-with-alternative-c">Comparison with Alternative C<a class="headerlink" href="#comparison-with-alternative-c" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th style="text-align: center;">Alt C: RFC-First Controller</th>
+<th style="text-align: center;">Alt D: Agent-as-Orchestrator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Who orchestrates?</td>
+<td style="text-align: center;">Programmatic reconciler</td>
+<td style="text-align: center;">LLM agent (with user)</td>
+</tr>
+<tr>
+<td>What does the tool do?</td>
+<td style="text-align: center;">Track state, evaluate gates, dispatch executors</td>
+<td style="text-align: center;">Validate artifacts and outcomes</td>
+</tr>
+<tr>
+<td>State machine?</td>
+<td style="text-align: center;">Yes — built into the tool</td>
+<td style="text-align: center;">No — agent manages lane transitions</td>
+</tr>
+<tr>
+<td>Executor model?</td>
+<td style="text-align: center;">Pluggable executors in the tool</td>
+<td style="text-align: center;">Executor prompts (artifacts on disk)</td>
+</tr>
+<tr>
+<td>Evidence model?</td>
+<td style="text-align: center;">Structured evidence submission API</td>
+<td style="text-align: center;">Agent reports check results</td>
+</tr>
+<tr>
+<td>How phases advance?</td>
+<td style="text-align: center;">Reconciler evaluates gates</td>
+<td style="text-align: center;">Agent updates frontmatter after verification passes</td>
+</tr>
+<tr>
+<td>Complexity</td>
+<td style="text-align: center;">6 abstractions</td>
+<td style="text-align: center;">2 abstractions (skills + checks)</td>
+</tr>
+<tr>
+<td>Matches spec-bridge philosophy?</td>
+<td style="text-align: center;">No (tool is a controller)</td>
+<td style="text-align: center;">Yes (tool only validates)</td>
+</tr>
+<tr>
+<td>Multi-repo coordination?</td>
+<td style="text-align: center;">Controller dispatches to repos</td>
+<td style="text-align: center;">User carries prompts between agent sessions</td>
+</tr>
+<tr>
+<td>Failure handling?</td>
+<td style="text-align: center;">Reconciler retries / blocks</td>
+<td style="text-align: center;">Agent decides (ask user, retry, skip)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="trade-offs">Trade-offs<a class="headerlink" href="#trade-offs" title="Permanent link">&para;</a></h2>
+<h3 id="advantages">Advantages<a class="headerlink" href="#advantages" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>True to spec-bridge's philosophy</strong>: The tool validates, the agent orchestrates.
+  Same mental model, same patterns, same kind of SKILL.md instructions. A team
+  that knows spec-bridge already understands how this works.</p>
+</li>
+<li>
+<p><strong>Minimal tool complexity</strong>: No state machine, no reconciler, no executor
+  framework. The tool is a set of checks that read files and optionally run
+  commands. Same architecture as spec-bridge-skill-tool.</p>
+</li>
+<li>
+<p><strong>Executor prompts are portable</strong>: The prompt is a markdown file. Give it to
+  Cursor, Claude Code, Copilot, or a human. It doesn't care who reads it. This
+  is the strongest form of "instruction-driven, not platform-locked."</p>
+</li>
+<li>
+<p><strong>Natural multi-repo</strong>: The two-agent pattern matches how multi-repo work
+  actually happens. You don't need a tool that coordinates across repos — you
+  need a tool that validates each repo's contribution independently.</p>
+</li>
+<li>
+<p><strong>Agent handles ambiguity</strong>: When Phase 3 fails unexpectedly, the agent can
+  reason about why, propose a fix, regenerate the prompt, or ask the user.
+  A state machine would just block.</p>
+</li>
+<li>
+<p><strong>Fast to build</strong>: The tool surface is almost identical to spec-bridge. Same
+  dispatch, same checks, same output. The new parts are the check types (shell,
+  git) and the prompt schema. MVP in 2-3 weeks.</p>
+</li>
+<li>
+<p><strong>Progressive disclosure</strong>: A simple RFC with 2 phases generates 2 prompts.
+  A complex RFC with 6 phases and parallel branches generates 6 prompts.
+  The tool's complexity doesn't change — only the number of artifacts.</p>
+</li>
+</ul>
+<h3 id="disadvantages">Disadvantages<a class="headerlink" href="#disadvantages" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>User is the message bus</strong>: The user must manually carry prompts from Agent 1
+  to Agent 2. For a 6-phase RFC, that's 6 round-trips between sessions. This
+  could be tedious for large migrations.</p>
+</li>
+<li>
+<p><strong>No automated progression</strong>: Unlike Alt C where the reconciler can run
+  unattended, this approach requires the user to be present for every phase
+  transition. There's no "run overnight and check in the morning."</p>
+</li>
+<li>
+<p><strong>Trust in agent-reported results</strong>: The tool (in default mode) trusts what
+  the agent says the check output was. If the agent hallucinates a successful
+  <code>kubectl get</code> result, the tool can't catch it without <code>--live</code> mode.</p>
+</li>
+<li>
+<p><strong>No parallel execution tracking</strong>: Alt C's DAG solver can dispatch
+  independent phases in parallel. Here, the agent could suggest parallel
+  execution, but tracking multiple in-flight phases with their prompts adds
+  cognitive load on the user.</p>
+</li>
+<li>
+<p><strong>Executor prompt quality depends on Agent 1</strong>: If the planner agent writes
+  a vague or incorrect prompt, Agent 2 will produce wrong results. The
+  <code>prompts</code> skill validates structure but can't validate semantic correctness.</p>
+</li>
+</ul>
+<h3 id="risk-telephone-game">Risk: "Telephone Game"<a class="headerlink" href="#risk-telephone-game" title="Permanent link">&para;</a></h3>
+<p>Information passes through three hops: RFC → Agent 1 (planner) → prompt →
+Agent 2 (executor). Each hop can lose nuance or introduce errors. The prompt
+is the critical interface — if it's lossy, the whole system degrades.</p>
+<p><strong>Mitigation</strong>: The <code>prompts</code> skill enforces completeness. The prompt must
+contain enough context that Agent 2 can act without the RFC. The verification
+commands in the prompt create a feedback loop that catches execution errors
+even if the prompt was slightly off.</p>
+<h3 id="risk-user-fatigue-on-large-migrations">Risk: "User Fatigue on Large Migrations"<a class="headerlink" href="#risk-user-fatigue-on-large-migrations" title="Permanent link">&para;</a></h3>
+<p>A 6-phase RFC means the user opens at least 12 sessions (6 executor sessions +
+returns to the planner 6 times for verification). For a 20-phase migration,
+this becomes impractical.</p>
+<p><strong>Mitigation</strong>: Phase batching. The agent can generate prompts for independent
+phases and tell the user: "Phases P01, P02, and P04 are independent. Execute
+them in any order, then return for verification." This reduces round-trips.</p>
+<p>Future enhancement: integrate with Cursor's multi-agent / worktree features to
+dispatch prompts to parallel sessions automatically.</p>
+<hr />
+<h2 id="how-it-handles-the-rfc-017-example">How It Handles the RFC-017 Example<a class="headerlink" href="#how-it-handles-the-rfc-017-example" title="Permanent link">&para;</a></h2>
+<p><strong>Agent 1 session</strong> (in the planning repo):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>User: &quot;Implement RFC-017. Here&#39;s the RFC file.&quot;
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Agent 1:
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  1. Reads RFC-017
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  2. Creates infra-spec.md (systems: 7 repos + 1 cluster)
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  3. Calls: ops-bridge ingest --feature rfc-017 --session-id abc123
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>     → pass
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>  4. Decomposes into 6 phases with dependencies
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>  5. Creates phases/P01.md through phases/P06.md
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>  6. Calls: ops-bridge plan --feature rfc-017 --session-id abc123
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>     → pass
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>  7. Generates executor prompts for each phase
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>  8. Calls: ops-bridge prompts --feature rfc-017 --session-id abc123
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>     → pass
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>  9. &quot;Phases P01 and P02 are independent. Here&#39;s the first prompt.
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>      Open bf-container-base-images in a new session and paste this:&quot;
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>      [shows prompts/P01-executor.md]
+</code></pre></div>
+<p><strong>User opens Agent 2</strong> in <code>bf-container-base-images</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>User: [pastes P01 executor prompt]
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>Agent 2:
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  1. Creates branch infra/rfc-017-podman-p01
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  2. Modifies Dockerfile (adds podman, buildah, fuse-overlayfs)
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>  3. Creates containers.conf
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>  4. Runs verification commands
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>  5. Commits with specified message
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>  6. &quot;Done. Branch created, Dockerfile builds, containers.conf is valid TOML.&quot;
+</code></pre></div>
+<p><strong>User returns to Agent 1</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>User: &quot;P01 is done. The branch exists and pipeline passed.&quot;
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>Agent 1:
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  1. Runs verification for P01
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>  2. Calls: ops-bridge verify --feature rfc-017 --phase P01 --session-id abc123
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>     → pass (branch exists, file contains &#39;podman&#39;, CI green)
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>  3. Updates P01 lane to &#39;done&#39;
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>  4. &quot;P01 verified. P02 is also independent — here&#39;s the next prompt:&quot;
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>     [shows prompts/P02-executor.md]
+</code></pre></div>
+<p><strong>Repeat until all 6 phases are done, then:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Agent 1:
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  1. All phases verified
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>  2. Calls: ops-bridge close --feature rfc-017 --session-id abc123
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>     → pass
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>  3. &quot;RFC-017 is fully implemented and verified. All 6 phases complete.&quot;
+</code></pre></div>
+<hr />
+<h2 id="future-automating-the-user-as-bridge">Future: Automating the User-as-Bridge<a class="headerlink" href="#future-automating-the-user-as-bridge" title="Permanent link">&para;</a></h2>
+<p>The two-agent pattern with user-as-bridge is the <strong>correct starting architecture</strong>
+because it's the simplest thing that works. But the user carrying prompts is a
+UX limitation, not a fundamental architectural constraint.</p>
+<p>Future enhancements that preserve the architecture:</p>
+<ol>
+<li>
+<p><strong>Cursor worktree integration</strong>: Agent 1 uses the <code>conductor</code> skill to spawn
+   a worktree for the target repo, pre-loads the executor prompt, and the user
+   just switches windows.</p>
+</li>
+<li>
+<p><strong>SDK-based dispatch</strong>: Using <code>@cursor/sdk</code>, Agent 1 programmatically spawns
+   Agent 2 sessions with the executor prompt pre-loaded. The user approves
+   the dispatch but doesn't copy-paste.</p>
+</li>
+<li>
+<p><strong>CI as executor</strong>: For phases that are pure config changes + pipeline runs,
+   the prompt could be converted into a CI job that a webhook triggers. Agent 1
+   monitors the pipeline and validates when complete.</p>
+</li>
+</ol>
+<p>None of these change the tool's architecture. The tool still only validates.
+The orchestration layer evolves from "user carries prompts" to "tooling carries
+prompts" without touching the validation harness.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.footer", "content.code.copy", "toc.integrate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../assets/javascripts/nav-accordion.js"></script>
+      
+        <script src="../../../assets/javascripts/panzoom.min.js"></script>
+      
+        <script src="../../../assets/javascripts/zoompan.js"></script>
+      
+    
+  </body>
+</html>

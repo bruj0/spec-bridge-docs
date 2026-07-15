@@ -1,0 +1,1971 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Deterministic validation harness for AI agent skill execution">
+      
+      
+      
+        <link rel="canonical" href="https://bruj0.github.io/spec-bridge-docs/02-sydd-methodology-and-implementation/">
+      
+      
+        <link rel="prev" href="../01-synthesis-driven-development/">
+      
+      
+        <link rel="next" href="../c4/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>SyDD Methodology and Implementation - spec-bridge-v2 Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/panzoom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <meta name="panzoom-theme" content="material">
+<meta name="panzoom-data" content='{"selectors": [".mermaid", ".d2"], "initial_zoom_level": 1.0}'> </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#synthesis-driven-development" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="spec-bridge-v2 Docs" class="md-header__button md-logo" aria-label="spec-bridge-v2 Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3zm-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spec-bridge-v2 Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SyDD Methodology and Implementation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="spec-bridge-v2 Docs" class="md-nav__button md-logo" aria-label="spec-bridge-v2 Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3zm-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4z"/></svg>
+
+    </a>
+    spec-bridge-v2 Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-software-architecture-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software Architecture Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-synthesis-driven-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synthesis-Driven Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SyDD Methodology and Implementation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SyDD Methodology and Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-design-methodology-and-its-implementation-in-spec-bridge-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Design Methodology and Its Implementation in spec-bridge-v2
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture (C4)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture (C4)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/1-project-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/2-architecture-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/3-workflow-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Dive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/4-deep-dive/skill-modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/4-deep-dive/core-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Module
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c4/4-deep-dive/adapter-and-init/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adapter and Init
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADRs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADRs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0001-spec-bridge-skill-tool-as-separate-binary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0001 spec-bridge-skill-tool as separate binary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0002-two-responsibility-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0002 Two-responsibility model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0003-skill-module-isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0003 Skill module isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0004-schema-first-artifact-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0004 Schema-first artifact design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0005-spec-bridge-conf-single-configuration-source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0005 spec-bridge.conf single configuration source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0006-structured-stdout-only-output/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0006 Structured stdout-only output
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0007-adapter-pattern-for-agent-specific-file-generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0007 Adapter pattern for agent-specific file generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research/aperant-prompts-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aperant Prompts Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="synthesis-driven-development">Synthesis-Driven Development<a class="headerlink" href="#synthesis-driven-development" title="Permanent link">&para;</a></h1>
+<h2 id="a-design-methodology-and-its-implementation-in-spec-bridge-v2">A Design Methodology and Its Implementation in spec-bridge-v2<a class="headerlink" href="#a-design-methodology-and-its-implementation-in-spec-bridge-v2" title="Permanent link">&para;</a></h2>
+<hr />
+<h1 id="part-1-the-methodology">Part 1: The Methodology<a class="headerlink" href="#part-1-the-methodology" title="Permanent link">&para;</a></h1>
+<h2 id="11-the-problem-with-how-we-design-software">1.1 The Problem with How We Design Software<a class="headerlink" href="#11-the-problem-with-how-we-design-software" title="Permanent link">&para;</a></h2>
+<p>Software architects organize systems around categories that feel natural -- frontend/backend, controllers/services/repositories, microservice boundaries -- but that may not correspond to how requirements actually interact. Christopher Alexander identified this exact problem in <em>Notes on the Synthesis of Form</em> (1964): selfconscious designers invent arbitrary groupings that misrepresent problem structure. The result is coupling where there should be cohesion, and fragmentation where there should be unity.</p>
+<p>Synthesis-Driven Development (SyDD) applies Alexander's mathematical framework for decomposing complex design problems to software engineering. Instead of starting from what a system <em>should do</em> (requirements), SyDD starts from how a system can <em>fail to satisfy its context</em> (misfits). Instead of imposing architectural categories, SyDD derives subsystem boundaries from the interaction structure of those misfits.</p>
+<p>The methodology integrates with Specification-Driven Development (SDD), where specifications are the source of truth and code is their expression. SyDD adds analytical rigor to the specification process: before planning, decompose the problem using Alexander's method. Before implementing, verify that work packages respect the decomposition.</p>
+<hr />
+<h2 id="12-core-concepts">1.2 Core Concepts<a class="headerlink" href="#12-core-concepts" title="Permanent link">&para;</a></h2>
+<h3 id="context-and-form">Context and Form<a class="headerlink" href="#context-and-form" title="Permanent link">&para;</a></h3>
+<p>In Alexander's framework, the <strong>Context</strong> is everything that makes demands on a system: users, external systems, business rules, data flows, constraints. The <strong>Form</strong> is the system itself. Good design means the absence of identifiable failures in the relationship between form and context.</p>
+<table>
+<thead>
+<tr>
+<th>Alexander's Concept</th>
+<th>Software Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Context</td>
+<td>The environment: users, external systems, business rules, constraints</td>
+</tr>
+<tr>
+<td>Form</td>
+<td>The software system: modules, APIs, data models</td>
+</tr>
+<tr>
+<td>Misfit</td>
+<td>A way the software can fail its context: unsupported use case, violated constraint, unhandled failure</td>
+</tr>
+<tr>
+<td>Ensemble</td>
+<td>The combined system + environment; misfits are properties of this ensemble</td>
+</tr>
+<tr>
+<td>Constructive Diagram</td>
+<td>A design pattern that simultaneously resolves a cluster of misfits and implies a module structure</td>
+</tr>
+<tr>
+<td>Program (Decomposition)</td>
+<td>The hierarchy of subsystems derived from misfit interaction analysis</td>
+</tr>
+</tbody>
+</table>
+<h3 id="misfits">Misfits<a class="headerlink" href="#misfits" title="Permanent link">&para;</a></h3>
+<p>A misfit is a specific, testable failure scenario. Not what the system should do, but how it could fail.</p>
+<ul>
+<li><strong>Bad (requirement)</strong>: "The system must handle payment failures gracefully."</li>
+<li><strong>Good (misfit)</strong>: "Payment fails but the order is sent to the restaurant's kitchen."</li>
+</ul>
+<p>Misfits are more actionable than requirements because they describe concrete failures involving specific subsystems and have testable resolutions. They are binary: the system either handles the situation (fit) or does not (misfit).</p>
+<h3 id="the-subsystem-argument">The Subsystem Argument<a class="headerlink" href="#the-subsystem-argument" title="Permanent link">&para;</a></h3>
+<p>Alexander demonstrates with a lights analogy: 100 independent lights reach equilibrium in 2 seconds. 100 fully coupled lights take 10^22 years. But 10 subsystems of 10 lights each take only 15 minutes.</p>
+<p>No complex system succeeds unless adaptation proceeds subsystem by subsystem. When we identify the natural subsystem boundaries in a problem, we reduce the solution space from intractable to manageable. Traditional design fails because arbitrary categories break these natural boundaries.</p>
+<hr />
+<h2 id="13-the-five-phases">1.3 The Five Phases<a class="headerlink" href="#13-the-five-phases" title="Permanent link">&para;</a></h2>
+<h3 id="phase-1-context-gathering">Phase 1: Context Gathering<a class="headerlink" href="#phase-1-context-gathering" title="Permanent link">&para;</a></h3>
+<p><strong>Input</strong>: An idea, often vague.</p>
+<p><strong>Process</strong>: Through iterative dialogue, define the system's context:
+- <strong>Use Cases</strong>: Interactions between the system and its environment. These define the Context in Alexander's terms.
+- <strong>Misfits</strong>: Every identifiable way the system can fail its context. Tagged by domain (Data Integrity, Financial, Concurrency, Security, etc.).
+- <strong>Constraints</strong>: Non-functional requirements -- permanent misfits the system must never violate.
+- <strong>Misfit Interactions</strong>: Which misfits affect each other. If resolving one forces changes to the resolution of another, they are linked.</p>
+<p><strong>Output</strong>: A specification document containing use cases, misfits with domain tags, misfit interaction notes, user scenarios, requirements, and success criteria.</p>
+<h3 id="phase-2-decomposition">Phase 2: Decomposition<a class="headerlink" href="#phase-2-decomposition" title="Permanent link">&para;</a></h3>
+<p><strong>Input</strong>: The specification with its misfits.</p>
+<p><strong>Process</strong>:
+1. <strong>Build the interaction graph</strong>: For each pair of misfits, determine whether resolving one forces changes to the resolution of the other. The result is a graph G(M,L) where M is misfits and L is links.
+2. <strong>Identify subsystem boundaries</strong>: Group misfits into clusters where internal interactions are dense and external interactions are sparse. These clusters are the natural subsystems.
+3. <strong>Define the hierarchy</strong>: Subsystems may themselves decompose into sub-subsystems recursively.</p>
+<p><strong>Output</strong>: Subsystem boundaries with justification (which misfits interact and why they cluster), documented in the plan or in a standalone decomposition artifact.</p>
+<p><strong>Key insight</strong>: The decomposition is derived from the problem, not imposed by the designer. If "payment failure" and "inventory check" strongly interact, they belong in the same subsystem. If "address validation" has zero interaction with either, it is a separate subsystem. The interaction graph reveals this -- the designer does not decide it.</p>
+<h3 id="phase-3-design-constructive-diagrams">Phase 3: Design (Constructive Diagrams)<a class="headerlink" href="#phase-3-design-constructive-diagrams" title="Permanent link">&para;</a></h3>
+<p><strong>Input</strong>: The decomposition with subsystem boundaries.</p>
+<p><strong>Process</strong>: For each subsystem, create abstract components -- design elements that simultaneously express what the requirements demand and what software structure satisfies them:
+- <strong>Abstract Components</strong>: Each owns behaviors, entities, and a defined boundary. Components within a subsystem have high internal coupling and low external coupling.
+- <strong>Inter-system Contracts</strong>: Where subsystems must interact, define explicit contracts specifying what flows between them. The contract is the only permitted coupling.</p>
+<p><strong>Output</strong>: A plan document with abstract components per subsystem, their entities and behaviors, and inter-system contracts.</p>
+<h3 id="phase-4-synthesis-tasks-and-implementation">Phase 4: Synthesis (Tasks and Implementation)<a class="headerlink" href="#phase-4-synthesis-tasks-and-implementation" title="Permanent link">&para;</a></h3>
+<p><strong>Input</strong>: The plan with abstract components and contracts.</p>
+<p><strong>Process</strong>:
+- Each abstract component becomes one or more work packages. The WP inherits the component's misfits as acceptance criteria.
+- For each misfit assigned to a WP, write a test that reproduces the misfit condition and verify the implementation eliminates it. Misfits become test cases directly.
+- Inter-system contracts are implemented as APIs, schemas, or event contracts. Implementation must not create interactions not defined in the plan.</p>
+<p><strong>Output</strong>: Work packages with misfit traceability, a misfit coverage matrix ensuring nothing is missed, and implementation code in isolated worktrees.</p>
+<h3 id="phase-5-verification">Phase 5: Verification<a class="headerlink" href="#phase-5-verification" title="Permanent link">&para;</a></h3>
+<p><strong>Input</strong>: Implemented work packages.</p>
+<p><strong>Process</strong>:
+- <strong>Review</strong>: Check that each WP resolves its assigned misfits, respects subsystem boundaries, and does not introduce new misfits.
+- <strong>Accept</strong>: Verify all WPs are complete and feature artifacts are consistent.
+- <strong>Merge</strong>: Compose subsystem implementations. Since subsystems are semi-independent by construction, merge conflicts indicate a decomposition failure.</p>
+<hr />
+<h2 id="14-core-principles">1.4 Core Principles<a class="headerlink" href="#14-core-principles" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Misfits Over Requirements</strong>: Define how the system can fail before defining what it should do. Misfits are concrete, testable, and reveal subsystem boundaries.</p>
+</li>
+<li>
+<p><strong>Problem-Derived Structure</strong>: Architecture mirrors the problem's structure, not the designer's mental model. Subsystem boundaries emerge from misfit interaction analysis.</p>
+</li>
+<li>
+<p><strong>Dense Internal, Sparse External</strong>: Every architectural unit has strong internal coupling (its parts strongly affect each other) and weak external coupling (it weakly affects other units). This is Alexander's decomposition criterion.</p>
+</li>
+<li>
+<p><strong>Constructive Diagrams as Dual Descriptions</strong>: Every design element simultaneously expresses what is required and what structure satisfies the requirement.</p>
+</li>
+<li>
+<p><strong>Specifications as Lingua Franca</strong>: The specification is the primary artifact. Code is its expression. Maintaining software means evolving specifications.</p>
+</li>
+<li>
+<p><strong>Hierarchical Decomposition</strong>: Complex systems decompose recursively. The process is self-similar at every level.</p>
+</li>
+<li>
+<p><strong>Continuous Refinement</strong>: Production reality informs specification evolution. Metrics, incidents, and operational learnings become new misfits that trigger the next iteration.</p>
+</li>
+<li>
+<p><strong>Executable Specifications</strong>: Specifications must be precise enough to generate working systems. The gap between intent and implementation is eliminated through transformation.</p>
+</li>
+</ol>
+<hr />
+<h2 id="15-worked-example-food-delivery-checkout-api">1.5 Worked Example: Food Delivery Checkout API<a class="headerlink" href="#15-worked-example-food-delivery-checkout-api" title="Permanent link">&para;</a></h2>
+<h3 id="context-gathering">Context Gathering<a class="headerlink" href="#context-gathering" title="Permanent link">&para;</a></h3>
+<p><strong>Use Cases:</strong>
+- UC1: Customer submits a list of food items to buy.
+- UC2: System charges the customer's credit card.
+- UC3: Restaurant receives the order to start cooking.
+- UC4: System calculates delivery fees based on location.</p>
+<p><strong>Misfits:</strong>
+- Misfit A (Data Integrity): User submits an order with zero items or negative total.
+- Misfit B (Inventory): User orders an item that sold out while browsing.
+- Misfit C (Financial/State): Payment fails but order is sent to the kitchen.
+- Misfit D (Logistics): Delivery address is outside the restaurant's radius.
+- Misfit E (Concurrency): Two users order the last unit simultaneously; both accepted.
+- Misfit F (Idempotency): Network timeout causes client retry, creating a duplicate charge.</p>
+<h3 id="decomposition">Decomposition<a class="headerlink" href="#decomposition" title="Permanent link">&para;</a></h3>
+<p><strong>Interaction analysis:</strong>
+- A and B are linked: both validate cart contents and availability.
+- C and F are linked: both involve payment state management.
+- E is linked to B: both involve item availability state.
+- D has near-zero interaction with the others.</p>
+<p><strong>Subsystem boundaries:</strong>
+1. <strong>Order Subsystem</strong> [Misfits A, B, E]: Item validation, cart totals, inventory with pessimistic locking.
+2. <strong>Payment Subsystem</strong> [Misfits C, F]: Credit card charging, idempotency guards, transaction logging.
+3. <strong>Logistics Subsystem</strong> [Misfit D]: Address verification, delivery fee calculation.</p>
+<h3 id="constructive-diagrams">Constructive Diagrams<a class="headerlink" href="#constructive-diagrams" title="Permanent link">&para;</a></h3>
+<p><strong>Order Subsystem:</strong>
+- Components: CartValidator, InventoryChecker, OrderAssembler
+- Entities: CartItem, Order, InventoryRecord
+- Internal coupling: CartValidator must check InventoryChecker before OrderAssembler runs</p>
+<p><strong>Payment Subsystem:</strong>
+- Components: PaymentProcessor, IdempotencyGuard, TransactionLog
+- Entities: PaymentIntent, Transaction, IdempotencyKey
+- Internal coupling: IdempotencyGuard must approve before PaymentProcessor charges</p>
+<p><strong>Inter-system Contract (Order -&gt; Payment):</strong>
+- Producer: Order provides a validated OrderReceipt (items confirmed, totals computed).
+- Consumer: Payment returns a PaymentResult (success/failure).
+- Failure mode: If payment fails, Order releases inventory holds.</p>
+<h3 id="synthesis">Synthesis<a class="headerlink" href="#synthesis" title="Permanent link">&para;</a></h3>
+<p>Work packages map to abstract components:
+- WP01: CartValidator + InventoryChecker (Misfits A, B, E)
+- WP02: PaymentProcessor + IdempotencyGuard (Misfits C, F)
+- WP03: Logistics address validation (Misfit D)
+- WP04: Inter-system contracts (Order-&gt;Payment, Order-&gt;Logistics)</p>
+<p>Every misfit has a WP. Every WP has tests derived from its misfits.</p>
+<hr />
+<hr />
+<h1 id="part-2-implementation-in-spec-bridge-v2">Part 2: Implementation in spec-bridge-v2<a class="headerlink" href="#part-2-implementation-in-spec-bridge-v2" title="Permanent link">&para;</a></h1>
+<p>The SyDD methodology is implemented across the spec-bridge-v2 skill architecture. This section documents the concrete changes: what was modified, what was added, and how the validation harness enforces SyDD structure.</p>
+<hr />
+<h2 id="21-skill-architecture-overview">2.1 Skill Architecture Overview<a class="headerlink" href="#21-skill-architecture-overview" title="Permanent link">&para;</a></h2>
+<p>spec-bridge-v2 now has 8 skill modules plus an <code>init</code> command:</p>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Produces</th>
+<th>SyDD Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>specify</code></td>
+<td>spec.md</td>
+<td>Context gathering + misfit identification</td>
+</tr>
+<tr>
+<td><code>decompose</code></td>
+<td>decomposition.md</td>
+<td>Standalone misfit interaction analysis (new)</td>
+</tr>
+<tr>
+<td><code>plan</code></td>
+<td>plan.md</td>
+<td>Subsystem design + abstract components + contracts</td>
+</tr>
+<tr>
+<td><code>tasks</code></td>
+<td>tasks.md, WP files, schedule</td>
+<td>WP-to-subsystem traceability + misfit coverage</td>
+</tr>
+<tr>
+<td><code>implement</code></td>
+<td>(modifies WP state)</td>
+<td>TDD from misfits</td>
+</tr>
+<tr>
+<td><code>review</code></td>
+<td>(modifies WP state)</td>
+<td>SyDD review checklist</td>
+</tr>
+<tr>
+<td><code>accept</code></td>
+<td>(modifies WP state)</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td><code>merge</code></td>
+<td>(feature-level)</td>
+<td>Unchanged</td>
+</tr>
+</tbody>
+</table>
+<p>Each skill has two layers:
+- <strong>Skill layer</strong>: AI agent instructions, templates, workflow guidance. This is where SyDD methodology is encoded as workflow steps.
+- <strong>CLI layer</strong>: Deterministic validation via <code>SkillOutputContract</code>. This is where SyDD structure is enforced through automated checks.</p>
+<p>The boundary between these layers is strict: the CLI validates artifact structure; the skill instructions encode design judgment. The CLI never evaluates whether a decomposition is <em>good</em> -- it only verifies that the decomposition <em>exists</em> and has the required structural elements.</p>
+<hr />
+<h2 id="22-specify-skill-context-and-misfits">2.2 Specify Skill -- Context and Misfits<a class="headerlink" href="#22-specify-skill-context-and-misfits" title="Permanent link">&para;</a></h2>
+<p>The specify template now opens with two mandatory sections before User Scenarios:</p>
+<p><strong><code>## Context</code> section</strong> with <code>### System Interactions</code> and <code>### Use Cases</code> subsections. This replaces the implicit context that was previously scattered across User Stories. Use cases follow the format <code>UC#: Actor + Action + Outcome</code>.</p>
+<p><strong><code>## Misfits</code> section</strong> with domain-tagged failure scenarios and a <code>### Misfit Interaction Notes</code> subsection. Each misfit follows the format <code>- **Misfit X** (domain): failure description</code>. The minimum is 2 misfits -- trivial features with fewer than 2 identifiable failure modes do not benefit from SyDD analysis.</p>
+<p>All existing sections (User Scenarios, Requirements, Key Entities, Success Criteria, Assumptions, Out of Scope) remain unchanged below the new sections.</p>
+<h3 id="validation-checks-added">Validation checks added<a class="headerlink" href="#validation-checks-added" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Rule</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>body_context_non_empty</code></td>
+<td>SyDD-S01</td>
+<td><code>## Context</code> section must exist with content. Error if missing.</td>
+</tr>
+<tr>
+<td><code>body_misfits_non_empty</code></td>
+<td>SyDD-S02</td>
+<td><code>## Misfits</code> section must exist with &gt;= 2 entries matching <code>^- \*\*Misfit\b</code>. Error if missing or insufficient.</td>
+</tr>
+<tr>
+<td><code>body_use_cases_present</code></td>
+<td>SyDD-S03</td>
+<td><code>### Use Cases</code> subsection must exist with content. Error if missing.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="schema-addition">Schema addition<a class="headerlink" href="#schema-addition" title="Permanent link">&para;</a></h3>
+<p><code>spec.yaml</code> gains an optional <code>misfits_count</code> field (integer) for downstream awareness.</p>
+<h3 id="implementation-note">Implementation note<a class="headerlink" href="#implementation-note" title="Permanent link">&para;</a></h3>
+<p>The existing <code>_has_non_empty_section()</code> helper was updated to use <code>"\n## "</code> (with trailing space) as the section boundary marker instead of <code>"\n##"</code>. This prevents <code>###</code> subsection headers from being treated as section boundaries, which is critical for sections like <code>## Context</code> that contain <code>### System Interactions</code> and <code>### Use Cases</code> as internal structure.</p>
+<hr />
+<h2 id="23-decompose-skill-new">2.3 Decompose Skill (New)<a class="headerlink" href="#23-decompose-skill-new" title="Permanent link">&para;</a></h2>
+<p>A new skill for features where misfit interaction analysis is complex enough to warrant a standalone artifact. It sits between <code>specify</code> and <code>plan</code> in the workflow.</p>
+<p><strong>When to use</strong>: Features with 5+ misfits, 3+ potential subsystems, or non-obvious misfit interactions.</p>
+<p><strong>When to skip</strong>: Simple features where decomposition can be done inline in plan.md's Decomposition section.</p>
+<h3 id="template-structure">Template structure<a class="headerlink" href="#template-structure" title="Permanent link">&para;</a></h3>
+<p>The <code>decompose</code> template produces <code>decomposition.md</code> with five sections:</p>
+<ol>
+<li><strong>Misfit Inventory</strong>: Table with ID, Misfit name, Domain, Description. Imports every misfit from spec.md.</li>
+<li><strong>Interaction Matrix</strong>: Pairwise matrix marking linked misfits with X. The basis for all decomposition decisions.</li>
+<li><strong>Subsystem Identification</strong>: Grouped misfits with boundary justification and key responsibilities.</li>
+<li><strong>Constructive Diagrams</strong>: Per-subsystem diagrams showing how components resolve assigned misfits.</li>
+<li><strong>Cross-Subsystem Contracts</strong>: Data exchange, failure modes, and coupling type between subsystems.</li>
+<li><strong>Mapping to Plan</strong>: Bridges decomposition output to plan.md input.</li>
+</ol>
+<h3 id="validation-checks">Validation checks<a class="headerlink" href="#validation-checks" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Rule</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>decomposition_exists</code></td>
+<td>SyDD-D01</td>
+<td>File present on disk. Error if missing.</td>
+</tr>
+<tr>
+<td><code>decomposition_readable</code></td>
+<td>SyDD-D02</td>
+<td>Frontmatter parseable. Error if corrupt.</td>
+</tr>
+<tr>
+<td><code>misfit_inventory_non_empty</code></td>
+<td>SyDD-D03</td>
+<td><code>## Misfit Inventory</code> has &gt;= 2 data rows (excluding header and separator). Error if insufficient.</td>
+</tr>
+<tr>
+<td><code>interaction_matrix_present</code></td>
+<td>SyDD-D04</td>
+<td><code>## Interaction Matrix</code> section exists and is non-empty. Error if missing.</td>
+</tr>
+<tr>
+<td><code>subsystems_identified</code></td>
+<td>SyDD-D05</td>
+<td>At least one <code>### Subsystem</code> heading exists in the body. Error if missing.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h3>
+<p>New file <code>decomposition.yaml</code> with fields: <code>feature_slug</code> (required), <code>status</code> (required, default "draft"), <code>created</code> (required), <code>misfits_count</code> (optional int), <code>subsystems_count</code> (optional int).</p>
+<h3 id="cli-and-adapter-wiring">CLI and adapter wiring<a class="headerlink" href="#cli-and-adapter-wiring" title="Permanent link">&para;</a></h3>
+<ul>
+<li>CLI command <code>decompose</code> registered between <code>specify</code> and <code>plan</code>, using <code>--feature</code> and <code>--session-id</code> (no WP argument).</li>
+<li>Added to <code>SKILL_NAMES</code> in <code>adapters/base.py</code> between <code>"specify"</code> and <code>"plan"</code>.</li>
+<li>Adapter template <code>decompose.md</code> follows the same frontmatter pattern as other non-WP skills.</li>
+</ul>
+<hr />
+<h2 id="24-plan-skill-decomposition-components-and-contracts">2.4 Plan Skill -- Decomposition, Components, and Contracts<a class="headerlink" href="#24-plan-skill-decomposition-components-and-contracts" title="Permanent link">&para;</a></h2>
+<p>The plan template now includes three new mandatory sections between Phase 0: Research and Phase 1: Design &amp; Contracts:</p>
+<p><strong><code>## Decomposition</code></strong> with <code>### Misfit Interaction Graph</code> (table or Mermaid graph of linked misfit pairs) and <code>### Subsystem Boundaries</code> (numbered subsystems with misfits, boundary justification, and external interactions).</p>
+<p><strong><code>## Abstract Components</code></strong> with per-subsystem component definitions including owned behaviors, entities, and internal coupling description.</p>
+<p><strong><code>## Inter-System Contracts</code> (mandatory if &gt;1 subsystem)</strong> with producer/consumer/failure-mode contracts per subsystem pair.</p>
+<p>The existing <code>## Implementation Phases and WP Candidates</code> table gains a <strong>Subsystem</strong> column, requiring WP candidates to align with subsystem boundaries.</p>
+<h3 id="validation-checks-added_1">Validation checks added<a class="headerlink" href="#validation-checks-added_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Rule</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>body_decomposition_present</code></td>
+<td>SyDD-P01</td>
+<td><code>## Decomposition</code> section must exist with content. Error if missing.</td>
+</tr>
+<tr>
+<td><code>body_abstract_components_present</code></td>
+<td>SyDD-P02</td>
+<td><code>## Abstract Components</code> section must exist with content. Error if missing.</td>
+</tr>
+<tr>
+<td><code>body_contracts_present_if_multiple_subsystems</code></td>
+<td>SyDD-P03</td>
+<td>If <code>## Decomposition</code> contains &gt;= 2 <code>### Subsystem</code> headings, warns if <code>## Inter-System Contracts</code> is absent. Advisory (always passes).</td>
+</tr>
+<tr>
+<td><code>wp_candidates_have_subsystem</code></td>
+<td>SyDD-P04</td>
+<td>If <code>## Implementation Phases</code> exists, warns if the table lacks a "Subsystem" column. Advisory (always passes).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="implementation-note_1">Implementation note<a class="headerlink" href="#implementation-note_1" title="Permanent link">&para;</a></h3>
+<p><code>_has_non_empty_section()</code>, <code>_extract_section()</code>, and <code>_count_subsystem_headings()</code> are implemented as module-level helpers within <code>plan/skill.py</code> (duplicated from specify, not shared via core, respecting the skill isolation rule).</p>
+<hr />
+<h2 id="25-tasks-skill-subsystem-traceability-and-misfit-coverage">2.5 Tasks Skill -- Subsystem Traceability and Misfit Coverage<a class="headerlink" href="#25-tasks-skill-subsystem-traceability-and-misfit-coverage" title="Permanent link">&para;</a></h2>
+<p>The tasks template now includes per-WP traceability fields and a coverage matrix:</p>
+<p>Each WP definition block includes:
+- <strong>Subsystem</strong>: Which subsystem from plan.md this WP implements.
+- <strong>Abstract Components</strong>: Which components from plan.md.
+- <strong>Misfits Addressed</strong>: Which misfits from spec.md this WP resolves.
+- <strong>TDD Targets (from Misfits)</strong>: Test scenarios derived directly from the assigned misfits.</p>
+<p>A new <strong><code>## Misfit Coverage Matrix</code></strong> section appears before the Dependency &amp; Execution Summary. This is a table mapping every misfit to the WP(s) that address it. Uncovered misfits are implementation gaps.</p>
+<h3 id="validation-checks-added_2">Validation checks added<a class="headerlink" href="#validation-checks-added_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Rule</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wp-has-subsystem</code></td>
+<td>SyDD-T01</td>
+<td>Per-WP advisory check. Warns if the WP frontmatter lacks a <code>subsystem</code> field. Advisory (always passes).</td>
+</tr>
+<tr>
+<td><code>misfit-coverage-section</code></td>
+<td>SyDD-T02</td>
+<td>Checks tasks.md body for <code>## Misfit Coverage Matrix</code>. Warns if absent. Advisory (always passes).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="schema-additions">Schema additions<a class="headerlink" href="#schema-additions" title="Permanent link">&para;</a></h3>
+<p><code>wp.yaml</code> gains three optional fields:
+- <code>subsystem</code> (str, default "")
+- <code>misfits_addressed</code> (list, default [])
+- <code>abstract_components</code> (list, default [])</p>
+<p>All optional -- existing WP files remain valid without them.</p>
+<hr />
+<h2 id="26-implement-skill-tdd-from-misfits">2.6 Implement Skill -- TDD from Misfits<a class="headerlink" href="#26-implement-skill-tdd-from-misfits" title="Permanent link">&para;</a></h2>
+<p>The implement adapter template includes a new <code>## TDD from Misfits</code> section inserted into the workflow after worktree creation and before the commit step. It instructs the AI agent to:</p>
+<ol>
+<li>Read the WP's <code>misfits_addressed</code> frontmatter field.</li>
+<li>For each misfit, write a test that reproduces the misfit condition (red).</li>
+<li>Write the minimum implementation to make the test pass (green).</li>
+<li>Refactor while keeping tests green.</li>
+</ol>
+<p>No changes to <code>ImplementSkill.run_checks()</code>. TDD discipline is encoded in skill instructions, not CLI validation -- consistent with the CLI vs Skill responsibility boundary. The CLI validates lane transitions and worktree state; design judgment remains AI-driven.</p>
+<hr />
+<h2 id="27-review-skill-sydd-checklist">2.7 Review Skill -- SyDD Checklist<a class="headerlink" href="#27-review-skill-sydd-checklist" title="Permanent link">&para;</a></h2>
+<p>The review adapter template includes a new <code>## SyDD Review Checklist</code> section with four verification items:</p>
+<ol>
+<li><strong>Misfit Resolution</strong>: For each misfit in <code>misfits_addressed</code>, confirm a test exists and passes. The misfit is structurally eliminated, not just handled with error checking.</li>
+<li><strong>Subsystem Boundary Respect</strong>: No coupling between subsystems outside of declared Inter-System Contracts. No imports, calls, or data flows cross boundaries outside contracted interfaces.</li>
+<li><strong>Contract Compliance</strong>: If the WP implements a contract, verify the implementation matches plan.md (producer output, consumer input, failure mode handling).</li>
+<li><strong>No New Misfits</strong>: The implementation does not introduce failure modes not covered by existing misfits.</li>
+</ol>
+<p>No changes to <code>ReviewSkill.run_checks()</code>. Review quality criteria are encoded in skill instructions.</p>
+<hr />
+<h2 id="28-accept-and-merge-skills">2.8 Accept and Merge Skills<a class="headerlink" href="#28-accept-and-merge-skills" title="Permanent link">&para;</a></h2>
+<p>No structural changes. These skills validate process completion (all WPs done, all artifacts present, worktrees cleaned up) and are agnostic to SyDD methodology.</p>
+<hr />
+<h2 id="29-validation-rule-summary">2.9 Validation Rule Summary<a class="headerlink" href="#29-validation-rule-summary" title="Permanent link">&para;</a></h2>
+<p>All new rules are prefixed with <code>SyDD-</code> to distinguish them from existing <code>FR-</code> rules.</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Skill</th>
+<th>Check</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SyDD-S01</td>
+<td>specify</td>
+<td><code>## Context</code> section non-empty</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-S02</td>
+<td>specify</td>
+<td><code>## Misfits</code> has &gt;= 2 entries</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-S03</td>
+<td>specify</td>
+<td><code>### Use Cases</code> subsection exists</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-P01</td>
+<td>plan</td>
+<td><code>## Decomposition</code> section non-empty</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-P02</td>
+<td>plan</td>
+<td><code>## Abstract Components</code> non-empty</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-P03</td>
+<td>plan</td>
+<td><code>## Inter-System Contracts</code> if &gt;1 subsystem</td>
+<td>Warning (advisory)</td>
+</tr>
+<tr>
+<td>SyDD-P04</td>
+<td>plan</td>
+<td>WP candidates have Subsystem column</td>
+<td>Warning (advisory)</td>
+</tr>
+<tr>
+<td>SyDD-T01</td>
+<td>tasks</td>
+<td>WP frontmatter has subsystem field</td>
+<td>Warning (advisory)</td>
+</tr>
+<tr>
+<td>SyDD-T02</td>
+<td>tasks</td>
+<td><code>## Misfit Coverage Matrix</code> in tasks.md</td>
+<td>Warning (advisory)</td>
+</tr>
+<tr>
+<td>SyDD-D01</td>
+<td>decompose</td>
+<td><code>decomposition.md</code> exists</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-D02</td>
+<td>decompose</td>
+<td>File readable, frontmatter parseable</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-D03</td>
+<td>decompose</td>
+<td>Misfit inventory has &gt;= 2 rows</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-D04</td>
+<td>decompose</td>
+<td>Interaction matrix present</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>SyDD-D05</td>
+<td>decompose</td>
+<td>At least one subsystem identified</td>
+<td>Error</td>
+</tr>
+</tbody>
+</table>
+<p>Error rules cause non-zero exit. Warning rules always pass but include a descriptive reason noting the absence, enabling gradual adoption.</p>
+<hr />
+<h2 id="210-complete-skill-workflow">2.10 Complete Skill Workflow<a class="headerlink" href="#210-complete-skill-workflow" title="Permanent link">&para;</a></h2>
+<div class="panzoom-box" data-key="alt" id="panzoom0" oncontextmenu="return false;">
+    <div class="panzoom-info-box panzoom-info-box-top panzoom-hidden">
+Hold "Alt" / "Option" to enable pan &amp; zoom
+</div>
+    <nav class="panzoom-nav panzoom-top-nav">
+    <button class="panzoom-info panzoom-button">
+    <svg class="panzoom-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3l58.3 0c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24l0-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1l-58.3 0c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"></path>
+    </svg>
+</button><button class="panzoom-reset panzoom-button">
+    <svg class="panzoom-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M125.7 160l50.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L48 224c-17.7 0-32-14.3-32-32L16 64c0-17.7 14.3-32 32-32s32 14.3 32 32l0 51.2L97.6 97.6c87.5-87.5 229.3-87.5 316.8 0s87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3s-163.8-62.5-226.3 0L125.7 160z"></path>
+    </svg>
+</button><button class="panzoom-max panzoom-button">
+    <svg class="panzoom-icon" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 32C14.3 32 0 46.3 0 64l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-64 64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L32 32zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0 0-64zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0 0 64c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96c0-17.7-14.3-32-32-32l-96 0zM448 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c17.7 0 32-14.3 32-32l0-96z"></path>
+    </svg>
+</button><button class="panzoom-min panzoom-button panzoom-hidden">
+    <svg class="panzoom-icon" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M160 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c17.7 0 32-14.3 32-32l0-96zM32 320c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0 0 64c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96c0-17.7-14.3-32-32-32l-96 0zM352 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0 0-64zM320 320c-17.7 0-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-64 64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0z"></path>
+    </svg>
+</button>
+    </nav>
+    <pre class="mermaid"><code>flowchart TB
+    SP["specify
+    Context and Use Cases
+    Misfits by domain
+    Misfit Interaction Notes"]
+
+    SM[("spec.md")]
+
+    DC["decompose (optional)
+    Misfit Inventory
+    Interaction Matrix
+    Subsystem Identification"]
+
+    DM[("decomposition.md")]
+
+    PL["plan
+    Decomposition and Subsystems
+    Abstract Components
+    Inter-System Contracts
+    WP Candidates + Subsystem col"]
+
+    PM[("plan.md")]
+
+    TS["tasks
+    WP + Subsystem traceability
+    TDD Targets from Misfits
+    Misfit Coverage Matrix"]
+
+    TM[("tasks.md + WP files")]
+
+    IM["implement
+    TDD from Misfits
+    red - green - refactor"]
+
+    RV["review
+    Misfit resolution
+    Boundary respect
+    Contract compliance
+    No new misfits"]
+
+    AP{Approved?}
+    AC[accept]
+    MG[merge]
+
+    SP --&gt; SM
+    SM --&gt;|"skip"| PL
+    SM --&gt; DC --&gt; DM --&gt; PL
+    PL --&gt; PM --&gt; TS --&gt; TM --&gt; IM
+    IM --&gt; RV --&gt; AP
+    AP --&gt;|"changes"| IM
+    AP --&gt;|"approved"| AC --&gt; MG</code></pre> 
+    
+</div>
+<p>The flow is linear but the <code>decompose</code> step is optional. For simple features (&lt; 5 misfits), the decomposition can be done inline within plan.md's <code>## Decomposition</code> section. The plan skill's validation does not require <code>decomposition.md</code> to exist.</p>
+<hr />
+<h2 id="211-files-modified-and-created">2.11 Files Modified and Created<a class="headerlink" href="#211-files-modified-and-created" title="Permanent link">&para;</a></h2>
+<h3 id="modified-files">Modified files<a class="headerlink" href="#modified-files" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>skills/specify/template.md</code></td>
+<td>Added <code>## Context</code> and <code>## Misfits</code> sections before User Scenarios</td>
+</tr>
+<tr>
+<td><code>skills/specify/skill.py</code></td>
+<td>Added 3 checks (SyDD-S01, S02, S03), <code>_count_misfits()</code> helper, fixed <code>_has_non_empty_section()</code> boundary detection</td>
+</tr>
+<tr>
+<td><code>skills/specify/tests/test_specify.py</code></td>
+<td>Added <code>TestSpecifySyDD</code> class (7 tests), updated <code>_VALID_BODY</code> fixture, updated rule assertion</td>
+</tr>
+<tr>
+<td><code>skills/plan/template.md</code></td>
+<td>Added <code>## Decomposition</code>, <code>## Abstract Components</code>, <code>## Inter-System Contracts</code> sections; added Subsystem column to WP table</td>
+</tr>
+<tr>
+<td><code>skills/plan/skill.py</code></td>
+<td>Added 4 checks (SyDD-P01 through P04), <code>_has_non_empty_section()</code>, <code>_extract_section()</code>, <code>_count_subsystem_headings()</code> helpers</td>
+</tr>
+<tr>
+<td><code>skills/plan/tests/test_plan.py</code></td>
+<td>Added <code>TestPlanSyDD</code> class (9 tests), updated <code>_FILLED_BODY</code> fixture</td>
+</tr>
+<tr>
+<td><code>skills/tasks/template.md</code></td>
+<td>Added Subsystem/Components/Misfits fields per WP, TDD Targets subsection, Misfit Coverage Matrix section</td>
+</tr>
+<tr>
+<td><code>skills/tasks/skill.py</code></td>
+<td>Added 2 checks (SyDD-T01, T02)</td>
+</tr>
+<tr>
+<td><code>skills/tasks/tests/test_tasks.py</code></td>
+<td>Added <code>TestTasksSyDD</code> class (4 tests)</td>
+</tr>
+<tr>
+<td><code>adapters/templates/implement.md</code></td>
+<td>Added <code>## TDD from Misfits</code> section in workflow</td>
+</tr>
+<tr>
+<td><code>adapters/templates/review.md</code></td>
+<td>Added <code>## SyDD Review Checklist</code> section</td>
+</tr>
+<tr>
+<td><code>adapters/base.py</code></td>
+<td>Added <code>"decompose"</code> to <code>SKILL_NAMES</code></td>
+</tr>
+<tr>
+<td><code>cli.py</code></td>
+<td>Added <code>cmd_decompose</code> command</td>
+</tr>
+<tr>
+<td><code>init_cmd/schemas/v1/wp.yaml</code></td>
+<td>Added <code>subsystem</code>, <code>misfits_addressed</code>, <code>abstract_components</code> optional fields</td>
+</tr>
+<tr>
+<td><code>init_cmd/schemas/v1/spec.yaml</code></td>
+<td>Added <code>misfits_count</code> optional field</td>
+</tr>
+</tbody>
+</table>
+<h3 id="new-files">New files<a class="headerlink" href="#new-files" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>skills/decompose/__init__.py</code></td>
+<td>Package marker</td>
+</tr>
+<tr>
+<td><code>skills/decompose/skill.py</code></td>
+<td><code>DecomposeSkill</code> with 5 checks (SyDD-D01 through D05)</td>
+</tr>
+<tr>
+<td><code>skills/decompose/template.md</code></td>
+<td>Decomposition template (Misfit Inventory, Interaction Matrix, Subsystem Identification, Constructive Diagrams, Cross-Subsystem Contracts, Mapping to Plan)</td>
+</tr>
+<tr>
+<td><code>skills/decompose/tests/__init__.py</code></td>
+<td>Package marker</td>
+</tr>
+<tr>
+<td><code>skills/decompose/tests/test_decompose.py</code></td>
+<td>17 tests covering all 5 checks and metadata invariants</td>
+</tr>
+<tr>
+<td><code>adapters/templates/decompose.md</code></td>
+<td>Adapter template for the decompose skill</td>
+</tr>
+<tr>
+<td><code>init_cmd/schemas/v1/decomposition.yaml</code></td>
+<td>Schema for decomposition.md frontmatter</td>
+</tr>
+</tbody>
+</table>
+<h3 id="no-files-removed">No files removed<a class="headerlink" href="#no-files-removed" title="Permanent link">&para;</a></h3>
+<p>All 7 original skills retain their roles. SyDD enhances them with additional structure rather than replacing anything.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../01-synthesis-driven-development/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Synthesis-Driven Development">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Synthesis-Driven Development
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../c4/" class="md-footer__link md-footer__link--next" aria-label="Next: Overview">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Overview
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.footer", "content.code.copy", "toc.integrate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../assets/javascripts/nav-accordion.js"></script>
+      
+        <script src="../assets/javascripts/panzoom.min.js"></script>
+      
+        <script src="../assets/javascripts/zoompan.js"></script>
+      
+    
+  </body>
+</html>

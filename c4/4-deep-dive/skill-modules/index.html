@@ -1,0 +1,2161 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Deterministic validation harness for AI agent skill execution">
+      
+      
+      
+        <link rel="canonical" href="https://bruj0.github.io/spec-bridge-docs/c4/4-deep-dive/skill-modules/">
+      
+      
+        <link rel="prev" href="../../3-workflow-overview/">
+      
+      
+        <link rel="next" href="../core-module/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Skill Modules - spec-bridge-v2 Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/panzoom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <meta name="panzoom-theme" content="material">
+<meta name="panzoom-data" content='{"selectors": [".mermaid", ".d2"], "initial_zoom_level": 1.0}'> </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#deep-dive-skill-modules" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="spec-bridge-v2 Docs" class="md-header__button md-logo" aria-label="spec-bridge-v2 Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3zm-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            spec-bridge-v2 Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Skill Modules
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="spec-bridge-v2 Docs" class="md-nav__button md-logo" aria-label="spec-bridge-v2 Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3zm-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4z"/></svg>
+
+    </a>
+    spec-bridge-v2 Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00-software-architecture-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software Architecture Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-synthesis-driven-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synthesis-Driven Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-sydd-methodology-and-implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SyDD Methodology and Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture (C4)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture (C4)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-project-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-architecture-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-workflow-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Dive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Modules
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Responsibilities
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skill-to-stage-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skill-to-Stage Mapping
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skill-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skill Implementation Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skill Implementation Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#specify-validates-specmd-fr-016-sydd-s01s03" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        specify - Validates spec.md (FR-016, SyDD-S01..S03)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decompose-validates-decompositionmd-sydd-d01d05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        decompose - Validates decomposition.md (SyDD-D01..D05)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plan-validates-planmd-fr-017-sydd-p01p04" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plan - Validates plan.md (FR-017, SyDD-P01..P04)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tasks-validates-tasksmd-wp-files-fr-018-sydd-t01t02" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        tasks - Validates tasks.md + WP files (FR-018, SyDD-T01..T02)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implement-validates-wp-lane-worktree-implement-summary-fr-019" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        implement - Validates WP lane + worktree + implement summary (FR-019)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#review-validates-wp-lane-transition-review-summary-fr-020" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        review - Validates WP lane transition + review summary (FR-020)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accept-validates-wp-completion-fr-021" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        accept - Validates WP completion (FR-021)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merge-validates-merge-preconditions-fr-022" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        merge - Validates merge preconditions (FR-022)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit-validates-questionsmd-fr-007-fr-009-fr-010" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        audit - Validates questions.md (FR-007, FR-009, FR-010)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit-fix-validates-completion-of-resolution-session-fr-008" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        audit-fix - Validates completion of resolution session (FR-008)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execute-automated-wp-execution-loop-in-progress-wp02" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        execute - Automated WP execution loop (in progress, WP02)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wp-lane-state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WP Lane State Machine
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-a-new-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a New Skill
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Module
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adapter-and-init/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adapter and Init
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADRs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADRs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0001-spec-bridge-skill-tool-as-separate-binary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0001 spec-bridge-skill-tool as separate binary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0002-two-responsibility-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0002 Two-responsibility model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0003-skill-module-isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0003 Skill module isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0004-schema-first-artifact-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0004 Schema-first artifact design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0005-spec-bridge-conf-single-configuration-source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0005 spec-bridge.conf single configuration source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0006-structured-stdout-only-output/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0006 Structured stdout-only output
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../adr/0007-adapter-pattern-for-agent-specific-file-generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0007 Adapter pattern for agent-specific file generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/aperant-prompts-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aperant Prompts Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="deep-dive-skill-modules">Deep Dive: Skill Modules<a class="headerlink" href="#deep-dive-skill-modules" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The <code>skills/</code> package contains eleven isolated skill modules: eight for the core SyDD workflow
+steps, two for the audit on-ramp workflow (<code>audit</code>, <code>audit-fix</code>), and one for automated WP
+execution (<code>execute</code>).
+Each module lives in its own subdirectory and implements <code>SkillContract</code> -- the two-method
+protocol that the dispatch pipeline calls.</p>
+<p><strong>Isolation rule</strong>: skill modules may only import from <code>skill_tool.core</code>. Cross-skill imports
+are forbidden. Deleting any single skill module must not cause a runtime error in any other
+skill.</p>
+<hr />
+<h2 id="responsibilities">Responsibilities<a class="headerlink" href="#responsibilities" title="Permanent link">&para;</a></h2>
+<p>Each skill module is responsible for exactly two things (mirroring the tool's two-responsibility
+contract):</p>
+<ol>
+<li><strong><code>expected_artifacts(feature_dir)</code></strong> - declare which artifact paths the skill produces or
+   consumes (used by the dispatch pipeline for consumption-time frontmatter validation)</li>
+<li><strong><code>run_checks(feature_dir, config, wp_id)</code></strong> - execute all validation checks and return a
+   <code>list[CheckResult]</code>, one entry per rule; must never raise - all exceptions are caught and
+   returned as failing <code>CheckResult</code> entries with <code>rule="internal-error"</code></li>
+</ol>
+<hr />
+<h2 id="skill-to-stage-mapping">Skill-to-Stage Mapping<a class="headerlink" href="#skill-to-stage-mapping" title="Permanent link">&para;</a></h2>
+<div class="panzoom-box" data-key="alt" id="panzoom0" oncontextmenu="return false;">
+    <div class="panzoom-info-box panzoom-info-box-top panzoom-hidden">
+Hold "Alt" / "Option" to enable pan &amp; zoom
+</div>
+    <nav class="panzoom-nav panzoom-top-nav">
+    <button class="panzoom-info panzoom-button">
+    <svg class="panzoom-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3l58.3 0c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24l0-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1l-58.3 0c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"></path>
+    </svg>
+</button><button class="panzoom-reset panzoom-button">
+    <svg class="panzoom-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M125.7 160l50.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L48 224c-17.7 0-32-14.3-32-32L16 64c0-17.7 14.3-32 32-32s32 14.3 32 32l0 51.2L97.6 97.6c87.5-87.5 229.3-87.5 316.8 0s87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3s-163.8-62.5-226.3 0L125.7 160z"></path>
+    </svg>
+</button><button class="panzoom-max panzoom-button">
+    <svg class="panzoom-icon" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 32C14.3 32 0 46.3 0 64l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-64 64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L32 32zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0 0-64zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0 0 64c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96c0-17.7-14.3-32-32-32l-96 0zM448 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c17.7 0 32-14.3 32-32l0-96z"></path>
+    </svg>
+</button><button class="panzoom-min panzoom-button panzoom-hidden">
+    <svg class="panzoom-icon" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M160 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c17.7 0 32-14.3 32-32l0-96zM32 320c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0 0 64c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96c0-17.7-14.3-32-32-32l-96 0zM352 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0 0-64zM320 320c-17.7 0-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-64 64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0z"></path>
+    </svg>
+</button>
+    </nav>
+    <pre class="mermaid"><code>flowchart TB
+  subgraph Planning["Planning Phase"]
+    SPECIFY["specify&lt;br/&gt;SpecifySkill&lt;br/&gt;validates spec.md&lt;br/&gt;FR-016 + SyDD-S01..S03"]
+    DECOMPOSE["decompose&lt;br/&gt;DecomposeSkill&lt;br/&gt;validates decomposition.md&lt;br/&gt;SyDD-D01..D05"]
+    PLAN["plan&lt;br/&gt;PlanSkill&lt;br/&gt;validates plan.md&lt;br/&gt;FR-017 + SyDD-P01..P04"]
+    TASKS["tasks&lt;br/&gt;TasksSkill&lt;br/&gt;validates tasks.md&lt;br/&gt;+ WP*.md files&lt;br/&gt;FR-018 + SyDD-T01..T02"]
+  end
+
+  subgraph Execution["Execution Phase (per WP)"]
+    IMPLEMENT["implement WPxx&lt;br/&gt;ImplementSkill&lt;br/&gt;validates WP in 'doing'&lt;br/&gt;worktree exists&lt;br/&gt;FR-019"]
+    REVIEW["review WPxx&lt;br/&gt;ReviewSkill&lt;br/&gt;validates WP in 'for_review'&lt;br/&gt;FR-020"]
+    ACCEPT["accept WPxx&lt;br/&gt;AcceptSkill&lt;br/&gt;validates WP in 'done'&lt;br/&gt;artifacts present&lt;br/&gt;FR-021"]
+  end
+
+  subgraph Closing["Closing Phase"]
+    MERGE["merge&lt;br/&gt;MergeSkill&lt;br/&gt;validates all WPs done&lt;br/&gt;worktrees absent&lt;br/&gt;FR-022"]
+  end
+
+  AUDIT["audit&lt;br/&gt;AuditSkill&lt;br/&gt;validates questions.md&lt;br/&gt;8 frontmatter checks"]
+  AUDITFIX["audit-fix&lt;br/&gt;AuditFixSkill&lt;br/&gt;validates completion&lt;br/&gt;answered_count == question_count"]
+
+  subgraph AuditOnRamp["Audit On-Ramp (existing codebases)"]
+    AUDIT
+    AUDITFIX
+  end
+
+  SPECIFY --&gt; DECOMPOSE --&gt; PLAN --&gt; TASKS --&gt; IMPLEMENT --&gt; REVIEW --&gt; ACCEPT --&gt; MERGE
+  ACCEPT --&gt;|"next WP"| IMPLEMENT
+  AUDIT --&gt;|"audit-fix skill"| AUDITFIX
+  AUDITFIX --&gt;|"dual-calls plan validator then"| TASKS
+
+  EXECUTE["execute&lt;br/&gt;ExecuteOutputContract&lt;br/&gt;checkpoint + report&lt;br/&gt;automated WP loop (WP02)"]
+
+  subgraph Automation["Automation (runs all WPs)"]
+    EXECUTE
+  end
+
+  TASKS --&gt;|"execute skill"| EXECUTE</code></pre> 
+    
+</div>
+<hr />
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<div class="panzoom-box" data-key="alt" id="panzoom0" oncontextmenu="return false;">
+    <div class="panzoom-info-box panzoom-info-box-top panzoom-hidden">
+Hold "Alt" / "Option" to enable pan &amp; zoom
+</div>
+    <nav class="panzoom-nav panzoom-top-nav">
+    <button class="panzoom-info panzoom-button">
+    <svg class="panzoom-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3l58.3 0c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24l0-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1l-58.3 0c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"></path>
+    </svg>
+</button><button class="panzoom-reset panzoom-button">
+    <svg class="panzoom-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M125.7 160l50.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L48 224c-17.7 0-32-14.3-32-32L16 64c0-17.7 14.3-32 32-32s32 14.3 32 32l0 51.2L97.6 97.6c87.5-87.5 229.3-87.5 316.8 0s87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3s-163.8-62.5-226.3 0L125.7 160z"></path>
+    </svg>
+</button><button class="panzoom-max panzoom-button">
+    <svg class="panzoom-icon" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 32C14.3 32 0 46.3 0 64l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-64 64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L32 32zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0 0-64zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0 0 64c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96c0-17.7-14.3-32-32-32l-96 0zM448 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c17.7 0 32-14.3 32-32l0-96z"></path>
+    </svg>
+</button><button class="panzoom-min panzoom-button panzoom-hidden">
+    <svg class="panzoom-icon" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M160 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c17.7 0 32-14.3 32-32l0-96zM32 320c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0 0 64c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96c0-17.7-14.3-32-32-32l-96 0zM352 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0 0-64zM320 320c-17.7 0-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-64 64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0z"></path>
+    </svg>
+</button>
+    </nav>
+    <pre class="mermaid"><code>classDiagram
+  class SkillContract {
+    &lt;&lt;Protocol&gt;&gt;
+    +expected_artifacts(feature_dir: Path) list[Path]
+    +run_checks(feature_dir, config, wp_id) list[CheckResult]
+  }
+
+  class SpecifySkill {
+    +expected_artifacts(feature_dir) list[Path]
+    +run_checks(feature_dir, config, wp_id) list[CheckResult]
+    -_check_spec_exists(feature_dir) CheckResult
+    -_check_spec_sections(feature_dir) CheckResult
+    -_check_spec_frontmatter(feature_dir, config) list[CheckResult]
+    -_check_body_context_non_empty(feature_dir) CheckResult
+    -_check_body_misfits_non_empty(feature_dir) CheckResult
+    -_check_body_use_cases_present(feature_dir) CheckResult
+  }
+
+  class DecomposeSkill {
+    +expected_artifacts(feature_dir) list[Path]
+    +run_checks(feature_dir, config, wp_id) list[CheckResult]
+    -_check_decomposition_exists(feature_dir) CheckResult
+    -_check_decomposition_frontmatter(feature_dir, config) list[CheckResult]
+    -_check_misfits_non_empty(feature_dir) CheckResult
+    -_check_subsystems_non_empty(feature_dir) CheckResult
+    -_check_contracts_non_empty(feature_dir) CheckResult
+  }
+
+  class PlanSkill {
+    +expected_artifacts(feature_dir) list[Path]
+    +run_checks(feature_dir, config, wp_id) list[CheckResult]
+    -_check_plan_exists(feature_dir) CheckResult
+    -_check_plan_sections(feature_dir) CheckResult
+  }
+
+  class TasksSkill {
+    +expected_artifacts(feature_dir) list[Path]
+    +run_checks(feature_dir, config, wp_id) list[CheckResult]
+    -_check_tasks_md_exists(feature_dir) CheckResult
+    -_check_wp_files_exist(feature_dir) list[CheckResult]
+    -_check_wp_frontmatter(feature_dir, config) list[CheckResult]
+  }
+
+  class ImplementSkill {
+    +expected_artifacts(feature_dir) list[Path]
+    +run_checks(feature_dir, config, wp_id) list[CheckResult]
+    -_check_wp_lane(feature_dir, wp_id) CheckResult
+    -_check_worktree_exists(feature_dir, config, wp_id) CheckResult
+  }
+
+  class ReviewSkill {
+    +expected_artifacts(feature_dir) list[Path]
+    +run_checks(feature_dir, config, wp_id) list[CheckResult]
+    -_check_wp_lane(feature_dir, wp_id) CheckResult
+  }
+
+  class AcceptSkill {
+    +expected_artifacts(feature_dir) list[Path]
+    +run_checks(feature_dir, config, wp_id) list[CheckResult]
+    -_check_wp_lane(feature_dir, wp_id) CheckResult
+    -_check_artifacts_present(feature_dir, wp_id) list[CheckResult]
+  }
+
+  class MergeSkill {
+    +expected_artifacts(feature_dir) list[Path]
+    +run_checks(feature_dir, config, wp_id) list[CheckResult]
+    -_check_all_wps_done(feature_dir) CheckResult
+    -_check_worktrees_absent(feature_dir, config) CheckResult
+  }
+
+  SpecifySkill ..|&gt; SkillContract
+  DecomposeSkill ..|&gt; SkillContract
+  PlanSkill ..|&gt; SkillContract
+  TasksSkill ..|&gt; SkillContract
+  ImplementSkill ..|&gt; SkillContract
+  ReviewSkill ..|&gt; SkillContract
+  AcceptSkill ..|&gt; SkillContract
+  class AuditSkill {
+    +expected_artifacts(feature_dir) list[Path]
+    +run_checks(feature_dir, config, wp_id) list[CheckResult]
+    -_check_questions_exists(questions_path) CheckResult
+    -_check_questions_readable(questions_path) CheckResult
+    -_check_frontmatter_present(meta) CheckResult
+    -_check_feature_slug(meta) CheckResult
+    -_check_feature_slug_format(meta) CheckResult
+    -_check_question_count(meta) CheckResult
+    -_check_answered_count_sane(meta) CheckResult
+    -_check_audit_mode(meta) CheckResult
+  }
+
+  class AuditFixSkill {
+    +expected_artifacts(feature_dir) list[Path]
+    +run_checks(feature_dir, config, wp_id) list[CheckResult]
+    -_check_questions_exists(questions_path) CheckResult
+    -_check_questions_readable(questions_path) CheckResult
+    -_check_frontmatter_present(meta) CheckResult
+    -_check_questions_fully_answered(meta) CheckResult
+  }
+
+  class ExecuteOutputContract {
+    +run_checks(feature_dir, metadata) list[CheckResult]
+    -checkpoint: Checkpoint
+    -report: ExecutionReport
+  }
+
+  MergeSkill ..|&gt; SkillContract
+  AuditSkill ..|&gt; SkillContract
+  AuditFixSkill ..|&gt; SkillContract
+  ExecuteOutputContract ..|&gt; SkillContract</code></pre> 
+    
+</div>
+<hr />
+<h2 id="key-files">Key Files<a class="headerlink" href="#key-files" title="Permanent link">&para;</a></h2>
+<p>Each skill directory contains:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>skill.py</code></td>
+<td>Skill implementation: <code>expected_artifacts()</code> + <code>run_checks()</code></td>
+</tr>
+<tr>
+<td><code>template.md</code></td>
+<td>(for planning skills) The markdown template AI agents fill in</td>
+</tr>
+<tr>
+<td><code>summary-template.json</code></td>
+<td>(<code>implement</code> only) JSON template agents fill to produce a structured implement summary</td>
+</tr>
+<tr>
+<td><code>review-template.json</code></td>
+<td>(<code>review</code> only) JSON template agents fill to produce a structured review summary with typed issues</td>
+</tr>
+<tr>
+<td><code>tests/test_&lt;skill&gt;.py</code></td>
+<td>Co-located unit tests for this skill's checks</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="skill-implementation-details">Skill Implementation Details<a class="headerlink" href="#skill-implementation-details" title="Permanent link">&para;</a></h2>
+<h3 id="specify-validates-specmd-fr-016-sydd-s01s03"><code>specify</code> - Validates <code>spec.md</code> (FR-016, SyDD-S01..S03)<a class="headerlink" href="#specify-validates-specmd-fr-016-sydd-s01s03" title="Permanent link">&para;</a></h3>
+<p><strong>Expected artifacts</strong>: <code>spec.md</code> in the feature directory</p>
+<p><strong>Checks performed</strong>:
+- <code>spec-exists</code>: <code>spec.md</code> file is present on disk
+- <code>spec-sections-non-empty</code>: Required markdown sections (Problem, Goals, Non-Goals, etc.)
+  contain non-trivial content (not just headings or placeholder text)
+- <code>spec-frontmatter-valid</code>: YAML frontmatter validates against <code>SpecV1Model</code> (title, status,
+  and other required fields are present and correctly typed)
+- <code>body-context-non-empty</code> <em>(SyDD-S01, advisory)</em>: Context section is filled with non-trivial content
+- <code>body-misfits-non-empty</code> <em>(SyDD-S02, advisory)</em>: Misfits section enumerates failure scenarios
+- <code>body-use-cases-present</code> <em>(SyDD-S03, advisory)</em>: Use Cases section is non-empty</p>
+<p><strong>WP-scoped</strong>: No -- operates at feature level</p>
+<h3 id="decompose-validates-decompositionmd-sydd-d01d05"><code>decompose</code> - Validates <code>decomposition.md</code> (SyDD-D01..D05)<a class="headerlink" href="#decompose-validates-decompositionmd-sydd-d01d05" title="Permanent link">&para;</a></h3>
+<p><strong>Expected artifacts</strong>: <code>decomposition.md</code> in the feature directory</p>
+<p><strong>Checks performed</strong>:
+- <code>decomposition-exists</code> <em>(SyDD-D01, blocking)</em>: <code>decomposition.md</code> file is present on disk
+- <code>decomposition-frontmatter-valid</code> <em>(SyDD-D02, blocking)</em>: YAML frontmatter validates against
+  <code>DecompositionV1Model</code> (feature, misfits_count, subsystems_count are present and typed)
+- <code>decomposition-misfits-non-empty</code> <em>(SyDD-D03, blocking)</em>: Misfits section contains at least one
+  named failure scenario with a description
+- <code>decomposition-subsystems-non-empty</code> <em>(SyDD-D04, blocking)</em>: Subsystems section maps misfits to
+  at least one named subsystem
+- <code>decomposition-contracts-non-empty</code> <em>(SyDD-D05, blocking)</em>: Contracts section defines at least one
+  inter-subsystem boundary agreement (required when more than one subsystem is declared)</p>
+<p><strong>WP-scoped</strong>: No -- operates at feature level</p>
+<p><strong>Relationship to plan</strong>: <code>plan.md</code> must reference the subsystems declared in <code>decomposition.md</code>;
+the advisory SyDD-P01..P04 checks in <code>PlanSkill</code> validate this cross-artifact consistency.</p>
+<h3 id="plan-validates-planmd-fr-017-sydd-p01p04"><code>plan</code> - Validates <code>plan.md</code> (FR-017, SyDD-P01..P04)<a class="headerlink" href="#plan-validates-planmd-fr-017-sydd-p01p04" title="Permanent link">&para;</a></h3>
+<p><strong>Expected artifacts</strong>: <code>plan.md</code> in the feature directory</p>
+<p><strong>Checks performed</strong>:
+- <code>plan-exists</code>: <code>plan.md</code> file is present on disk
+- <code>plan-sections-non-empty</code>: Required sections (Approach, Work Packages, Risks, etc.)
+  contain non-trivial content
+- <code>plan-frontmatter-valid</code>: YAML frontmatter validates against <code>PlanV1Model</code>
+- <code>plan-has-decomposition-ref</code> <em>(SyDD-P01, advisory)</em>: plan.md references the decomposition document
+- <code>plan-has-abstract-components</code> <em>(SyDD-P02, advisory)</em>: Abstract Components section is non-empty
+- <code>plan-has-contracts-if-multiple</code> <em>(SyDD-P03, advisory)</em>: Contracts section present when multiple subsystems declared
+- <code>plan-has-subsystem-column</code> <em>(SyDD-P04, advisory)</em>: Work Packages table includes a Subsystem column</p>
+<p><strong>WP-scoped</strong>: No -- operates at feature level</p>
+<h3 id="tasks-validates-tasksmd-wp-files-fr-018-sydd-t01t02"><code>tasks</code> - Validates <code>tasks.md</code> + WP files (FR-018, SyDD-T01..T02)<a class="headerlink" href="#tasks-validates-tasksmd-wp-files-fr-018-sydd-t01t02" title="Permanent link">&para;</a></h3>
+<p><strong>Expected artifacts</strong>: <code>tasks.md</code> and all <code>tasks/WP*.md</code> files</p>
+<p><strong>Checks performed</strong>:
+- <code>tasks-md-exists</code>: <code>tasks.md</code> is present
+- <code>wp-files-exist</code>: At least one <code>tasks/WP*.md</code> file exists
+- <code>wp-frontmatter-valid</code> (per WP): Each WP file's frontmatter validates against <code>WpV1Model</code>
+  (work_package_id, title, lane, dependencies, etc.)
+- <code>wp-has-subsystem-field</code> <em>(SyDD-T01, advisory)</em>: Each WP frontmatter has a <code>subsystem:</code> field
+  linking back to a declared decomposition subsystem
+- <code>misfit-coverage-section</code> <em>(SyDD-T02, advisory)</em>: <code>tasks.md</code> contains a Misfit Coverage section
+  mapping each misfit from <code>decomposition.md</code> to at least one WP</p>
+<p><strong>WP-scoped</strong>: No -- operates on all WPs in the feature</p>
+<h3 id="implement-validates-wp-lane-worktree-implement-summary-fr-019"><code>implement</code> - Validates WP lane + worktree + implement summary (FR-019)<a class="headerlink" href="#implement-validates-wp-lane-worktree-implement-summary-fr-019" title="Permanent link">&para;</a></h3>
+<p><strong>Expected artifacts</strong>: The specific <code>tasks/WP&lt;id&gt;.md</code> file</p>
+<p><strong>Checks performed</strong>:
+- <code>wp-lane-doing</code>: The WP's <code>lane:</code> frontmatter field is <code>"doing"</code>
+- <code>worktree-exists</code>: A git worktree directory for this WP exists at the expected path
+  (<code>.worktrees/&lt;feature-slug&gt;-&lt;WP-id&gt;/</code>)
+- <code>implement_summary_complete</code>: The JSON sidecar <code>tasks/WP&lt;id&gt;-implement-summary.json</code> exists
+  and contains no unfilled <code>&lt;placeholder&gt;</code> values (validated by <code>check_implement_summary_complete()</code>)</p>
+<p><strong>Pre-condition</strong>: Checks that spec status is <code>planned_tasks</code> before running. Checks all WP
+dependency WPs are in <code>lane: done</code> via <code>check-dep-wps-ready</code> (enforced by the SKILL.md
+instruction set, not by <code>run_checks()</code>).</p>
+<p><strong>Summary workflow</strong>: agents run <code>generate-implement-summary-template</code>, fill the JSON, then
+call <code>append-implement-summary --summary-json /tmp/&lt;id&gt;-summary.json</code>. The tool validates the
+JSON, renders Markdown, and persists <code>WP&lt;id&gt;-implement-summary.json</code> + a Markdown section in
+the WP file. After addressing review feedback, the agent calls
+<code>set-review-status implemented</code> to transition the latest review summary status.</p>
+<p><strong>WP-scoped</strong>: Yes -- <code>wp_id</code> is required</p>
+<h3 id="review-validates-wp-lane-transition-review-summary-fr-020"><code>review</code> - Validates WP lane transition + review summary (FR-020)<a class="headerlink" href="#review-validates-wp-lane-transition-review-summary-fr-020" title="Permanent link">&para;</a></h3>
+<p><strong>Expected artifacts</strong>: The specific <code>tasks/WP&lt;id&gt;.md</code> file</p>
+<p><strong>Checks performed</strong>:
+- <code>wp-lane-for-review</code>: The WP's <code>lane:</code> frontmatter field is <code>"for_review"</code>
+- <code>review_summary_complete</code>: The latest review JSON sidecar exists and all criterion verdicts
+  are filled (validated by <code>check_review_summary_complete()</code>)</p>
+<p><strong>Review summary structure</strong>: agents call <code>generate-review-template</code> to get a pre-populated
+JSON template (criteria drawn from the WP's acceptance criteria; <code>_previous_verdict</code> annotations
+from the prior review round if one exists). They fill each criterion verdict (<code>pass</code>, <code>fail</code>,
+<code>partial</code>) and populate the top-level <code>issues[]</code> list for any <code>fail</code>/<code>partial</code> verdicts. Each
+issue carries: <code>id</code>, <code>severity</code> (<code>critical</code>/<code>major</code>/<code>minor</code>/<code>info</code>), <code>title</code>, <code>description</code>,
+<code>fix</code>, <code>misfits[]</code>, <code>subtasks[]</code>, <code>affected_files[]</code>. The <code>dependency_notes</code> field documents
+inter-WP impacts. The tool renders <code>### Issues</code> and <code>### Dependency Notes</code> sections in Markdown.</p>
+<p><strong>Versioning logic</strong>: if a prior review exists with <code>status: requested</code>, the review skill re-reads
+it and checks whether implemented changes resolved the issues. If resolved, <code>append-review-summary</code>
+sets <code>status: approved</code>; if further issues remain, it creates version N+1 with <code>status: requested</code>.</p>
+<p><strong>WP-scoped</strong>: Yes -- <code>wp_id</code> is required</p>
+<h3 id="accept-validates-wp-completion-fr-021"><code>accept</code> - Validates WP completion (FR-021)<a class="headerlink" href="#accept-validates-wp-completion-fr-021" title="Permanent link">&para;</a></h3>
+<p><strong>Expected artifacts</strong>: The specific <code>tasks/WP&lt;id&gt;.md</code> file and all artifacts declared in it</p>
+<p><strong>Checks performed</strong>:
+- <code>wp-lane-done</code>: The WP's <code>lane:</code> frontmatter field is <code>"done"</code>
+- <code>artifacts-present</code> (per declared artifact): Every artifact path declared in the WP's
+  frontmatter exists on disk</p>
+<p><strong>WP-scoped</strong>: Yes -- <code>wp_id</code> is required</p>
+<h3 id="merge-validates-merge-preconditions-fr-022"><code>merge</code> - Validates merge preconditions (FR-022)<a class="headerlink" href="#merge-validates-merge-preconditions-fr-022" title="Permanent link">&para;</a></h3>
+<p><strong>Expected artifacts</strong>: All <code>tasks/WP*.md</code> files</p>
+<p><strong>Checks performed</strong>:
+- <code>all-wps-done</code>: Every WP in the feature has <code>lane: "done"</code> in its frontmatter
+- <code>worktrees-absent</code>: No worktree directories exist for this feature under <code>.worktrees/</code>
+  (worktrees should have been cleaned up before merge)</p>
+<p><strong>WP-scoped</strong>: No -- operates at feature level</p>
+<h3 id="audit-validates-questionsmd-fr-007-fr-009-fr-010"><code>audit</code> - Validates <code>questions.md</code> (FR-007, FR-009, FR-010)<a class="headerlink" href="#audit-validates-questionsmd-fr-007-fr-009-fr-010" title="Permanent link">&para;</a></h3>
+<p><strong>Expected artifacts</strong>: <code>questions.md</code> in the feature directory</p>
+<p><strong>Checks performed</strong> (in order, early-exit on first critical failure):</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Rule</th>
+<th>Blocking</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>questions_exists</code></td>
+<td>FR-007</td>
+<td>Yes</td>
+<td><code>questions.md</code> is present on disk</td>
+</tr>
+<tr>
+<td><code>questions_readable</code></td>
+<td>FR-007</td>
+<td>Yes</td>
+<td>File parses successfully via <code>read_artifact()</code></td>
+</tr>
+<tr>
+<td><code>frontmatter_present</code></td>
+<td>FR-007</td>
+<td>Yes</td>
+<td>YAML frontmatter block is non-empty</td>
+</tr>
+<tr>
+<td><code>frontmatter_feature_slug</code></td>
+<td>FR-007</td>
+<td>No</td>
+<td><code>feature_slug</code> field is present and non-empty</td>
+</tr>
+<tr>
+<td><code>frontmatter_feature_slug_format</code></td>
+<td>FR-007</td>
+<td>No</td>
+<td><code>feature_slug</code> matches <code>^\d{3}-.+$</code> (e.g. <code>044-my-feature</code>)</td>
+</tr>
+<tr>
+<td><code>frontmatter_question_count</code></td>
+<td>FR-009</td>
+<td>No</td>
+<td><code>question_count</code> is an integer &gt;= 5</td>
+</tr>
+<tr>
+<td><code>frontmatter_answered_count_sane</code></td>
+<td>FR-007</td>
+<td>No</td>
+<td><code>answered_count</code> &lt;= <code>question_count</code> (no over-count)</td>
+</tr>
+<tr>
+<td><code>frontmatter_audit_mode</code></td>
+<td>FR-010</td>
+<td>No</td>
+<td><code>audit_mode</code> is one of <code>["import", "review"]</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>questions.md</code> frontmatter schema</strong> (<code>questions.yaml</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">feature_slug</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span><span class="w">        </span><span class="c1"># e.g. &quot;044-my-feature&quot;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">question_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span><span class="w">      </span><span class="c1"># total number of questions (&gt;= 5)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">answered_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span><span class="w">      </span><span class="c1"># number of questions answered so far (&lt;= question_count)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">audit_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span><span class="w">          </span><span class="c1"># &quot;review&quot; (generated) or &quot;import&quot; (normalised from existing doc)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">import_source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span><span class="w">       </span><span class="c1"># (optional) origin document name when audit_mode == &quot;import&quot;</span>
+</code></pre></div>
+<p><strong>Two audit modes</strong>:
+- <code>review</code> -- agent generates questions from scratch via a 12-dimension codebase review
+- <code>import</code> -- agent normalises an existing review/questions document using a label alias table;
+  original structure is preserved; only field names are standardised</p>
+<p><strong>WP-scoped</strong>: No -- operates at feature level</p>
+<hr />
+<h3 id="audit-fix-validates-completion-of-resolution-session-fr-008"><code>audit-fix</code> - Validates completion of resolution session (FR-008)<a class="headerlink" href="#audit-fix-validates-completion-of-resolution-session-fr-008" title="Permanent link">&para;</a></h3>
+<p><strong>Expected artifacts</strong>: <code>questions.md</code> in the feature directory (must be fully answered)</p>
+<p><strong>Checks performed</strong> (in order, early-exit on first critical failure):</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Rule</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>questions_exists</code></td>
+<td>FR-008</td>
+<td><code>questions.md</code> is present on disk</td>
+</tr>
+<tr>
+<td><code>questions_readable</code></td>
+<td>FR-008</td>
+<td>File parses successfully via <code>read_artifact()</code></td>
+</tr>
+<tr>
+<td><code>frontmatter_present</code></td>
+<td>FR-008</td>
+<td>YAML frontmatter block is non-empty</td>
+</tr>
+<tr>
+<td><code>questions_fully_answered</code></td>
+<td>FR-008</td>
+<td><code>answered_count == question_count</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Important</strong>: <code>audit-fix</code> only validates that every question has an answer. It does NOT
+validate <code>plan.md</code> -- that is <code>spec-bridge-skill-tool plan</code>'s job. The skill's SKILL.md
+instruction set mandates a dual-call: <code>audit-fix</code> first, then <code>plan</code>. This keeps each skill's
+contract single-responsibility and the validators independently testable.</p>
+<p><strong>Dual-call validation pattern</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Step 1: check completion</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>spec-bridge-skill-tool<span class="w"> </span>audit-fix<span class="w"> </span>--feature<span class="w"> </span><span class="m">044</span>-my-feature<span class="w"> </span>--session-id<span class="w"> </span><span class="nv">$SESSION_ID</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Step 2: check plan schema (reuses PlanSkill unchanged)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>spec-bridge-skill-tool<span class="w"> </span>plan<span class="w"> </span>--feature<span class="w"> </span><span class="m">044</span>-my-feature<span class="w"> </span>--session-id<span class="w"> </span><span class="nv">$SESSION_ID</span>
+</code></pre></div>
+<p><strong>Traceability</strong>: audit-derived <code>plan.md</code> files use <code>**Source**: [questions.md](questions.md)</code>
+instead of the standard <code>**Spec**: [spec.md](spec.md)</code> header link. Downstream <code>tasks</code>,
+<code>implement</code>, and <code>merge</code> skills are unaffected because they do not read the plan header link.</p>
+<p><strong>Resumability</strong>: the resolution session can be interrupted and resumed. The agent reads
+<code>answered_count</code> from the current frontmatter, skips already-answered questions (those where
+<code>Answer:</code> is non-blank), and continues from the first unanswered question.</p>
+<p><strong>WP-scoped</strong>: No -- operates at feature level</p>
+<h3 id="execute-automated-wp-execution-loop-in-progress-wp02"><code>execute</code> - Automated WP execution loop (in progress, WP02)<a class="headerlink" href="#execute-automated-wp-execution-loop-in-progress-wp02" title="Permanent link">&para;</a></h3>
+<p><strong>Expected artifacts</strong>:
+- <code>execution-checkpoint.json</code> (validates against <code>Checkpoint</code> Pydantic model)
+- <code>execution-report.json</code> (validates against <code>ExecutionReport</code> Pydantic model)
+- <code>execution-report.md</code> (non-empty markdown rendering of the report)
+- <code>logs/execution.log</code> and <code>logs/WPxx.log</code> per processed WP</p>
+<p><strong>Data models</strong> (defined in <code>execute/contracts.py</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Checkpoint</code></td>
+<td>Crash-recovery state: <code>feature_slug</code>, <code>started_at</code>, <code>last_updated</code>, <code>work_packages[]</code> each with <code>WPStatus</code> and optional <code>review_verdict</code></td>
+</tr>
+<tr>
+<td><code>ExecutionReport</code></td>
+<td>Final result: <code>ExecutionSummary</code> (totals), <code>WPResult[]</code> (per-WP), <code>Warning[]</code>, <code>UncaughtError[]</code>, <code>next_steps</code></td>
+</tr>
+<tr>
+<td><code>WPStatus</code></td>
+<td>Enum: <code>pending</code>, <code>implementing</code>, <code>impl_done</code>, <code>reviewing</code>, <code>done</code>, <code>failed</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>WP-scoped</strong>: No -- operates at feature level across all WPs</p>
+<p><strong>Implementation status</strong>: WP01 (contracts, helpers, state validator, report generator) is complete.
+WP02 (full orchestration loop) is in progress. The <code>ExecuteOutputContract.run_checks()</code> method
+currently returns a stub <code>CheckResult</code> and will be fully implemented in WP02.</p>
+<p><strong>Module layout</strong> (<code>execute/</code>):</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>contracts.py</code></td>
+<td><code>Checkpoint</code>, <code>ExecutionReport</code>, <code>WPStatus</code>, <code>ExecuteOutputContract</code></td>
+</tr>
+<tr>
+<td><code>helpers.py</code></td>
+<td><code>discover_wps_from_tasks()</code> -- reads <code>tasks/</code> dir to build ordered WP list</td>
+</tr>
+<tr>
+<td><code>state_validator.py</code></td>
+<td>Validates checkpoint consistency and WP status transitions</td>
+</tr>
+<tr>
+<td><code>checkpoint.py</code></td>
+<td>Checkpoint read/write with atomic update semantics</td>
+</tr>
+<tr>
+<td><code>report_generator.py</code></td>
+<td>Builds <code>ExecutionReport</code> from checkpoint, renders Markdown</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Schemas</strong> (bundled in <code>init_cmd/schemas/v1/</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Schema file</th>
+<th>Validates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>execution-checkpoint.yaml</code></td>
+<td><code>execution-checkpoint.json</code> frontmatter contract</td>
+</tr>
+<tr>
+<td><code>execution-report.yaml</code></td>
+<td><code>execution-report.json</code> frontmatter contract</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<hr />
+<h2 id="wp-lane-state-machine">WP Lane State Machine<a class="headerlink" href="#wp-lane-state-machine" title="Permanent link">&para;</a></h2>
+<p>Work packages follow a strict lane progression, validated by the skill modules:</p>
+<div class="panzoom-box" data-key="alt" id="panzoom0" oncontextmenu="return false;">
+    <div class="panzoom-info-box panzoom-info-box-top panzoom-hidden">
+Hold "Alt" / "Option" to enable pan &amp; zoom
+</div>
+    <nav class="panzoom-nav panzoom-top-nav">
+    <button class="panzoom-info panzoom-button">
+    <svg class="panzoom-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3l58.3 0c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24l0-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1l-58.3 0c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"></path>
+    </svg>
+</button><button class="panzoom-reset panzoom-button">
+    <svg class="panzoom-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M125.7 160l50.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L48 224c-17.7 0-32-14.3-32-32L16 64c0-17.7 14.3-32 32-32s32 14.3 32 32l0 51.2L97.6 97.6c87.5-87.5 229.3-87.5 316.8 0s87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3s-163.8-62.5-226.3 0L125.7 160z"></path>
+    </svg>
+</button><button class="panzoom-max panzoom-button">
+    <svg class="panzoom-icon" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 32C14.3 32 0 46.3 0 64l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-64 64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L32 32zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0 0-64zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0 0 64c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96c0-17.7-14.3-32-32-32l-96 0zM448 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c17.7 0 32-14.3 32-32l0-96z"></path>
+    </svg>
+</button><button class="panzoom-min panzoom-button panzoom-hidden">
+    <svg class="panzoom-icon" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M160 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c17.7 0 32-14.3 32-32l0-96zM32 320c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0 0 64c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96c0-17.7-14.3-32-32-32l-96 0zM352 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0 0-64zM320 320c-17.7 0-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-64 64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0z"></path>
+    </svg>
+</button>
+    </nav>
+    <pre class="mermaid"><code>stateDiagram-v2
+  [*] --&gt; planned : tasks skill creates WP file
+  planned --&gt; doing : implement skill invoked
+  doing --&gt; for_review : review skill invoked
+  for_review --&gt; doing : changes requested (review status=requested), implement marks implemented
+  for_review --&gt; done : accept skill invoked after review status=approved
+  done --&gt; [*] : merge skill validates all done</code></pre> 
+    
+</div>
+<p>The lane value is stored in the <code>lane:</code> YAML frontmatter field of each <code>WP*.md</code> file. The
+AI agent (not the tool) is responsible for writing the correct lane value; the skill module
+validates that the correct transition occurred.</p>
+<p><strong>Review status within <code>for_review</code></strong>: while the WP lane is <code>for_review</code>, the review summary
+JSON carries an independent <code>status</code> field that tracks the review cycle:</p>
+<table>
+<thead>
+<tr>
+<th>Review status</th>
+<th>Meaning</th>
+<th>Set by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>requested</code></td>
+<td>Reviewer found issues; changes needed</td>
+<td><code>append-review-summary</code> (verdict: fail)</td>
+</tr>
+<tr>
+<td><code>implemented</code></td>
+<td>Agent addressed the requested changes</td>
+<td><code>set-review-status implemented</code> (implement skill)</td>
+</tr>
+<tr>
+<td><code>approved</code></td>
+<td>Reviewer confirmed all issues resolved</td>
+<td><code>append-review-summary</code> (all verdicts pass)</td>
+</tr>
+</tbody>
+</table>
+<p>The WP only moves from <code>for_review</code> to <code>done</code> (via the accept skill) when the latest review
+summary has <code>status: approved</code>.</p>
+<hr />
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<p><strong>Each skill module imports only from</strong>:
+- <code>skill_tool.core.contracts</code> - <code>CheckResult</code>, <code>ProjectConfig</code>
+- <code>skill_tool.core.frontmatter</code> - <code>read_frontmatter_only()</code>
+- Standard library (<code>pathlib</code>, <code>re</code>, etc.)</p>
+<p><strong>Skills never import from</strong>:
+- Other skill modules (<code>skill_tool.skills.&lt;other_skill&gt;</code>)
+- <code>adapters/</code>
+- <code>init_cmd/</code>
+- External libraries directly (if needed, a helper should be added to <code>core/</code>)</p>
+<hr />
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<p>Co-located tests in <code>skills/&lt;skill&gt;/tests/test_&lt;skill&gt;.py</code> cover:</p>
+<ul>
+<li>Happy path: all checks pass when artifacts are correct</li>
+<li>Missing artifact: <code>expected_artifacts()</code> paths are absent</li>
+<li>Invalid frontmatter: required fields missing or wrong type</li>
+<li>Wrong lane value: WP in unexpected lane</li>
+<li>Edge cases: empty sections, malformed YAML frontmatter, unicode content</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Run all skill tests</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">cd</span><span class="w"> </span>skill-tool<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>src/skill_tool/skills/<span class="w"> </span>-v
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Run tests for a specific skill</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>src/skill_tool/skills/specify/tests/<span class="w"> </span>-v
+</code></pre></div>
+<hr />
+<h2 id="adding-a-new-skill">Adding a New Skill<a class="headerlink" href="#adding-a-new-skill" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Create <code>skills/&lt;skill&gt;/</code> directory with <code>__init__.py</code></li>
+<li>Write <code>skills/&lt;skill&gt;/skill.py</code> implementing <code>expected_artifacts()</code> and <code>run_checks()</code></li>
+<li>Write <code>skills/&lt;skill&gt;/tests/test_&lt;skill&gt;.py</code> with full happy-path and failure cases</li>
+<li>Register the sub-command in <code>cli.py</code> (one <code>@app.command()</code> block)</li>
+<li>Add a template file <code>adapters/templates/&lt;skill&gt;.md</code></li>
+<li>Register the skill name in <code>adapters/base.py</code> (<code>SKILL_NAMES</code> list)</li>
+<li>Add a schema YAML if the skill introduces a new artifact type</li>
+</ol>
+<p>The <code>decompose</code> skill is the canonical example for a skill with a new schema: it introduces
+<code>decomposition.yaml</code> with five required sections, and its <code>DecomposeSkill</code> only imports from
+<code>skill_tool.core</code> -- satisfying the isolation rule.</p>
+<p>The <code>audit</code> + <code>audit-fix</code> pair is the canonical example for a two-skill workflow: <code>audit</code>
+validates a new artifact type (<code>questions.md</code> / <code>questions.yaml</code>), and <code>audit-fix</code> validates
+completion of the same artifact without duplicating the schema check. If a future skill needs
+a two-phase validation pattern, follow this split.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../3-workflow-overview/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Workflow Overview">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Workflow Overview
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../core-module/" class="md-footer__link md-footer__link--next" aria-label="Next: Core Module">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Core Module
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.footer", "content.code.copy", "toc.integrate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../assets/javascripts/nav-accordion.js"></script>
+      
+        <script src="../../../assets/javascripts/panzoom.min.js"></script>
+      
+        <script src="../../../assets/javascripts/zoompan.js"></script>
+      
+    
+  </body>
+</html>
